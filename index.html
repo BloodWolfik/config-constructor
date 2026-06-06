@@ -3,561 +3,837 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Config Constructor - Добавь правила в свой конфиг</title>
+    <title>Config Constructor | Конструктор конфигов</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(circle at 10% 20%, #0a0a0f, #020205);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             min-height: 100vh;
             padding: 40px 20px;
         }
-        
+
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
         }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 30px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+        .glass {
+            background: rgba(20, 20, 35, 0.55);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
-        
-        h1 {
-            color: white;
+
+        .hero {
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+            margin-bottom: 40px;
         }
-        
-        .subtitle {
-            text-align: center;
-            color: #aaa;
-            margin-bottom: 30px;
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c084fc, #60a5fa, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        
-        h2 {
-            color: #4CAF50;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            border-bottom: 2px solid #4CAF50;
-            display: inline-block;
+
+        .hero p {
+            color: #8b8ba5;
+            margin-top: 12px;
         }
-        
-        h3 {
-            color: #ddd;
-            margin: 20px 0 15px 0;
-        }
-        
+
         .upload-area {
-            border: 2px dashed #4CAF50;
-            border-radius: 16px;
-            padding: 40px;
+            padding: 48px 28px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            background: rgba(76, 175, 80, 0.1);
+            transition: all 0.25s ease;
+            border: 2px dashed rgba(139, 139, 165, 0.3);
+            border-radius: 28px;
         }
-        
+
         .upload-area:hover {
-            background: rgba(76, 175, 80, 0.2);
-            border-color: #45a049;
+            border-color: #a855f7;
+            background: rgba(168, 85, 247, 0.05);
         }
-        
+
         .upload-area.drag-over {
-            background: rgba(76, 175, 80, 0.3);
-            border-color: #fff;
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.08);
         }
-        
-        .file-input {
+
+        .upload-icon { font-size: 52px; margin-bottom: 14px; }
+        .upload-text { color: #d4d4e8; font-weight: 500; }
+        .upload-hint { color: #5e5e78; font-size: 0.8rem; margin-top: 10px; }
+        input[type="file"] { display: none; }
+
+        .status-card {
+            padding: 16px 22px;
+            margin-top: 20px;
             display: none;
-        }
-        
-        .upload-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-        
-        .file-status {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            display: none;
-        }
-        
-        .file-status.success {
-            background: rgba(76, 175, 80, 0.3);
-            color: #4CAF50;
-            display: block;
-        }
-        
-        .file-status.error {
-            background: rgba(244, 67, 54, 0.3);
-            color: #f44336;
-            display: block;
-        }
-        
-        .option-group {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-        
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            align-items: center;
             gap: 12px;
+            border-radius: 20px;
         }
-        
-        label {
+
+        .status-card.success { background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.3); display: flex; }
+        .status-card.error { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); display: flex; }
+
+        .info-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 24px 0 16px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 14px 18px;
+            border-radius: 24px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-label { font-size: 0.75rem; color: #9f9fbb; text-transform: uppercase; }
+        .stat-value { font-size: 1.8rem; font-weight: 700; color: #c084fc; }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #e8e8f0;
+            margin: 24px 0 16px;
             display: flex;
             align-items: center;
-            margin: 12px 0;
-            cursor: pointer;
-            color: #eee;
-            font-size: 16px;
+            gap: 8px;
         }
-        
-        input[type="checkbox"] {
-            margin-right: 12px;
+
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .preset-btn {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .preset-btn:hover {
+            background: rgba(168, 85, 247, 0.4);
+            transform: scale(1.02);
+        }
+
+        .proxies-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 8px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .proxy-group {
+            margin-bottom: 12px;
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .proxy-group-header {
+            font-weight: 600;
+            color: #c084fc;
+            padding: 12px 16px;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+
+        .proxy-group-header:hover {
+            background: rgba(168, 85, 247, 0.2);
+        }
+
+        .group-arrow {
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .proxy-group.collapsed .group-arrow {
+            transform: rotate(-90deg);
+        }
+
+        .proxy-group.collapsed .proxy-items {
+            display: none;
+        }
+
+        .group-title {
+            flex: 1;
+        }
+
+        .group-count {
+            font-size: 0.75rem;
+            color: #8b8ba5;
+            margin-left: 8px;
+        }
+
+        .select-all-btn {
+            background: none;
+            border: 1px solid #4a4a62;
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 0.7rem;
+            margin-left: 8px;
+            transition: 0.2s;
+        }
+
+        .select-all-btn:hover {
+            border-color: #c084fc;
+            color: #c084fc;
+        }
+
+        .proxy-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 6px;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .proxy-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .proxy-item:hover {
+            background: rgba(168, 85, 247, 0.08);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .proxy-item input {
             width: 18px;
             height: 18px;
+            accent-color: #a855f7;
             cursor: pointer;
         }
-        
-        button {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
+
+        .proxy-item label {
+            flex: 1;
             cursor: pointer;
+            font-size: 0.85rem;
+            color: #ddd;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+        }
+
+        .rule-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .rule-item:hover {
+            background: rgba(168, 85, 247, 0.08);
+        }
+
+        .rule-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #a855f7;
+            cursor: pointer;
+        }
+
+        .rule-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #ddd;
+        }
+
+        .settings-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 18px 22px;
+            border-radius: 28px;
+            margin: 20px 0;
+        }
+
+        .settings-row label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #cacae0;
+            cursor: pointer;
+        }
+
+        .btn-process {
             width: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 16px;
+            background: linear-gradient(95deg, #a855f7, #7c3aed);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
         }
-        
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+
+        .btn-process:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
         }
-        
-        button:active {
-            transform: translateY(0);
-        }
-        
-        button:disabled {
+
+        .btn-process:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-        
-        .download-area {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .download-link {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 12px 24px;
-            background: #2196F3;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: background 0.3s;
-        }
-        
-        .download-link:hover {
-            background: #1976D2;
-        }
-        
-        .status {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
+
+        .result-box {
+            margin-top: 24px;
+            padding: 20px 24px;
             display: none;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
         }
-        
-        .status.loading {
-            background: rgba(33, 150, 243, 0.3);
-            color: #2196F3;
-            display: block;
-        }
-        
-        .status.success {
-            background: rgba(76, 175, 80, 0.3);
-            color: #4CAF50;
-            display: block;
-        }
-        
-        .status.error {
-            background: rgba(244, 67, 54, 0.3);
-            color: #f44336;
-            display: block;
-        }
-        
-        .badge {
-            background: #4CAF50;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 8px;
-            font-size: 12px;
-            margin-left: 10px;
-        }
-        
-        .info-text {
-            background: rgba(33, 150, 243, 0.2);
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #aaa;
-        }
-        
-        footer {
-            text-align: center;
-            color: #666;
-            margin-top: 30px;
-        }
-        
-        @media (max-width: 600px) {
-            .card {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 1.8em;
-            }
-        }
+
+        .result-box.show { display: flex; }
+        .download-btn { background: #10b981; padding: 12px 26px; border-radius: 40px; text-decoration: none; color: white; font-weight: 500; transition: 0.2s; }
+        .download-btn:hover { background: #059669; }
+
+        footer { text-align: center; margin-top: 48px; color: #4a4a62; font-size: 0.75rem; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 10px; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>⚙️ CONFIG CONSTRUCTOR</h1>
-        <div class="subtitle">Загрузите ваш конфиг → добавьте правила → скачайте готовый</div>
-        
-        <div class="card">
-            <h2>📁 ШАГ 1: Загрузите ваш конфиг</h2>
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-icon">📂</div>
-                <div>Нажмите или перетащите файл сюда</div>
-                <div style="font-size: 12px; margin-top: 10px; color: #aaa;">Поддерживаются: .yaml, .yml</div>
-                <input type="file" id="fileInput" class="file-input" accept=".yaml,.yml">
-            </div>
-            <div id="fileStatus" class="file-status"></div>
-            <div class="info-text">
-                💡 Ваш конфиг будет очищен от лишнего, но все ваши прокси и сервера сохранятся
-            </div>
-        </div>
-        
-        <div class="card" id="rulesCard" style="display: none;">
-            <h2>📦 ШАГ 2: Выберите нужные правила</h2>
-            <div class="option-group">
-                <div class="rules-grid" id="rulesList">
-                    <!-- Правила будут добавлены через JS -->
-                </div>
-            </div>
-            
-            <h2>⚙️ ШАГ 3: Настройки обработки</h2>
-            <div class="option-group">
-                <label>
-                    <input type="checkbox" id="keepProxies" checked>
-                    ✅ Сохранить мои прокси (из моего конфига)
-                </label>
-                <label>
-                    <input type="checkbox" id="clearProxies">
-                    🗑️ Очистить все прокси (оставить только правила)
-                </label>
-                <label>
-                    <input type="checkbox" id="addRuleGroup">
-                    📁 Добавить прокси-группу "CustomRules" для новых правил
-                </label>
-                <label>
-                    <input type="checkbox" id="mergeRules" checked>
-                    🔄 Объединить с существующими правилами (не удалять старые)
-                </label>
-            </div>
-            
-            <button id="processBtn" onclick="processConfig()">🔄 ОБРАБОТАТЬ КОНФИГ</button>
-            
-            <div id="processStatus" class="status"></div>
-            <div class="download-area" id="downloadArea" style="display: none;">
-                <a id="downloadLink" class="download-link">📥 Скачать config.yaml с правилами</a>
-            </div>
-        </div>
-        
-        <footer>
-            🔒 Конфиг обрабатывается локально в вашем браузере<br>
-            Никакие данные не отправляются на сервер
-        </footer>
+<div class="container">
+    <div class="hero">
+        <h1>🧹 CONFIG CONSTRUCTOR</h1>
+        <p>Загрузите конфиг → выберите сервера → добавьте правила</p>
     </div>
 
-    <script>
-        // Доступные правила
-        const availableRules = [
-            { id: "youtube", name: "🎬 YouTube", desc: "Обход блокировки YouTube" },
-            { id: "netflix", name: "🎥 Netflix", desc: "Доступ к Netflix" },
-            { id: "tiktok", name: "📱 TikTok", desc: "Доступ к TikTok" },
-            { id: "discord", name: "💬 Discord", desc: "Доступ к Discord" },
-            { id: "steam", name: "🎮 Steam", desc: "Игровой трафик Steam" },
-            { id: "twitch", name: "📺 Twitch", desc: "Стриминговый сервис" },
-            { id: "spotify", name: "🎵 Spotify", desc: "Музыкальный сервис" },
-            { id: "telegram", name: "✈️ Telegram", desc: "Мессенджер" }
-        ];
+    <div class="glass" style="padding: 32px;">
+        <div class="upload-area" id="uploadZone">
+            <div class="upload-icon">📂</div>
+            <div class="upload-text">Нажмите или перетащите .yaml / .yml</div>
+            <div class="upload-hint">Ваши данные не покидают браузер</div>
+            <input type="file" id="fileInput" accept=".yaml,.yml">
+        </div>
+        <div id="statusCard" class="status-card"></div>
+        <div id="statsSection" style="display: none;">
+            <div class="info-stats">
+                <div class="stat-card"><div class="stat-label">Прокси</div><div class="stat-value" id="proxyStat">0</div></div>
+                <div class="stat-card"><div class="stat-label">Правила</div><div class="stat-value" id="rulesStat">0</div></div>
+                <div class="stat-card"><div class="stat-label">Группы</div><div class="stat-value" id="groupsStat">0</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="proxiesPanel" style="display: none;">
+        <div class="glass" style="padding: 32px; margin-top: 28px;">
+            <div class="section-title">🌍 ШАГ 2: Выберите прокси-сервера</div>
+            
+            <div class="preset-buttons">
+                <button class="preset-btn" id="selectAllBtn">✅ Все адреса</button>
+                <button class="preset-btn" id="selectGeoBtn">🌍 Только Geo-эндпоинты</button>
+                <button class="preset-btn" id="selectOriginalBtn">⭐ Только оригинальные</button>
+                <button class="preset-btn" id="clearAllBtn">❌ Очистить всё</button>
+            </div>
+
+            <div class="proxies-grid" id="proxiesList"></div>
+
+            <div class="section-title" style="margin-top: 24px;">🎯 ШАГ 3: Добавить правила</div>
+            <div class="rules-grid" id="rulesContainer"></div>
+
+            <div class="section-title">⚙️ Настройки</div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="keepExistingProxies" checked> ✅ Сохранить мои прокси</label>
+                <label><input type="checkbox" id="replaceProxies"> 🔄 Заменить на выбранные</label>
+                <label><input type="checkbox" id="mergeRules" checked> 🔄 Объединить с моими правилами</label>
+            </div>
+
+            <button class="btn-process" id="processBtn">🚀 СОБРАТЬ КОНФИГ</button>
+
+            <div id="resultArea" class="result-box glass">
+                <div><strong>✅ Конфиг готов</strong><br><span id="resultStats" style="font-size: 0.8rem; color: #aaa;"></span></div>
+                <a id="downloadLink" class="download-btn">📥 Скачать</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>⚡ Сохраняются секции: warp-common, proxies, proxy-groups, rules, rule-providers<br>🧬 Все ваши личные данные остаются нетронутыми</footer>
+</div>
+
+<script>
+    // ========= ПРОКСИ С ГРУППАМИ =========
+    const GEO_PROXIES = [
+        { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 500 },
+        { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 500 },
+        { name: "[🌍] 🇷🇺 Россия", server: "ru0.tribukvy.ltd", port: 500 },
+        { name: "[🌍] 🇫🇮 Финляндия", server: "fi.tribukvy.ltd", port: 500 },
+        { name: "[🌍] 🇩🇪 Германия", server: "de.tribukvy.ltd", port: 500 },
+        { name: "[🌍] 🇱🇻 Латвия", server: "lv.tribukvy.ltd", port: 500 },
+        { name: "[🌍] LTE 🇵🇱 Польша", server: "mpl.tribukvy.ltd", port: 500 },
+        { name: "[🌍] LTE 🇫🇮 Финляндия", server: "mfi.tribukvy.ltd", port: 500 }
+    ];
+
+    const ORIGINAL_PROXIES = [
+        { name: "[⭐] 188.114.97.1:500", server: "188.114.97.1", port: 500 },
+        { name: "[⭐] 188.114.97.148:4500", server: "188.114.97.148", port: 4500 },
+        { name: "[⭐] 162.159.195.1:500", server: "162.159.195.1", port: 500 },
+        { name: "[⭐] engage.cloudflareclient.com:4500", server: "engage.cloudflareclient.com", port: 4500 },
+        { name: "[⭐] engage.cloudflareclient.com:500", server: "engage.cloudflareclient.com", port: 500 },
+        { name: "[⭐] engage.cloudflareclient.com:2408", server: "engage.cloudflareclient.com", port: 2408 },
+        { name: "[⭐] 188.114.99.224:1002", server: "188.114.99.224", port: 1002 },
+        { name: "[⭐] 8.34.146.113:968", server: "8.34.146.113", port: 968 }
+    ];
+
+    const RANGE192_PROXIES = [];
+    const RANGE195_PROXIES = [];
+
+    for (let i = 1; i <= 20; i++) {
+        RANGE192_PROXIES.push({ name: `162.159.192.${i}:2408`, server: `162.159.192.${i}`, port: 2408 });
+        RANGE192_PROXIES.push({ name: `162.159.192.${i}:1701`, server: `162.159.192.${i}`, port: 1701 });
+        RANGE192_PROXIES.push({ name: `162.159.192.${i}:4500`, server: `162.159.192.${i}`, port: 4500 });
+        RANGE192_PROXIES.push({ name: `162.159.192.${i}:500`, server: `162.159.192.${i}`, port: 500 });
+    }
+
+    for (let i = 1; i <= 10; i++) {
+        RANGE195_PROXIES.push({ name: `162.159.195.${i}:2408`, server: `162.159.195.${i}`, port: 2408 });
+        RANGE195_PROXIES.push({ name: `162.159.195.${i}:1701`, server: `162.159.195.${i}`, port: 1701 });
+        RANGE195_PROXIES.push({ name: `162.159.195.${i}:4500`, server: `162.159.195.${i}`, port: 4500 });
+        RANGE195_PROXIES.push({ name: `162.159.195.${i}:500`, server: `162.159.195.${i}`, port: 500 });
+    }
+
+    const PROXY_GROUPS = [
+        { id: "geo", title: "🌍 Гео-эндпоинты", comment: "# Гео-endpoint'ы", proxies: GEO_PROXIES },
+        { id: "original", title: "⭐ Оригинальные эндпоинты", comment: "# Оригинальные эндпоинты", proxies: ORIGINAL_PROXIES },
+        { id: "range192", title: "📡 162.159.192.1-20", comment: "# 162.159.192.1-20", proxies: RANGE192_PROXIES },
+        { id: "range195", title: "📡 162.159.195.1-10", comment: "# 162.159.195.1-10", proxies: RANGE195_PROXIES }
+    ];
+
+    const RULES_LIBRARY = [
+        { id: 'youtube', name: '🎬 YouTube', domains: ['youtube.com', 'ytimg.com', 'googlevideo.com', 'youtu.be'] },
+        { id: 'netflix', name: '🎥 Netflix', domains: ['netflix.com', 'nflxvideo.net', 'nflxext.com'] },
+        { id: 'tiktok', name: '📱 TikTok', domains: ['tiktok.com', 'tiktokcdn.com'] },
+        { id: 'discord', name: '💬 Discord', domains: ['discord.com', 'discordapp.com', 'discord.gg'] },
+        { id: 'steam', name: '🎮 Steam', domains: ['steampowered.com', 'steamstatic.com', 'steamcdn.com'] },
+        { id: 'telegram', name: '✈️ Telegram', domains: ['telegram.org', 't.me'] }
+    ];
+
+    let originalFileText = null;
+    let cleanedWarpCommon = null;
+    let originalConfigObj = null;
+
+    function extractWarpCommonBlock(yamlText) {
+        const lines = yamlText.split(/\r?\n/);
+        let warpStart = -1;
+        let warpEnd = -1;
         
-        let uploadedConfig = null;
-        let uploadedConfigText = null;
-        
-        // Рендерим список правил
-        function renderRulesList() {
-            const container = document.getElementById('rulesList');
-            container.innerHTML = availableRules.map(rule => `
-                <label>
-                    <input type="checkbox" class="rule-checkbox" value="${rule.id}" checked>
-                    <strong>${rule.name}</strong>
-                    <span style="font-size: 12px; color: #aaa; margin-left: 8px;">${rule.desc}</span>
-                </label>
-            `).join('');
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i].match(/^warp-common:\s*&?\w*/)) {
+                warpStart = i;
+                break;
+            }
         }
         
-        // Загрузка файла
-        function setupFileUpload() {
-            const uploadArea = document.getElementById('uploadArea');
-            const fileInput = document.getElementById('fileInput');
-            const fileStatus = document.getElementById('fileStatus');
+        if (warpStart !== -1) {
+            for (let i = warpStart + 1; i < lines.length; i++) {
+                if (lines[i].length > 0 && !lines[i].startsWith(' ') && !lines[i].startsWith('\t')) {
+                    warpEnd = i;
+                    break;
+                }
+                if (i === lines.length - 1) warpEnd = lines.length;
+            }
+            if (warpEnd === -1) warpEnd = lines.length;
             
-            uploadArea.onclick = () => fileInput.click();
-            
-            uploadArea.ondragover = (e) => {
-                e.preventDefault();
-                uploadArea.classList.add('drag-over');
-            };
-            
-            uploadArea.ondragleave = () => {
-                uploadArea.classList.remove('drag-over');
-            };
-            
-            uploadArea.ondrop = (e) => {
-                e.preventDefault();
-                uploadArea.classList.remove('drag-over');
-                const file = e.dataTransfer.files[0];
-                if (file) handleFile(file);
-            };
-            
-            fileInput.onchange = (e) => {
-                const file = e.target.files[0];
-                if (file) handleFile(file);
-            };
+            const warpBlock = lines.slice(warpStart, warpEnd).join('\n');
+            const restLines = [...lines.slice(0, warpStart), ...lines.slice(warpEnd)];
+            return { warpBlock, restText: restLines.join('\n') };
         }
-        
-        async function handleFile(file) {
-            const fileStatus = document.getElementById('fileStatus');
+        return { warpBlock: null, restText: yamlText };
+    }
+
+    async function handleFile(file) {
+        if (!file || !file.name.match(/\.(yaml|yml)$/i)) {
+            showStatus('error', '❌ Нужен YAML файл');
+            return;
+        }
+        showStatus('loading', '⏳ Анализ конфига...');
+
+        try {
+            const text = await file.text();
+            originalFileText = text;
             
-            if (!file.name.match(/\.(yaml|yml)$/)) {
-                fileStatus.className = 'file-status error';
-                fileStatus.textContent = '❌ Пожалуйста, загрузите YAML файл';
-                return;
+            const { warpBlock, restText } = extractWarpCommonBlock(text);
+            cleanedWarpCommon = warpBlock;
+            
+            let restConfig = {};
+            if (restText.trim()) {
+                try { restConfig = jsyaml.load(restText) || {}; } catch(e) { restConfig = {}; }
             }
             
+            originalConfigObj = {
+                proxies: restConfig.proxies,
+                'proxy-groups': restConfig['proxy-groups'],
+                rules: restConfig.rules,
+                'rule-providers': restConfig['rule-providers']
+            };
+            
+            const proxyCount = originalConfigObj.proxies?.length || 0;
+            const rulesCount = originalConfigObj.rules?.length || 0;
+            const groupsCount = originalConfigObj['proxy-groups']?.length || 0;
+            
+            document.getElementById('proxyStat').innerText = proxyCount;
+            document.getElementById('rulesStat').innerText = rulesCount;
+            document.getElementById('groupsStat').innerText = groupsCount;
+            document.getElementById('statsSection').style.display = 'block';
+            
+            showStatus('success', `✅ Конфиг загружен! Прокси: ${proxyCount}, правил: ${rulesCount}`);
+            
+            renderProxiesList();
+            renderRulesList();
+            document.getElementById('proxiesPanel').style.display = 'block';
+            document.getElementById('resultArea').classList.remove('show');
+            
+        } catch (err) {
+            showStatus('error', `⚠️ Ошибка: ${err.message}`);
+        }
+    }
+
+    function renderProxiesList() {
+        const container = document.getElementById('proxiesList');
+        container.innerHTML = '';
+        
+        for (const group of PROXY_GROUPS) {
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'proxy-group';
+            groupDiv.id = `group-${group.id}`;
+            groupDiv.innerHTML = `
+                <div class="proxy-group-header" onclick="toggleGroup('${group.id}')">
+                    <span class="group-arrow">▼</span>
+                    <span class="group-title">${group.title}</span>
+                    <span class="group-count">(${group.proxies.length})</span>
+                    <button class="select-all-btn" onclick="event.stopPropagation(); selectGroupProxies('${group.id}', true)">Выбрать все</button>
+                    <button class="select-all-btn" onclick="event.stopPropagation(); selectGroupProxies('${group.id}', false)">Снять все</button>
+                </div>
+                <div class="proxy-items" id="group-items-${group.id}">
+                    ${group.proxies.map((p, idx) => `
+                        <div class="proxy-item">
+                            <input type="checkbox" class="proxy-cb" data-group="${group.id}" data-proxy-name="${p.name.replace(/"/g, '&quot;')}" data-proxy-server="${p.server}" data-proxy-port="${p.port}" id="proxy_${group.id}_${idx}">
+                            <label for="proxy_${group.id}_${idx}">${p.name}</label>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(groupDiv);
+        }
+    }
+    
+    function toggleGroup(groupId) {
+        const groupDiv = document.getElementById(`group-${groupId}`);
+        if (groupDiv) {
+            groupDiv.classList.toggle('collapsed');
+        }
+    }
+    
+    function selectGroupProxies(groupId, select) {
+        const checkboxes = document.querySelectorAll(`#group-items-${groupId} .proxy-cb`);
+        checkboxes.forEach(cb => cb.checked = select);
+    }
+    
+    function getSelectedProxiesByGroup() {
+        const selectedByGroup = {};
+        const checkboxes = document.querySelectorAll('.proxy-cb:checked');
+        
+        checkboxes.forEach(cb => {
+            const groupId = cb.dataset.group;
+            const proxyName = cb.dataset.proxyName;
+            const proxyServer = cb.dataset.proxyServer;
+            const proxyPort = cb.dataset.proxyPort;
+            
+            if (!selectedByGroup[groupId]) {
+                // Находим комментарий для группы
+                const group = PROXY_GROUPS.find(g => g.id === groupId);
+                selectedByGroup[groupId] = {
+                    comment: group ? group.comment : `# ${groupId}`,
+                    proxies: []
+                };
+            }
+            
+            selectedByGroup[groupId].proxies.push({
+                name: proxyName,
+                server: proxyServer,
+                port: parseInt(proxyPort)
+            });
+        });
+        
+        return selectedByGroup;
+    }
+    
+    function renderRulesList() {
+        const container = document.getElementById('rulesContainer');
+        container.innerHTML = RULES_LIBRARY.map(rule => `
+            <div class="rule-item">
+                <input type="checkbox" id="rule_${rule.id}" class="rule-cb" value="${rule.id}" checked>
+                <label for="rule_${rule.id}">${rule.name}</label>
+            </div>
+        `).join('');
+    }
+    
+    function getSelectedRulesYaml() {
+        const selected = [];
+        const checkboxes = document.querySelectorAll('.rule-cb:checked');
+        for (const cb of checkboxes) {
+            const ruleInfo = RULES_LIBRARY.find(r => r.id === cb.value);
+            if (ruleInfo) {
+                for (const domain of ruleInfo.domains) {
+                    selected.push(`  - DOMAIN-SUFFIX,${domain},PROXY`);
+                }
+            }
+        }
+        return selected;
+    }
+    
+    function buildFinalYaml() {
+        const keepExisting = document.getElementById('keepExistingProxies').checked;
+        const replaceProxies = document.getElementById('replaceProxies').checked;
+        const mergeRulesFlag = document.getElementById('mergeRules').checked;
+        
+        const selectedByGroup = getSelectedProxiesByGroup();
+        const newRules = getSelectedRulesYaml();
+        
+        let yamlResult = '';
+        
+        // warp-common
+        if (cleanedWarpCommon) yamlResult += cleanedWarpCommon + '\n';
+        
+        // Секция proxies с комментариями-разделителями
+        let hasProxies = false;
+        
+        // Сначала добавляем выбранные прокси по группам в правильном порядке
+        const groupOrder = ['geo', 'original', 'range192', 'range195'];
+        for (const groupId of groupOrder) {
+            if (selectedByGroup[groupId] && selectedByGroup[groupId].proxies.length > 0) {
+                if (!hasProxies) {
+                    yamlResult += 'proxies:\n';
+                    hasProxies = true;
+                }
+                yamlResult += selectedByGroup[groupId].comment + '\n';
+                for (const p of selectedByGroup[groupId].proxies) {
+                    yamlResult += `- name: ${p.name}\n`;
+                    yamlResult += `  <<: *warp-common\n`;
+                    yamlResult += `  server: ${p.server}\n`;
+                    yamlResult += `  port: ${p.port}\n`;
+                }
+                yamlResult += '\n';
+            }
+        }
+        
+        // Если нужно сохранить существующие прокси пользователя
+        if (keepExisting && originalConfigObj?.proxies && originalConfigObj.proxies.length > 0 && !replaceProxies) {
+            if (!hasProxies) {
+                yamlResult += 'proxies:\n';
+                hasProxies = true;
+            }
+            yamlResult += '# Прокси из вашего конфига\n';
+            for (const p of originalConfigObj.proxies) {
+                yamlResult += `- name: ${p.name}\n`;
+                if (p.server) yamlResult += `  server: ${p.server}\n`;
+                if (p.port) yamlResult += `  port: ${p.port}\n`;
+                if (p.type) yamlResult += `  type: ${p.type}\n`;
+                if (p['private-key']) yamlResult += `  private-key: ${p['private-key']}\n`;
+                if (p['public-key']) yamlResult += `  public-key: ${p['public-key']}\n`;
+                if (p['<<']) yamlResult += `  <<: *warp-common\n`;
+            }
+            yamlResult += '\n';
+        }
+        
+        // proxy-groups
+        let allSelectedProxyNames = [];
+        for (const groupId of groupOrder) {
+            if (selectedByGroup[groupId]) {
+                for (const p of selectedByGroup[groupId].proxies) {
+                    allSelectedProxyNames.push(p.name);
+                }
+            }
+        }
+        
+        if (originalConfigObj?.['proxy-groups'] && originalConfigObj['proxy-groups'].length > 0 && !replaceProxies) {
+            yamlResult += 'proxy-groups:\n';
+            for (const g of originalConfigObj['proxy-groups']) {
+                yamlResult += `- name: ${g.name}\n`;
+                yamlResult += `  type: ${g.type}\n`;
+                if (g.proxies) {
+                    yamlResult += `  proxies:\n`;
+                    for (const proxyName of g.proxies) {
+                        yamlResult += `    - ${proxyName}\n`;
+                    }
+                }
+            }
+            yamlResult += '\n';
+        } else if (allSelectedProxyNames.length > 0) {
+            yamlResult += 'proxy-groups:\n';
+            yamlResult += `- name: PROXY\n`;
+            yamlResult += `  type: select\n`;
+            yamlResult += `  proxies:\n`;
+            for (const name of allSelectedProxyNames) {
+                yamlResult += `    - ${name}\n`;
+            }
+            yamlResult += `    - DIRECT\n`;
+            yamlResult += '\n';
+        }
+        
+        // rules
+        let existingRules = (mergeRulesFlag && originalConfigObj?.rules) ? originalConfigObj.rules : [];
+        let finalRules = [];
+        if (existingRules.length) finalRules = [...existingRules];
+        if (newRules.length) {
+            if (finalRules.length) finalRules.push('  # === добавлено конструктором ===');
+            finalRules.push(...newRules);
+        }
+        
+        if (finalRules.length > 0) {
+            yamlResult += 'rules:\n' + finalRules.map(r => `${r}\n`).join('');
+            if (!finalRules.some(r => r.includes('MATCH'))) yamlResult += '  - MATCH,DIRECT\n';
+        }
+        
+        return yamlResult;
+    }
+    
+    function processFinal() {
+        if (!originalFileText) {
+            alert('Сначала загрузите конфиг');
+            return;
+        }
+        
+        const processBtn = document.getElementById('processBtn');
+        processBtn.disabled = true;
+        processBtn.textContent = '⏳ Сборка...';
+        
+        setTimeout(() => {
             try {
-                const text = await file.text();
-                const config = jsyaml.load(text);
+                const finalYaml = buildFinalYaml();
+                let selectedCount = 0;
+                document.querySelectorAll('.proxy-cb:checked').forEach(() => selectedCount++);
+                const selectedNames = [...document.querySelectorAll('.rule-cb:checked')].map(cb =>
+                    RULES_LIBRARY.find(r => r.id === cb.value)?.name || cb.value
+                );
                 
-                // Проверяем что это валидный конфиг
-                if (!config || typeof config !== 'object') {
-                    throw new Error('Невалидный YAML файл');
-                }
+                document.getElementById('resultStats').innerHTML = `📦 Выбрано прокси: ${selectedCount} | Правила: ${selectedNames.join(', ') || 'нет'}`;
                 
-                uploadedConfig = config;
-                uploadedConfigText = text;
-                
-                fileStatus.className = 'file-status success';
-                fileStatus.textContent = `✅ Загружено: ${file.name} (${Object.keys(config).length} секций)`;
-                
-                // Показываем карточку с правилами
-                document.getElementById('rulesCard').style.display = 'block';
-                renderRulesList();
-                
-            } catch(error) {
-                fileStatus.className = 'file-status error';
-                fileStatus.textContent = `❌ Ошибка: ${error.message}`;
-            }
-        }
-        
-        // Очистка конфига от лишнего
-        function cleanConfig(config) {
-            const cleaned = {};
-            
-            // Сохраняем только нужные секции
-            const allowedSections = ['proxies', 'proxy-groups', 'rules', 'rule-providers', 'warp-common'];
-            
-            for (const section of allowedSections) {
-                if (config[section]) {
-                    cleaned[section] = config[section];
-                }
-            }
-            
-            // Если есть warp-common, сохраняем и его
-            if (config['warp-common']) {
-                cleaned['warp-common'] = config['warp-common'];
-            }
-            
-            return cleaned;
-        }
-        
-        // Получение выбранных правил
-        async function getSelectedRules() {
-            const selected = [];
-            const checkboxes = document.querySelectorAll('.rule-checkbox:checked');
-            
-            for (const cb of checkboxes) {
-                try {
-                    const response = await fetch(`rules/${cb.value}.yaml`);
-                    if (response.ok) {
-                        const ruleContent = await response.text();
-                        const ruleObj = jsyaml.load(ruleContent);
-                        selected.push(ruleObj);
-                    } else {
-                        console.log(`Правила для ${cb.value} не найдены`);
-                    }
-                } catch(e) {
-                    console.error(`Ошибка загрузки ${cb.value}:`, e);
-                }
-            }
-            
-            return selected;
-        }
-        
-        // Объединение правил
-        function mergeRules(existingRules, newRules, mergeMode) {
-            if (mergeMode) {
-                // Объединяем с существующими
-                return [...(existingRules || []), ...newRules];
-            } else {
-                // Заменяем существующие
-                return newRules;
-            }
-        }
-        
-        // Основная функция обработки
-        async function processConfig() {
-            if (!uploadedConfig) {
-                alert('Сначала загрузите конфиг');
-                return;
-            }
-            
-            const processStatus = document.getElementById('processStatus');
-            const processBtn = document.getElementById('processBtn');
-            const downloadArea = document.getElementById('downloadArea');
-            
-            processStatus.className = 'status loading';
-            processStatus.textContent = '⏳ Обработка конфига...';
-            processBtn.disabled = true;
-            
-            try {
-                // Получаем настройки
-                const keepProxies = document.getElementById('keepProxies').checked;
-                const clearProxies = document.getElementById('clearProxies').checked;
-                const addRuleGroup = document.getElementById('addRuleGroup').checked;
-                const mergeRulesMode = document.getElementById('mergeRules').checked;
-                
-                // 1. Очищаем конфиг
-                let finalConfig = cleanConfig(uploadedConfig);
-                
-                // 2. Обрабатываем прокси
-                if (clearProxies) {
-                    delete finalConfig.proxies;
-                    delete finalConfig['proxy-groups'];
-                } else if (!keepProxies) {
-                    // По умолчанию сохраняем прокси
-                    // Ничего не делаем
-                }
-                
-                // 3. Получаем выбранные правила
-                const selectedRules = await getSelectedRules();
-                
-                // 4. Объединяем правила
-                let newRulesList = [];
-                let newRuleProviders = {};
-                
-                for (const ruleObj of selectedRules) {
-                    if (ruleObj.rules) {
-                        newRulesList.push(...ruleObj.rules);
-                    }
-                    if (ruleObj['rule-providers']) {
-                        newRuleProviders = {...newRuleProviders, ...ruleObj['rule-providers']};
-                    }
-                }
-                
-                // 5. Добавляем правила в конфиг
-                finalConfig.rules = mergeRules(finalConfig.rules, newRulesList, mergeRulesMode);
-                
-                // 6. Добавляем rule-providers
-                if (Object.keys(newRuleProviders).length > 0) {
-                    finalConfig['rule-providers'] = {
-                        ...(finalConfig['rule-providers'] || {}),
-                        ...newRuleProviders
-                    };
-                }
-                
-                // 7. Добавляем прокси-группу для правил если нужно
-                if (addRuleGroup && newRulesList.length > 0) {
-                    const ruleGroup = {
-                        name: "CustomRules",
-                        type: "select",
-                        proxies: ["DIRECT", "PROXY", "Cloudflare"]
-                    };
-                    
-                    if (!finalConfig['proxy-groups']) {
-                        finalConfig['proxy-groups'] = [];
-                    }
-                    finalConfig['proxy-groups'].push(ruleGroup);
-                }
-                
-                // 8. Конвертируем в YAML
-                const finalYaml = jsyaml.dump(finalConfig, {
-                    indent: 2,
-                    lineWidth: -1,
-                    noRefs: true,
-                    sortKeys: false
-                });
-                
-                // 9. Предлагаем скачать
-                const blob = new Blob([finalYaml], {type: 'text/yaml'});
+                const blob = new Blob([finalYaml], { type: 'text/yaml' });
                 const url = URL.createObjectURL(blob);
                 const downloadLink = document.getElementById('downloadLink');
-                
                 downloadLink.href = url;
-                downloadLink.download = 'config_with_rules.yaml';
+                downloadLink.download = `config_${Date.now()}.yaml`;
+                document.getElementById('resultArea').classList.add('show');
                 
-                downloadArea.style.display = 'block';
-                
-                processStatus.className = 'status success';
-                processStatus.textContent = `✅ Конфиг обработан! Добавлено правил: ${newRulesList.length}`;
-                
-            } catch(error) {
-                console.error(error);
-                processStatus.className = 'status error';
-                processStatus.textContent = `❌ Ошибка: ${error.message}`;
+                showStatus('success', '✅ Конфиг готов! Нажмите "Скачать"');
+            } catch (err) {
+                showStatus('error', `Ошибка: ${err.message}`);
+                console.error(err);
             } finally {
                 processBtn.disabled = false;
+                processBtn.textContent = '🚀 СОБРАТЬ КОНФИГ';
             }
+        }, 50);
+    }
+    
+    function showStatus(type, msg) {
+        const statusDiv = document.getElementById('statusCard');
+        statusDiv.className = 'status-card';
+        if (type === 'success') {
+            statusDiv.classList.add('success');
+            statusDiv.innerHTML = `<span>✅</span><span>${msg}</span>`;
+        } else if (type === 'error') {
+            statusDiv.classList.add('error');
+            statusDiv.innerHTML = `<span>❌</span><span>${msg}</span>`;
+        } else if (type === 'loading') {
+            statusDiv.classList.add('success');
+            statusDiv.innerHTML = `<span>⏳</span><span>${msg}</span>`;
         }
-        
-        // Инициализация
-        setupFileUpload();
-    </script>
+    }
+    
+    document.getElementById('selectAllBtn').onclick = () => {
+        document.querySelectorAll('.proxy-cb').forEach(cb => cb.checked = true);
+    };
+    document.getElementById('selectGeoBtn').onclick = () => {
+        document.querySelectorAll('.proxy-cb').forEach(cb => cb.checked = false);
+        document.querySelectorAll('.proxy-cb[data-group="geo"]').forEach(cb => cb.checked = true);
+    };
+    document.getElementById('selectOriginalBtn').onclick = () => {
+        document.querySelectorAll('.proxy-cb').forEach(cb => cb.checked = false);
+        document.querySelectorAll('.proxy-cb[data-group="original"]').forEach(cb => cb.checked = true);
+    };
+    document.getElementById('clearAllBtn').onclick = () => {
+        document.querySelectorAll('.proxy-cb').forEach(cb => cb.checked = false);
+    };
+    
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    uploadZone.onclick = () => fileInput.click();
+    uploadZone.ondragover = (e) => { e.preventDefault(); uploadZone.classList.add('drag-over'); };
+    uploadZone.ondragleave = () => uploadZone.classList.remove('drag-over');
+    uploadZone.ondrop = (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('drag-over');
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+    fileInput.onchange = (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); };
+    
+    document.getElementById('processBtn').onclick = processFinal;
+    
+    window.toggleGroup = toggleGroup;
+    window.selectGroupProxies = selectGroupProxies;
+</script>
 </body>
 </html>
