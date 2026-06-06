@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -108,189 +108,212 @@
             font-size: 1.4rem;
             font-weight: 600;
             color: #e8e8f0;
-            margin: 24px 0 16px;
+            margin: 24px 0 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
+        /* ===== НОВЫЙ ДИЗАЙН ДЛЯ ПРОКСИ ===== */
         .preset-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .preset-btn {
-            background: rgba(168, 85, 247, 0.2);
-            border: 1px solid rgba(168, 85, 247, 0.4);
-            padding: 10px 20px;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 10px 24px;
             border-radius: 40px;
             color: white;
             cursor: pointer;
             transition: 0.2s;
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .preset-btn:hover {
-            background: rgba(168, 85, 247, 0.4);
-            transform: scale(1.02);
+            background: rgba(168, 85, 247, 0.35);
+            transform: translateY(-2px);
         }
 
-        .proxies-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 500px;
-            overflow-y: auto;
-            padding: 8px;
-            border-radius: 20px;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .proxy-group {
-            margin-bottom: 12px;
-            border-radius: 16px;
-            background: rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .proxy-group-header {
-            font-weight: 600;
-            color: #c084fc;
-            padding: 12px 16px;
-            background: rgba(168, 85, 247, 0.1);
-            border-radius: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.2s;
-        }
-
-        .proxy-group-header:hover {
-            background: rgba(168, 85, 247, 0.2);
-        }
-
-        .group-arrow {
-            font-size: 1.1rem;
-            transition: transform 0.2s;
-            display: inline-block;
-        }
-
-        .proxy-group.collapsed .group-arrow {
-            transform: rotate(-90deg);
-        }
-
-        .proxy-group.collapsed .proxy-items {
-            display: none;
-        }
-
-        .group-title {
-            flex: 1;
-        }
-
-        .group-count {
-            font-size: 0.75rem;
-            color: #8b8ba5;
-            margin-left: 8px;
-        }
-
-        .select-all-btn {
-            background: none;
-            border: 1px solid #4a4a62;
-            padding: 4px 12px;
-            border-radius: 20px;
-            color: #aaa;
-            cursor: pointer;
-            font-size: 0.7rem;
-            margin-left: 8px;
-            transition: 0.2s;
-        }
-
-        .select-all-btn:hover {
-            border-color: #c084fc;
-            color: #c084fc;
-        }
-
-        .proxy-items {
+        /* Сетка групп */
+        .groups-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 6px;
-            padding: 12px 16px;
-            background: rgba(0, 0, 0, 0.15);
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
         }
 
-        .proxy-item {
-            background: rgba(255, 255, 255, 0.03);
+        /* Карточка группы */
+        .group-card {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 24px;
+            overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 8px 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
             transition: 0.2s;
         }
 
-        .proxy-item:hover {
-            background: rgba(168, 85, 247, 0.08);
+        .group-card:hover {
             border-color: rgba(168, 85, 247, 0.3);
         }
 
-        .proxy-item input {
-            width: 18px;
-            height: 18px;
-            accent-color: #a855f7;
+        .group-header {
+            background: rgba(168, 85, 247, 0.1);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
             cursor: pointer;
+            user-select: none;
         }
 
-        .proxy-item label {
-            flex: 1;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: #ddd;
+        .group-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        .group-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+            color: #c084fc;
+        }
+
+        .group-card.collapsed .group-arrow {
+            transform: rotate(-90deg);
+        }
+
+        .group-card.collapsed .group-content {
+            display: none;
+        }
+
+        .group-icon {
+            font-size: 1.4rem;
+        }
+
+        .group-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e8e8f0;
+        }
+
+        .group-count {
+            background: rgba(168, 85, 247, 0.2);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            color: #c084fc;
+        }
+
+        .group-actions {
+            display: flex;
             gap: 8px;
-            margin-bottom: 20px;
-            padding: 8px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 20px;
         }
 
-        .rule-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 8px 12px;
+        .group-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            padding: 6px 14px;
+            border-radius: 30px;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: 0.2s;
+        }
+
+        .group-btn:hover {
+            background: rgba(168, 85, 247, 0.3);
+            color: white;
+        }
+
+        /* Содержимое группы - СЕТКА с прокси */
+        .group-content {
+            padding: 16px;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .proxies-grid-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .proxy-check-item {
             display: flex;
             align-items: center;
             gap: 10px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .proxy-check-item:hover {
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .proxy-check-item input {
+            width: 16px;
+            height: 16px;
+            accent-color: #a855f7;
             cursor: pointer;
         }
 
-        .rule-item:hover {
-            background: rgba(168, 85, 247, 0.08);
+        .proxy-check-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: #ccc;
+            font-family: monospace;
         }
 
-        .rule-item input {
+        /* Стили для правил */
+        .rules-grid-new {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .rule-check-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .rule-check-item:hover {
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .rule-check-item input {
             width: 18px;
             height: 18px;
             accent-color: #a855f7;
             cursor: pointer;
         }
 
-        .rule-item label {
+        .rule-check-item label {
             flex: 1;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #ddd;
         }
 
+        /* Настройки */
         .settings-row {
             display: flex;
             flex-wrap: wrap;
@@ -388,10 +411,10 @@
                 <button class="preset-btn" id="clearAllBtn">❌ Очистить всё</button>
             </div>
 
-            <div class="proxies-grid" id="proxiesList"></div>
+            <div class="groups-grid" id="proxiesList"></div>
 
-            <div class="section-title" style="margin-top: 24px;">🎯 ШАГ 3: Добавить правила</div>
-            <div class="rules-grid" id="rulesContainer"></div>
+            <div class="section-title" style="margin-top: 10px;">🎯 ШАГ 3: Добавить правила</div>
+            <div class="rules-grid-new" id="rulesContainer"></div>
 
             <div class="section-title">⚙️ Настройки</div>
             <div class="settings-row">
@@ -413,7 +436,7 @@
 </div>
 
 <script>
-    // ========= ПРОКСИ С ГРУППАМИ =========
+    // ========= ПРОКСИ =========
     const GEO_PROXIES = [
         { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 500 },
         { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 500 },
@@ -454,19 +477,19 @@
     }
 
     const PROXY_GROUPS = [
-        { id: "geo", title: "🌍 Гео-эндпоинты", comment: "# Гео-endpoint'ы", proxies: GEO_PROXIES },
-        { id: "original", title: "⭐ Оригинальные эндпоинты", comment: "# Оригинальные эндпоинты", proxies: ORIGINAL_PROXIES },
-        { id: "range192", title: "📡 162.159.192.1-20", comment: "# 162.159.192.1-20", proxies: RANGE192_PROXIES },
-        { id: "range195", title: "📡 162.159.195.1-10", comment: "# 162.159.195.1-10", proxies: RANGE195_PROXIES }
+        { id: "geo", icon: "🌍", title: "Гео-эндпоинты", comment: "# Гео-endpoint'ы", proxies: GEO_PROXIES },
+        { id: "original", icon: "⭐", title: "Оригинальные эндпоинты", comment: "# Оригинальные эндпоинты", proxies: ORIGINAL_PROXIES },
+        { id: "range192", icon: "📡", title: "162.159.192.1-20", comment: "# 162.159.192.1-20", proxies: RANGE192_PROXIES },
+        { id: "range195", icon: "📡", title: "162.159.195.1-10", comment: "# 162.159.195.1-10", proxies: RANGE195_PROXIES }
     ];
 
     const RULES_LIBRARY = [
-        { id: 'youtube', name: '🎬 YouTube', domains: ['youtube.com', 'ytimg.com', 'googlevideo.com', 'youtu.be'] },
-        { id: 'netflix', name: '🎥 Netflix', domains: ['netflix.com', 'nflxvideo.net', 'nflxext.com'] },
-        { id: 'tiktok', name: '📱 TikTok', domains: ['tiktok.com', 'tiktokcdn.com'] },
-        { id: 'discord', name: '💬 Discord', domains: ['discord.com', 'discordapp.com', 'discord.gg'] },
-        { id: 'steam', name: '🎮 Steam', domains: ['steampowered.com', 'steamstatic.com', 'steamcdn.com'] },
-        { id: 'telegram', name: '✈️ Telegram', domains: ['telegram.org', 't.me'] }
+        { id: 'youtube', name: '🎬 YouTube' },
+        { id: 'netflix', name: '🎥 Netflix' },
+        { id: 'tiktok', name: '📱 TikTok' },
+        { id: 'discord', name: '💬 Discord' },
+        { id: 'steam', name: '🎮 Steam' },
+        { id: 'telegram', name: '✈️ Telegram' }
     ];
 
     let originalFileText = null;
@@ -555,23 +578,38 @@
         
         for (const group of PROXY_GROUPS) {
             const groupDiv = document.createElement('div');
-            groupDiv.className = 'proxy-group';
+            groupDiv.className = 'group-card';
             groupDiv.id = `group-${group.id}`;
+            
+            // Генерируем HTML для прокси
+            let proxiesHtml = '';
+            for (let idx = 0; idx < group.proxies.length; idx++) {
+                const p = group.proxies[idx];
+                proxiesHtml += `
+                    <div class="proxy-check-item">
+                        <input type="checkbox" class="proxy-cb" data-group="${group.id}" data-proxy-name="${p.name.replace(/"/g, '&quot;')}" data-proxy-server="${p.server}" data-proxy-port="${p.port}" id="proxy_${group.id}_${idx}">
+                        <label for="proxy_${group.id}_${idx}">${p.name}</label>
+                    </div>
+                `;
+            }
+            
             groupDiv.innerHTML = `
-                <div class="proxy-group-header" onclick="toggleGroup('${group.id}')">
-                    <span class="group-arrow">▼</span>
-                    <span class="group-title">${group.title}</span>
-                    <span class="group-count">(${group.proxies.length})</span>
-                    <button class="select-all-btn" onclick="event.stopPropagation(); selectGroupProxies('${group.id}', true)">Выбрать все</button>
-                    <button class="select-all-btn" onclick="event.stopPropagation(); selectGroupProxies('${group.id}', false)">Снять все</button>
+                <div class="group-header" onclick="toggleGroup('${group.id}')">
+                    <div class="group-header-left">
+                        <span class="group-arrow">▼</span>
+                        <span class="group-icon">${group.icon}</span>
+                        <span class="group-title">${group.title}</span>
+                        <span class="group-count">${group.proxies.length}</span>
+                    </div>
+                    <div class="group-actions" onclick="event.stopPropagation()">
+                        <button class="group-btn" onclick="selectGroupProxies('${group.id}', true)">Выбрать все</button>
+                        <button class="group-btn" onclick="selectGroupProxies('${group.id}', false)">Снять все</button>
+                    </div>
                 </div>
-                <div class="proxy-items" id="group-items-${group.id}">
-                    ${group.proxies.map((p, idx) => `
-                        <div class="proxy-item">
-                            <input type="checkbox" class="proxy-cb" data-group="${group.id}" data-proxy-name="${p.name.replace(/"/g, '&quot;')}" data-proxy-server="${p.server}" data-proxy-port="${p.port}" id="proxy_${group.id}_${idx}">
-                            <label for="proxy_${group.id}_${idx}">${p.name}</label>
-                        </div>
-                    `).join('')}
+                <div class="group-content">
+                    <div class="proxies-grid-list">
+                        ${proxiesHtml}
+                    </div>
                 </div>
             `;
             container.appendChild(groupDiv);
@@ -586,7 +624,7 @@
     }
     
     function selectGroupProxies(groupId, select) {
-        const checkboxes = document.querySelectorAll(`#group-items-${groupId} .proxy-cb`);
+        const checkboxes = document.querySelectorAll(`#group-${groupId} .proxy-cb`);
         checkboxes.forEach(cb => cb.checked = select);
     }
     
@@ -601,7 +639,6 @@
             const proxyPort = cb.dataset.proxyPort;
             
             if (!selectedByGroup[groupId]) {
-                // Находим комментарий для группы
                 const group = PROXY_GROUPS.find(g => g.id === groupId);
                 selectedByGroup[groupId] = {
                     comment: group ? group.comment : `# ${groupId}`,
@@ -622,25 +659,34 @@
     function renderRulesList() {
         const container = document.getElementById('rulesContainer');
         container.innerHTML = RULES_LIBRARY.map(rule => `
-            <div class="rule-item">
+            <div class="rule-check-item">
                 <input type="checkbox" id="rule_${rule.id}" class="rule-cb" value="${rule.id}" checked>
                 <label for="rule_${rule.id}">${rule.name}</label>
             </div>
         `).join('');
     }
     
-    function getSelectedRulesYaml() {
-        const selected = [];
+    function getSelectedRulesDomains() {
+        const domains = [];
         const checkboxes = document.querySelectorAll('.rule-cb:checked');
+        
+        const ruleDomains = {
+            youtube: ['youtube.com', 'ytimg.com', 'googlevideo.com', 'youtu.be'],
+            netflix: ['netflix.com', 'nflxvideo.net', 'nflxext.com'],
+            tiktok: ['tiktok.com', 'tiktokcdn.com'],
+            discord: ['discord.com', 'discordapp.com', 'discord.gg'],
+            steam: ['steampowered.com', 'steamstatic.com', 'steamcdn.com'],
+            telegram: ['telegram.org', 't.me']
+        };
+        
         for (const cb of checkboxes) {
-            const ruleInfo = RULES_LIBRARY.find(r => r.id === cb.value);
-            if (ruleInfo) {
-                for (const domain of ruleInfo.domains) {
-                    selected.push(`  - DOMAIN-SUFFIX,${domain},PROXY`);
+            if (ruleDomains[cb.value]) {
+                for (const domain of ruleDomains[cb.value]) {
+                    domains.push(`  - DOMAIN-SUFFIX,${domain},PROXY`);
                 }
             }
         }
-        return selected;
+        return domains;
     }
     
     function buildFinalYaml() {
@@ -649,18 +695,15 @@
         const mergeRulesFlag = document.getElementById('mergeRules').checked;
         
         const selectedByGroup = getSelectedProxiesByGroup();
-        const newRules = getSelectedRulesYaml();
+        const newRules = getSelectedRulesDomains();
         
         let yamlResult = '';
         
-        // warp-common
         if (cleanedWarpCommon) yamlResult += cleanedWarpCommon + '\n';
         
-        // Секция proxies с комментариями-разделителями
         let hasProxies = false;
-        
-        // Сначала добавляем выбранные прокси по группам в правильном порядке
         const groupOrder = ['geo', 'original', 'range192', 'range195'];
+        
         for (const groupId of groupOrder) {
             if (selectedByGroup[groupId] && selectedByGroup[groupId].proxies.length > 0) {
                 if (!hasProxies) {
@@ -678,7 +721,6 @@
             }
         }
         
-        // Если нужно сохранить существующие прокси пользователя
         if (keepExisting && originalConfigObj?.proxies && originalConfigObj.proxies.length > 0 && !replaceProxies) {
             if (!hasProxies) {
                 yamlResult += 'proxies:\n';
@@ -689,15 +731,11 @@
                 yamlResult += `- name: ${p.name}\n`;
                 if (p.server) yamlResult += `  server: ${p.server}\n`;
                 if (p.port) yamlResult += `  port: ${p.port}\n`;
-                if (p.type) yamlResult += `  type: ${p.type}\n`;
-                if (p['private-key']) yamlResult += `  private-key: ${p['private-key']}\n`;
-                if (p['public-key']) yamlResult += `  public-key: ${p['public-key']}\n`;
                 if (p['<<']) yamlResult += `  <<: *warp-common\n`;
             }
             yamlResult += '\n';
         }
         
-        // proxy-groups
         let allSelectedProxyNames = [];
         for (const groupId of groupOrder) {
             if (selectedByGroup[groupId]) {
@@ -732,7 +770,6 @@
             yamlResult += '\n';
         }
         
-        // rules
         let existingRules = (mergeRulesFlag && originalConfigObj?.rules) ? originalConfigObj.rules : [];
         let finalRules = [];
         if (existingRules.length) finalRules = [...existingRules];
@@ -762,13 +799,13 @@
         setTimeout(() => {
             try {
                 const finalYaml = buildFinalYaml();
-                let selectedCount = 0;
-                document.querySelectorAll('.proxy-cb:checked').forEach(() => selectedCount++);
-                const selectedNames = [...document.querySelectorAll('.rule-cb:checked')].map(cb =>
-                    RULES_LIBRARY.find(r => r.id === cb.value)?.name || cb.value
-                );
+                let selectedCount = document.querySelectorAll('.proxy-cb:checked').length;
+                const selectedRules = [...document.querySelectorAll('.rule-cb:checked')].map(cb => {
+                    const r = RULES_LIBRARY.find(rl => rl.id === cb.value);
+                    return r ? r.name : cb.value;
+                });
                 
-                document.getElementById('resultStats').innerHTML = `📦 Выбрано прокси: ${selectedCount} | Правила: ${selectedNames.join(', ') || 'нет'}`;
+                document.getElementById('resultStats').innerHTML = `📦 Выбрано прокси: ${selectedCount} | Правила: ${selectedRules.join(', ') || 'нет'}`;
                 
                 const blob = new Blob([finalYaml], { type: 'text/yaml' });
                 const url = URL.createObjectURL(blob);
