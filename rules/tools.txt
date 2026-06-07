@@ -1,0 +1,6 @@
+  tools:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/tools.txt"
+    path: ./ruleset/tools.yaml
+    interval: 86400
