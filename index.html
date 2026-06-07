@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Config Constructor | Конструктор конфигов</title>
+    <title>Config Constructor | Скоро</title>
     <style>
         * {
             margin: 0;
@@ -15,862 +15,187 @@
             background: radial-gradient(circle at 10% 20%, #0a0a0f, #020205);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 40px 20px;
         }
 
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: 600px;
+            width: 100%;
         }
 
         .glass {
             background: rgba(20, 20, 35, 0.55);
             backdrop-filter: blur(14px);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 32px;
+            border-radius: 48px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .hero {
+            padding: 48px 32px;
             text-align: center;
-            margin-bottom: 40px;
         }
 
-        .hero h1 {
-            font-size: 3.2rem;
+        .icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, #c084fc, #60a5fa, #22d3ee);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            margin-bottom: 16px;
         }
 
-        .hero p {
+        .status-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #f59e0b;
+            margin-bottom: 24px;
+        }
+
+        p {
             color: #8b8ba5;
-            margin-top: 12px;
+            line-height: 1.6;
+            margin-bottom: 32px;
         }
 
-        .upload-area {
-            padding: 48px 28px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            border: 2px dashed rgba(139, 139, 165, 0.3);
-            border-radius: 28px;
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 60px;
+            height: 8px;
+            margin: 32px 0;
+            overflow: hidden;
         }
 
-        .upload-area:hover {
-            border-color: #a855f7;
-            background: rgba(168, 85, 247, 0.05);
+        .progress-fill {
+            width: 65%;
+            height: 100%;
+            background: linear-gradient(90deg, #a855f7, #22d3ee);
+            border-radius: 60px;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .upload-area.drag-over {
-            border-color: #3b82f6;
-            background: rgba(59, 130, 246, 0.08);
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
 
-        .upload-icon { font-size: 52px; margin-bottom: 14px; }
-        .upload-text { color: #d4d4e8; font-weight: 500; }
-        .upload-hint { color: #5e5e78; font-size: 0.8rem; margin-top: 10px; }
-        input[type="file"] { display: none; }
-
-        .status-card {
-            padding: 16px 22px;
-            margin-top: 20px;
-            display: none;
-            align-items: center;
-            gap: 12px;
-            border-radius: 20px;
-        }
-
-        .status-card.success { background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.3); display: flex; }
-        .status-card.error { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); display: flex; }
-
-        .info-stats {
+        .features {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
-            margin: 24px 0 16px;
+            gap: 12px;
+            justify-content: center;
+            margin: 32px 0;
         }
 
-        .stat-card {
-            background: rgba(0, 0, 0, 0.35);
-            padding: 14px 18px;
-            border-radius: 24px;
-            flex: 1;
-            text-align: center;
+        .feature {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 60px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            color: #aaa;
         }
 
-        .stat-label { font-size: 0.75rem; color: #9f9fbb; text-transform: uppercase; }
-        .stat-value { font-size: 1.8rem; font-weight: 700; color: #c084fc; }
+        .feature.done {
+            color: #4ade80;
+            border-color: rgba(74, 222, 128, 0.3);
+            background: rgba(74, 222, 128, 0.05);
+        }
 
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #e8e8f0;
-            margin: 24px 0 20px;
-            display: flex;
+        .github-link {
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-        }
-
-        /* ===== НОВЫЙ ДИЗАЙН ДЛЯ ПРОКСИ ===== */
-        .preset-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .preset-btn {
-            background: rgba(168, 85, 247, 0.15);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 28px;
             border-radius: 40px;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
+            text-decoration: none;
+            color: #e0e0e8;
             font-weight: 500;
+            transition: all 0.2s;
+            margin-top: 16px;
         }
 
-        .preset-btn:hover {
-            background: rgba(168, 85, 247, 0.35);
+        .github-link:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: #a855f7;
             transform: translateY(-2px);
         }
 
-        /* Сетка групп */
-        .groups-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 24px;
-            margin-bottom: 30px;
-        }
-
-        /* Карточка группы */
-        .group-card {
-            background: rgba(0, 0, 0, 0.35);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.2s;
-        }
-
-        .group-card:hover {
-            border-color: rgba(168, 85, 247, 0.3);
-        }
-
-        .group-header {
-            background: rgba(168, 85, 247, 0.1);
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .group-header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .group-arrow {
-            font-size: 1.2rem;
-            transition: transform 0.2s;
-            color: #c084fc;
-        }
-
-        .group-card.collapsed .group-arrow {
-            transform: rotate(-90deg);
-        }
-
-        .group-card.collapsed .group-content {
-            display: none;
-        }
-
-        .group-icon {
-            font-size: 1.4rem;
-        }
-
-        .group-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #e8e8f0;
-        }
-
-        .group-count {
-            background: rgba(168, 85, 247, 0.2);
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            color: #c084fc;
-        }
-
-        .group-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .group-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: none;
-            padding: 6px 14px;
-            border-radius: 30px;
-            color: #aaa;
-            cursor: pointer;
-            font-size: 0.7rem;
-            transition: 0.2s;
-        }
-
-        .group-btn:hover {
-            background: rgba(168, 85, 247, 0.3);
-            color: white;
-        }
-
-        /* Содержимое группы - СЕТКА с прокси */
-        .group-content {
-            padding: 16px;
-            max-height: 350px;
-            overflow-y: auto;
-        }
-
-        .proxies-grid-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 8px;
-        }
-
-        .proxy-check-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-
-        .proxy-check-item:hover {
-            background: rgba(168, 85, 247, 0.1);
-        }
-
-        .proxy-check-item input {
-            width: 16px;
-            height: 16px;
-            accent-color: #a855f7;
-            cursor: pointer;
-        }
-
-        .proxy-check-item label {
-            flex: 1;
-            cursor: pointer;
-            font-size: 0.8rem;
-            color: #ccc;
-            font-family: monospace;
-        }
-
-        /* Стили для правил */
-        .rules-grid-new {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .rule-check-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-
-        .rule-check-item:hover {
-            background: rgba(168, 85, 247, 0.1);
-        }
-
-        .rule-check-item input {
-            width: 18px;
-            height: 18px;
-            accent-color: #a855f7;
-            cursor: pointer;
-        }
-
-        .rule-check-item label {
-            flex: 1;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: #ddd;
-        }
-
-        /* Настройки */
-        .settings-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 18px 22px;
-            border-radius: 28px;
-            margin: 20px 0;
-        }
-
-        .settings-row label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #cacae0;
-            cursor: pointer;
-        }
-
-        .btn-process {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(95deg, #a855f7, #7c3aed);
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-process:hover:not(:disabled) {
-            transform: scale(1.02);
-            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
-        }
-
-        .btn-process:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .result-box {
+        footer {
             margin-top: 24px;
-            padding: 20px 24px;
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
+            font-size: 0.7rem;
+            color: #4a4a62;
+            text-align: center;
         }
 
-        .result-box.show { display: flex; }
-        .download-btn { background: #10b981; padding: 12px 26px; border-radius: 40px; text-decoration: none; color: white; font-weight: 500; transition: 0.2s; }
-        .download-btn:hover { background: #059669; }
-
-        footer { text-align: center; margin-top: 48px; color: #4a4a62; font-size: 0.75rem; }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 10px; }
+        @media (max-width: 480px) {
+            .glass {
+                padding: 32px 24px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .icon {
+                font-size: 60px;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="hero">
-        <h1>🧹 CONFIG CONSTRUCTOR</h1>
-        <p>Загрузите конфиг → выберите сервера → добавьте правила</p>
-    </div>
+    <div class="container">
+        <div class="glass">
+            <div class="icon">🔧✨</div>
+            
+            <h1>Config Constructor</h1>
+            
+            <div class="status-badge">
+                ⚡ В РАЗРАБОТКЕ
+            </div>
+            
+            <p>
+                Мы работаем над удобным конструктором конфигов.<br>
+                Скоро здесь появится полезный инструмент для сборки<br>
+                ваших конфигураций с выбором прокси и правил.
+            </p>
 
-    <div class="glass" style="padding: 32px;">
-        <div class="upload-area" id="uploadZone">
-            <div class="upload-icon">📂</div>
-            <div class="upload-text">Нажмите или перетащите .yaml / .yml</div>
-            <div class="upload-hint">Ваши данные не покидают браузер</div>
-            <input type="file" id="fileInput" accept=".yaml,.yml">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+
+            <div class="features">
+                <span class="feature done">✅ Загрузка конфига</span>
+                <span class="feature done">✅ Выбор прокси</span>
+                <span class="feature">⏳ Правила от авторов</span>
+                <span class="feature">⏳ Готовые пресеты</span>
+                <span class="feature">⏳ Сохранение настроек</span>
+            </div>
+
+            <a href="https://github.com/BloodWolfik/config-constructor" target="_blank" class="github-link">
+                <span>📂</span> Следить за разработкой на GitHub
+            </a>
         </div>
-        <div id="statusCard" class="status-card"></div>
-        <div id="statsSection" style="display: none;">
-            <div class="info-stats">
-                <div class="stat-card"><div class="stat-label">Прокси</div><div class="stat-value" id="proxyStat">0</div></div>
-                <div class="stat-card"><div class="stat-label">Правила</div><div class="stat-value" id="rulesStat">0</div></div>
-                <div class="stat-card"><div class="stat-label">Группы</div><div class="stat-value" id="groupsStat">0</div></div>
-            </div>
-        </div>
+
+        <footer>
+            BloodWolfik / Config Constructor — будет доступно в ближайшее время
+        </footer>
     </div>
-
-    <div id="proxiesPanel" style="display: none;">
-        <div class="glass" style="padding: 32px; margin-top: 28px;">
-            <div class="section-title">🌍 ШАГ 2: Выберите прокси-сервера</div>
-            
-            <div class="preset-buttons">
-                <button class="preset-btn" id="selectAllBtn">✅ Все адреса</button>
-                <button class="preset-btn" id="selectGeoBtn">🌍 Только Geo-эндпоинты</button>
-                <button class="preset-btn" id="selectOriginalBtn">⭐ Только оригинальные</button>
-                <button class="preset-btn" id="clearAllBtn">❌ Очистить всё</button>
-            </div>
-
-            <div class="groups-grid" id="proxiesList"></div>
-
-            <div class="section-title" style="margin-top: 10px;">🎯 ШАГ 3: Добавить правила</div>
-            <div class="rules-grid-new" id="rulesContainer"></div>
-
-            <div class="section-title">⚙️ Настройки</div>
-            <div class="settings-row">
-                <label><input type="checkbox" id="keepExistingProxies" checked> ✅ Сохранить мои прокси</label>
-                <label><input type="checkbox" id="replaceProxies"> 🔄 Заменить на выбранные</label>
-                <label><input type="checkbox" id="mergeRules" checked> 🔄 Объединить с моими правилами</label>
-            </div>
-
-            <button class="btn-process" id="processBtn">🚀 СОБРАТЬ КОНФИГ</button>
-
-            <div id="resultArea" class="result-box glass">
-                <div><strong>✅ Конфиг готов</strong><br><span id="resultStats" style="font-size: 0.8rem; color: #aaa;"></span></div>
-                <a id="downloadLink" class="download-btn">📥 Скачать</a>
-            </div>
-        </div>
-    </div>
-
-    <footer>⚡ Сохраняются секции: warp-common, proxies, proxy-groups, rules, rule-providers<br>🧬 Все ваши личные данные остаются нетронутыми</footer>
-</div>
-
-<script>
-    // ========= ПРОКСИ =========
-    const GEO_PROXIES = [
-        { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇷🇺 Россия", server: "ru0.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇫🇮 Финляндия", server: "fi.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇩🇪 Германия", server: "de.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇱🇻 Латвия", server: "lv.tribukvy.ltd", port: 500 },
-        { name: "[🌍] LTE 🇵🇱 Польша", server: "mpl.tribukvy.ltd", port: 500 },
-        { name: "[🌍] LTE 🇫🇮 Финляндия", server: "mfi.tribukvy.ltd", port: 500 }
-    ];
-
-    const ORIGINAL_PROXIES = [
-        { name: "[⭐] 188.114.97.1:500", server: "188.114.97.1", port: 500 },
-        { name: "[⭐] 188.114.97.148:4500", server: "188.114.97.148", port: 4500 },
-        { name: "[⭐] 162.159.195.1:500", server: "162.159.195.1", port: 500 },
-        { name: "[⭐] engage.cloudflareclient.com:4500", server: "engage.cloudflareclient.com", port: 4500 },
-        { name: "[⭐] engage.cloudflareclient.com:500", server: "engage.cloudflareclient.com", port: 500 },
-        { name: "[⭐] engage.cloudflareclient.com:2408", server: "engage.cloudflareclient.com", port: 2408 },
-        { name: "[⭐] 188.114.99.224:1002", server: "188.114.99.224", port: 1002 },
-        { name: "[⭐] 8.34.146.113:968", server: "8.34.146.113", port: 968 }
-    ];
-
-    const RANGE192_PROXIES = [];
-    const RANGE195_PROXIES = [];
-
-    for (let i = 1; i <= 20; i++) {
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:2408`, server: `162.159.192.${i}`, port: 2408 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:1701`, server: `162.159.192.${i}`, port: 1701 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:4500`, server: `162.159.192.${i}`, port: 4500 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:500`, server: `162.159.192.${i}`, port: 500 });
-    }
-
-    for (let i = 1; i <= 10; i++) {
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:2408`, server: `162.159.195.${i}`, port: 2408 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:1701`, server: `162.159.195.${i}`, port: 1701 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:4500`, server: `162.159.195.${i}`, port: 4500 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:500`, server: `162.159.195.${i}`, port: 500 });
-    }
-
-    const PROXY_GROUPS = [
-        { id: "geo", icon: "🌍", title: "Гео-эндпоинты", comment: "# Гео-endpoint'ы", proxies: GEO_PROXIES },
-        { id: "original", icon: "⭐", title: "Оригинальные эндпоинты", comment: "# Оригинальные эндпоинты", proxies: ORIGINAL_PROXIES },
-        { id: "range192", icon: "📡", title: "162.159.192.1-20", comment: "# 162.159.192.1-20", proxies: RANGE192_PROXIES },
-        { id: "range195", icon: "📡", title: "162.159.195.1-10", comment: "# 162.159.195.1-10", proxies: RANGE195_PROXIES }
-    ];
-
-    const RULES_LIBRARY = [
-        { id: 'youtube', name: '🎬 YouTube' },
-        { id: 'netflix', name: '🎥 Netflix' },
-        { id: 'tiktok', name: '📱 TikTok' },
-        { id: 'discord', name: '💬 Discord' },
-        { id: 'steam', name: '🎮 Steam' },
-        { id: 'telegram', name: '✈️ Telegram' }
-    ];
-
-    let originalFileText = null;
-    let cleanedWarpCommon = null;
-    let originalConfigObj = null;
-
-    function extractWarpCommonBlock(yamlText) {
-        const lines = yamlText.split(/\r?\n/);
-        let warpStart = -1;
-        let warpEnd = -1;
-        
-        for (let i = 0; i < lines.length; i++) {
-            if (lines[i].match(/^warp-common:\s*&?\w*/)) {
-                warpStart = i;
-                break;
-            }
-        }
-        
-        if (warpStart !== -1) {
-            for (let i = warpStart + 1; i < lines.length; i++) {
-                if (lines[i].length > 0 && !lines[i].startsWith(' ') && !lines[i].startsWith('\t')) {
-                    warpEnd = i;
-                    break;
-                }
-                if (i === lines.length - 1) warpEnd = lines.length;
-            }
-            if (warpEnd === -1) warpEnd = lines.length;
-            
-            const warpBlock = lines.slice(warpStart, warpEnd).join('\n');
-            const restLines = [...lines.slice(0, warpStart), ...lines.slice(warpEnd)];
-            return { warpBlock, restText: restLines.join('\n') };
-        }
-        return { warpBlock: null, restText: yamlText };
-    }
-
-    async function handleFile(file) {
-        if (!file || !file.name.match(/\.(yaml|yml)$/i)) {
-            showStatus('error', '❌ Нужен YAML файл');
-            return;
-        }
-        showStatus('loading', '⏳ Анализ конфига...');
-
-        try {
-            const text = await file.text();
-            originalFileText = text;
-            
-            const { warpBlock, restText } = extractWarpCommonBlock(text);
-            cleanedWarpCommon = warpBlock;
-            
-            let restConfig = {};
-            if (restText.trim()) {
-                try { restConfig = jsyaml.load(restText) || {}; } catch(e) { restConfig = {}; }
-            }
-            
-            originalConfigObj = {
-                proxies: restConfig.proxies,
-                'proxy-groups': restConfig['proxy-groups'],
-                rules: restConfig.rules,
-                'rule-providers': restConfig['rule-providers']
-            };
-            
-            const proxyCount = originalConfigObj.proxies?.length || 0;
-            const rulesCount = originalConfigObj.rules?.length || 0;
-            const groupsCount = originalConfigObj['proxy-groups']?.length || 0;
-            
-            document.getElementById('proxyStat').innerText = proxyCount;
-            document.getElementById('rulesStat').innerText = rulesCount;
-            document.getElementById('groupsStat').innerText = groupsCount;
-            document.getElementById('statsSection').style.display = 'block';
-            
-            showStatus('success', `✅ Конфиг загружен! Прокси: ${proxyCount}, правил: ${rulesCount}`);
-            
-            renderProxiesList();
-            renderRulesList();
-            document.getElementById('proxiesPanel').style.display = 'block';
-            document.getElementById('resultArea').classList.remove('show');
-            
-        } catch (err) {
-            showStatus('error', `⚠️ Ошибка: ${err.message}`);
-        }
-    }
-
-    function renderProxiesList() {
-        const container = document.getElementById('proxiesList');
-        container.innerHTML = '';
-        
-        for (const group of PROXY_GROUPS) {
-            const groupDiv = document.createElement('div');
-            groupDiv.className = 'group-card';
-            groupDiv.id = `group-${group.id}`;
-            
-            // Генерируем HTML для прокси
-            let proxiesHtml = '';
-            for (let idx = 0; idx < group.proxies.length; idx++) {
-                const p = group.proxies[idx];
-                proxiesHtml += `
-                    <div class="proxy-check-item">
-                        <input type="checkbox" class="proxy-cb" data-group="${group.id}" data-proxy-name="${p.name.replace(/"/g, '&quot;')}" data-proxy-server="${p.server}" data-proxy-port="${p.port}" id="proxy_${group.id}_${idx}">
-                        <label for="proxy_${group.id}_${idx}">${p.name}</label>
-                    </div>
-                `;
-            }
-            
-            groupDiv.innerHTML = `
-                <div class="group-header" onclick="toggleGroup('${group.id}')">
-                    <div class="group-header-left">
-                        <span class="group-arrow">▼</span>
-                        <span class="group-icon">${group.icon}</span>
-                        <span class="group-title">${group.title}</span>
-                        <span class="group-count">${group.proxies.length}</span>
-                    </div>
-                    <div class="group-actions" onclick="event.stopPropagation()">
-                        <button class="group-btn" onclick="selectGroupProxies('${group.id}', true)">Выбрать все</button>
-                        <button class="group-btn" onclick="selectGroupProxies('${group.id}', false)">Снять все</button>
-                    </div>
-                </div>
-                <div class="group-content">
-                    <div class="proxies-grid-list">
-                        ${proxiesHtml}
-                    </div>
-                </div>
-            `;
-            container.appendChild(groupDiv);
-        }
-    }
-    
-    function toggleGroup(groupId) {
-        const groupDiv = document.getElementById(`group-${groupId}`);
-        if (groupDiv) {
-            groupDiv.classList.toggle('collapsed');
-        }
-    }
-    
-    function selectGroupProxies(groupId, select) {
-        const checkboxes = document.querySelectorAll(`#group-${groupId} .proxy-cb`);
-        checkboxes.forEach(cb => cb.checked = select);
-    }
-    
-    function getSelectedProxiesByGroup() {
-        const selectedByGroup = {};
-        const checkboxes = document.querySelectorAll('.proxy-cb:checked');
-        
-        checkboxes.forEach(cb => {
-            const groupId = cb.dataset.group;
-            const proxyName = cb.dataset.proxyName;
-            const proxyServer = cb.dataset.proxyServer;
-            const proxyPort = cb.dataset.proxyPort;
-            
-            if (!selectedByGroup[groupId]) {
-                const group = PROXY_GROUPS.find(g => g.id === groupId);
-                selectedByGroup[groupId] = {
-                    comment: group ? group.comment : `# ${groupId}`,
-                    proxies: []
-                };
-            }
-            
-            selectedByGroup[groupId].proxies.push({
-                name: proxyName,
-                server: proxyServer,
-                port: parseInt(proxyPort)
-            });
-        });
-        
-        return selectedByGroup;
-    }
-    
-    function renderRulesList() {
-        const container = document.getElementById('rulesContainer');
-        container.innerHTML = RULES_LIBRARY.map(rule => `
-            <div class="rule-check-item">
-                <input type="checkbox" id="rule_${rule.id}" class="rule-cb" value="${rule.id}" checked>
-                <label for="rule_${rule.id}">${rule.name}</label>
-            </div>
-        `).join('');
-    }
-    
-    function getSelectedRulesDomains() {
-        const domains = [];
-        const checkboxes = document.querySelectorAll('.rule-cb:checked');
-        
-        const ruleDomains = {
-            youtube: ['youtube.com', 'ytimg.com', 'googlevideo.com', 'youtu.be'],
-            netflix: ['netflix.com', 'nflxvideo.net', 'nflxext.com'],
-            tiktok: ['tiktok.com', 'tiktokcdn.com'],
-            discord: ['discord.com', 'discordapp.com', 'discord.gg'],
-            steam: ['steampowered.com', 'steamstatic.com', 'steamcdn.com'],
-            telegram: ['telegram.org', 't.me']
-        };
-        
-        for (const cb of checkboxes) {
-            if (ruleDomains[cb.value]) {
-                for (const domain of ruleDomains[cb.value]) {
-                    domains.push(`  - DOMAIN-SUFFIX,${domain},PROXY`);
-                }
-            }
-        }
-        return domains;
-    }
-    
-    function buildFinalYaml() {
-        const keepExisting = document.getElementById('keepExistingProxies').checked;
-        const replaceProxies = document.getElementById('replaceProxies').checked;
-        const mergeRulesFlag = document.getElementById('mergeRules').checked;
-        
-        const selectedByGroup = getSelectedProxiesByGroup();
-        const newRules = getSelectedRulesDomains();
-        
-        let yamlResult = '';
-        
-        if (cleanedWarpCommon) yamlResult += cleanedWarpCommon + '\n';
-        
-        let hasProxies = false;
-        const groupOrder = ['geo', 'original', 'range192', 'range195'];
-        
-        for (const groupId of groupOrder) {
-            if (selectedByGroup[groupId] && selectedByGroup[groupId].proxies.length > 0) {
-                if (!hasProxies) {
-                    yamlResult += 'proxies:\n';
-                    hasProxies = true;
-                }
-                yamlResult += selectedByGroup[groupId].comment + '\n';
-                for (const p of selectedByGroup[groupId].proxies) {
-                    yamlResult += `- name: ${p.name}\n`;
-                    yamlResult += `  <<: *warp-common\n`;
-                    yamlResult += `  server: ${p.server}\n`;
-                    yamlResult += `  port: ${p.port}\n`;
-                }
-                yamlResult += '\n';
-            }
-        }
-        
-        if (keepExisting && originalConfigObj?.proxies && originalConfigObj.proxies.length > 0 && !replaceProxies) {
-            if (!hasProxies) {
-                yamlResult += 'proxies:\n';
-                hasProxies = true;
-            }
-            yamlResult += '# Прокси из вашего конфига\n';
-            for (const p of originalConfigObj.proxies) {
-                yamlResult += `- name: ${p.name}\n`;
-                if (p.server) yamlResult += `  server: ${p.server}\n`;
-                if (p.port) yamlResult += `  port: ${p.port}\n`;
-                if (p['<<']) yamlResult += `  <<: *warp-common\n`;
-            }
-            yamlResult += '\n';
-        }
-        
-        let allSelectedProxyNames = [];
-        for (const groupId of groupOrder) {
-            if (selectedByGroup[groupId]) {
-                for (const p of selectedByGroup[groupId].proxies) {
-                    allSelectedProxyNames.push(p.name);
-                }
-            }
-        }
-        
-        if (originalConfigObj?.['proxy-groups'] && originalConfigObj['proxy-groups'].length > 0 && !replaceProxies) {
-            yamlResult += 'proxy-groups:\n';
-            for (const g of originalConfigObj['proxy-groups']) {
-                yamlResult += `- name: ${g.name}\n`;
-                yamlResult += `  type: ${g.type}\n`;
-                if (g.proxies) {
-                    yamlResult += `  proxies:\n`;
-                    for (const proxyName of g.proxies) {
-                        yamlResult += `    - ${proxyName}\n`;
-                    }
-                }
-            }
-            yamlResult += '\n';
-        } else if (allSelectedProxyNames.length > 0) {
-            yamlResult += 'proxy-groups:\n';
-            yamlResult += `- name: PROXY\n`;
-            yamlResult += `  type: select\n`;
-            yamlResult += `  proxies:\n`;
-            for (const name of allSelectedProxyNames) {
-                yamlResult += `    - ${name}\n`;
-            }
-            yamlResult += `    - DIRECT\n`;
-            yamlResult += '\n';
-        }
-        
-        let existingRules = (mergeRulesFlag && originalConfigObj?.rules) ? originalConfigObj.rules : [];
-        let finalRules = [];
-        if (existingRules.length) finalRules = [...existingRules];
-        if (newRules.length) {
-            if (finalRules.length) finalRules.push('  # === добавлено конструктором ===');
-            finalRules.push(...newRules);
-        }
-        
-        if (finalRules.length > 0) {
-            yamlResult += 'rules:\n' + finalRules.map(r => `${r}\n`).join('');
-            if (!finalRules.some(r => r.includes('MATCH'))) yamlResult += '  - MATCH,DIRECT\n';
-        }
-        
-        return yamlResult;
-    }
-    
-    function processFinal() {
-        if (!originalFileText) {
-            alert('Сначала загрузите конфиг');
-            return;
-        }
-        
-        const processBtn = document.getElementById('processBtn');
-        processBtn.disabled = true;
-        processBtn.textContent = '⏳ Сборка...';
-        
-        setTimeout(() => {
-            try {
-                const finalYaml = buildFinalYaml();
-                let selectedCount = document.querySelectorAll('.proxy-cb:checked').length;
-                const selectedRules = [...document.querySelectorAll('.rule-cb:checked')].map(cb => {
-                    const r = RULES_LIBRARY.find(rl => rl.id === cb.value);
-                    return r ? r.name : cb.value;
-                });
-                
-                document.getElementById('resultStats').innerHTML = `📦 Выбрано прокси: ${selectedCount} | Правила: ${selectedRules.join(', ') || 'нет'}`;
-                
-                const blob = new Blob([finalYaml], { type: 'text/yaml' });
-                const url = URL.createObjectURL(blob);
-                const downloadLink = document.getElementById('downloadLink');
-                downloadLink.href = url;
-                downloadLink.download = `config_${Date.now()}.yaml`;
-                document.getElementById('resultArea').classList.add('show');
-                
-                showStatus('success', '✅ Конфиг готов! Нажмите "Скачать"');
-            } catch (err) {
-                showStatus('error', `Ошибка: ${err.message}`);
-                console.error(err);
-            } finally {
-                processBtn.disabled = false;
-                processBtn.textContent = '🚀 СОБРАТЬ КОНФИГ';
-            }
-        }, 50);
-    }
-    
-    function showStatus(type, msg) {
-        const statusDiv = document.getElementById('statusCard');
-        statusDiv.className = 'status-card';
-        if (type === 'success') {
-            statusDiv.classList.add('success');
-            statusDiv.innerHTML = `<span>✅</span><span>${msg}</span>`;
-        } else if (type === 'error') {
-            statusDiv.classList.add('error');
-            statusDiv.innerHTML = `<span>❌</span><span>${msg}</span>`;
-        } else if (type === 'loading') {
-            statusDiv.classList.add('success');
-            statusDiv.innerHTML = `<span>⏳</span><span>${msg}</span>`;
-        }
-    }
-    
-    document.getElementById('selectAllBtn').onclick = () => {
-        document.querySelectorAll('.proxy-cb').forEach(cb => cb.checked = true);
-    };
-    document.getElementById('selectGeoBtn').onclick = () => {
-        document.querySelectorAll('.proxy-cb').forEach(cb => cb.checked = false);
-        document.querySelectorAll('.proxy-cb[data-group="geo"]').forEach(cb => cb.checked = true);
-    };
-    document.getElementById('selectOriginalBtn').onclick = () => {
-        document.querySelectorAll('.proxy-cb').forEach(cb => cb.checked = false);
-        document.querySelectorAll('.proxy-cb[data-group="original"]').forEach(cb => cb.checked = true);
-    };
-    document.getElementById('clearAllBtn').onclick = () => {
-        document.querySelectorAll('.proxy-cb').forEach(cb => cb.checked = false);
-    };
-    
-    const uploadZone = document.getElementById('uploadZone');
-    const fileInput = document.getElementById('fileInput');
-    uploadZone.onclick = () => fileInput.click();
-    uploadZone.ondragover = (e) => { e.preventDefault(); uploadZone.classList.add('drag-over'); };
-    uploadZone.ondragleave = () => uploadZone.classList.remove('drag-over');
-    uploadZone.ondrop = (e) => {
-        e.preventDefault();
-        uploadZone.classList.remove('drag-over');
-        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
-    };
-    fileInput.onchange = (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); };
-    
-    document.getElementById('processBtn').onclick = processFinal;
-    
-    window.toggleGroup = toggleGroup;
-    window.selectGroupProxies = selectGroupProxies;
-</script>
 </body>
 </html>
