@@ -9,18 +9,7 @@
 
 ## 📁 Структура проекта
 ```
-🏠 config-constructor/
-│
-├── 🌐 index.html
-│
-├── 📦 rules/
-│ ├── 🎬 youtube.txt
-│ ├──    torrent.txt
-│ ├── 💬 discord.txt
-│ ├── ✈️ telegram.mrs
-│ └── ✈️ telegram-geosite.mrs
-│
-└── 📖 README.md
+В разработке
 ```
 
 
