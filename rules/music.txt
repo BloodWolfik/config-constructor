@@ -1,0 +1,6 @@
+  music:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/music.txt"
+    path: ./ruleset/music.yaml
+    interval: 86400
