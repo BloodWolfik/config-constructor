@@ -15,7 +15,7 @@
 │
 ├── 📦 rules/
 │ ├── 🎬 youtube.txt
-│ ├── 🎥 netflix.txt
+│ ├──    torrent.txt
 │ ├── 💬 discord.txt
 │ ├── ✈️ telegram.mrs
 │ └── ✈️ telegram-geosite.mrs
