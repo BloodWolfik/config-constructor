@@ -1,7 +1,6 @@
   youtube:
     type: http
     behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs
-    path: ./ruleset/youtube.mrs
+    url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt"
+    path: ./ruleset/youtube.yaml
     interval: 86400
