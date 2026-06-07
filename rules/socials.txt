@@ -1,0 +1,6 @@
+  socials:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/socials.txt"
+    path: ./ruleset/socials.yaml
+    interval: 86400
