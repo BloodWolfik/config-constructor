@@ -7,7 +7,7 @@
 
 | Сервис | Автор | Лицензия | Репозиторий |
 |--------|-------|----------|-------------|
-| YouTube, Netflix, Discord | [Nellimonix](https://github.com/nellimonix) | MIT | [ClashXRule](https://github.com/nellimonix/ClashXRule) |
+| YouTube, Discord и другое | [Nellimonix](https://github.com/nellimonix) | MIT | [ClashXRule](https://github.com/nellimonix/ClashXRule) |
 | Telegram (GeoIP) | [MetaCubeX](https://github.com/MetaCubeX) | GPL-3.0 | [meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) |
 | Telegram (GeoSite) | [hydraponique](https://github.com/hydraponique) | GPL-3.0 | [roscomvpn-geoip](https://github.com/hydraponique/roscomvpn-geoip) |
 
