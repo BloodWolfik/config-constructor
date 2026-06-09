@@ -521,9 +521,9 @@
             </div>
             
             <div class="settings-row">
-                <label><input type="checkbox" id="keepExistingProxies" checked> ✅ Сохранить мои прокси</label>
+                <label><input type="checkbox" id="keepExistingProxies"> ✅ Сохранить мои прокси</label>
                 <label><input type="checkbox" id="replaceProxies"> 🔄 Заменить на выбранные</label>
-                <label><input type="checkbox" id="mergeRules" checked> 🔄 Объединить с моими правилами</label>
+                <label><input type="checkbox" id="mergeRules"> 🔄 Объединить с моими правилами</label>
             </div>
 
             <button class="btn-process" id="processBtn">🚀 СОБРАТЬ КОНФИГ</button>
@@ -585,18 +585,20 @@
         { id: "range195", icon: "📡", title: "162.159.195.1-10", comment: "# 162.159.195.1-10", proxies: RANGE195_PROXIES }
     ];
 
-    // ========= ПРАВИЛА ОТ АВТОРОВ =========
+    // ========= ПРАВИЛА ОТ АВТОРОВ (ВСЕ ГАЛОЧКИ УБРАНЫ) =========
     const RULES_BY_AUTHOR = [
         {
             author: "Nellimonix",
             authorUrl: "https://github.com/nellimonix",
             license: "GPL-3.0",
             rules: [
-                { id: "nellimonix_youtube", name: "🎬 YouTube", type: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt" },
-                { id: "nellimonix_discord", name: "💬 Discord", type: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/discord.txt" },
-                { id: "nellimonix_netflix", name: "🎥 Netflix", type: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/netflix.txt" },
-                { id: "nellimonix_music", name: "🎵 Music", type: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/music.txt" },
-                { id: "nellimonix_socials", name: "📱 Socials", type: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/socials.txt" }
+                { id: "nellimonix_youtube", name: "🎬 YouTube", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/nellimonix/youtube.txt" },
+                { id: "nellimonix_discord", name: "💬 Discord", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/nellimonix/discord.txt" },
+                { id: "nellimonix_music", name: "🎵 Music", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/nellimonix/music.txt" },
+                { id: "nellimonix_socials", name: "📱 Socials", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/nellimonix/socials.txt" },
+                { id: "nellimonix_tools", name: "🔧 Tools", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/nellimonix/tools.txt" },
+                { id: "nellimonix_torrent", name: "🏴‍☠️ Torrent", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/nellimonix/torrent.txt" },
+                { id: "nellimonix_porno", name: "🔞 Porno", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/nellimonix/porno.txt" }
             ]
         },
         {
@@ -604,7 +606,8 @@
             authorUrl: "https://github.com/MetaCubeX",
             license: "GPL-3.0",
             rules: [
-                { id: "metacuvex_telegram_ip", name: "✈️ Telegram (GeoIP)", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs" }
+                { id: "metacuvex_youtube", name: "🎬 YouTube (Meta)", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/MetaCubeX/youtube.txt" },
+                { id: "metacuvex_telegram_ip", name: "✈️ Telegram (GeoIP)", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/MetaCubeX/telegram-ip.txt" }
             ]
         },
         {
@@ -612,7 +615,12 @@
             authorUrl: "https://github.com/hydraponique",
             license: "GPL-3.0",
             rules: [
-                { id: "hydraponique_telegram", name: "✈️ Telegram (GeoSite)", type: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/telegram.mrs", format: "mrs" }
+                { id: "hydraponique_telegram", name: "✈️ Telegram", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/hydraponique/telegram.txt" },
+                { id: "hydraponique_steam", name: "🎮 Steam", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/hydraponique/steam.txt" },
+                { id: "hydraponique_microsoft", name: "🪟 Microsoft", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/hydraponique/microsoft.txt" },
+                { id: "hydraponique_github", name: "🐙 GitHub", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/hydraponique/github.txt" },
+                { id: "hydraponique_whitelist", name: "✅ Whitelist", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/hydraponique/whitelist.txt" },
+                { id: "hydraponique_category_ru", name: "🇷🇺 Category RU", type: "domain", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/hydraponique/category-ru.txt" }
             ]
         },
         {
@@ -620,10 +628,11 @@
             authorUrl: "https://github.com/PentiumB",
             license: "MIT",
             rules: [
-                { id: "pentiumb_cloudflare", name: "☁️ Cloudflare CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/PentiumB/CDN-RuleSet@release/mihomo/cloudflare.mrs" },
-                { id: "pentiumb_amazon", name: "🛒 Amazon CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/PentiumB/CDN-RuleSet@release/mihomo/amazon.mrs" },
-                { id: "pentiumb_fastly", name: "⚡ Fastly CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/PentiumB/CDN-RuleSet@release/mihomo/fastly.mrs" },
-                { id: "pentiumb_akamai", name: "🛡️ Akamai CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/PentiumB/CDN-RuleSet@release/mihomo/akamai.mrs" }
+                { id: "pentiumb_cloudflare", name: "☁️ Cloudflare CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/PentiumB/cloudflare-cdn.txt" },
+                { id: "pentiumb_amazon", name: "🛒 Amazon CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/PentiumB/amazon-cdn.txt" },
+                { id: "pentiumb_fastly", name: "⚡ Fastly CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/PentiumB/fastly-cdn.txt" },
+                { id: "pentiumb_akamai", name: "🛡️ Akamai CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/PentiumB/akamai-cdn.txt" },
+                { id: "pentiumb_oracle", name: "🐧 Oracle CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/BloodWolfik/config-constructor@main/rules/PentiumB/oracle-cdn.txt" }
             ]
         }
     ];
@@ -813,7 +822,7 @@
             const rulesGrid = authorSection.querySelector(`.rules-grid-new`);
             rulesGrid.innerHTML = authorGroup.rules.map(rule => `
                 <div class="rule-check-item">
-                    <input type="checkbox" id="rule_${rule.id}" class="rule-cb" value="${rule.id}" data-rule='${JSON.stringify(rule)}' checked>
+                    <input type="checkbox" id="rule_${rule.id}" class="rule-cb" value="${rule.id}" data-rule='${JSON.stringify(rule)}'>
                     <label for="rule_${rule.id}">${rule.name}</label>
                 </div>
             `).join('');
@@ -1042,7 +1051,7 @@
     ⚡ Сохраняются секции: warp-common, proxies, proxy-groups, rules, rule-providers<br>
     🧬 Все ваши личные данные остаются нетронутыми
     <br><br>
-    © 2025 Config Constructor · 
+    © 2026 Config Constructor · 
     <a href="https://creativecommons.org/licenses/by-nd/4.0/deed.ru" target="_blank" style="color: #66ccff; text-decoration: none;">
         Лицензия CC BY-ND 4.0
     </a>
