@@ -6,5 +6,6 @@
 
 ## Использование
 
-Правила используются по ссылке (без копирования файлов):
-`https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs`
+Правила используются по ссылке (без копирования файлов).
+
+**Пример**: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs
