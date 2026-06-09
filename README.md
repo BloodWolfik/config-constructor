@@ -1,42 +1,51 @@
-# Config Constructor 🧹 В РАЗРАБОТКЕ
+# Config Constructor 🧹
 
-Конструктор конфигов для Clash / Mihomo.  
-Загрузите свой конфиг → выберите сервера → добавьте правила → скачайте готовый файл.
+> **Статус:** 🚧 В РАЗРАБОТКЕ
 
-## 🌐 Сайт
+---
 
-[https://BloodWolfik.github.io/config-constructor/](https://BloodWolfik.github.io/config-constructor/)
+## ⚡ КОНСТРУКТОР КОНФИГОВ ДЛЯ CLASH / MIHOMO ⚡
 
-## 📁 Структура проекта
-```
-В разработке
-```
+---
 
+### 🌐 Сайт
 
-## 📚 Используемые правила и благодарности
+👉 [**config-constructor**](https://BloodWolfik.github.io/config-constructor/)
 
-Проект использует правила из следующих источников:
+---
 
-| Сервис | Автор | Лицензия | Ссылка |
-|--------|-------|----------|--------|
-| YouTube, Netflix, Discord | [Nellimonix](https://github.com/nellimonix) | MIT | [ClashXRule](https://github.com/nellimonix/ClashXRule) |
-| Telegram (GeoIP) | [MetaCubeX](https://github.com/MetaCubeX) | GPL-3.0 | [meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) |
-| Telegram (GeoSite) | [hydraponique](https://github.com/hydraponique) | GPL-3.0 | [roscomvpn-geoip](https://github.com/hydraponique/roscomvpn-geoip) |
+### 📚 Используемые правила
 
-### 🙏 Отдельная благодарность
+Проект использует правила, предоставленные следующими авторами (используются по ссылке):
 
-- **[Nellimonix](https://github.com/nellimonix)** — за качественные правила для Clash
-- **[MetaCubeX](https://github.com/MetaCubeX)** — за разработку Clash.Meta и правил
-- **[hydraponique](https://github.com/hydraponique)** — за geoip/geosite файлы для Telegram
+| Сервис | Автор | Лицензия | Репозиторий |
+| :--- | :--- | :--- | :--- |
+| YouTube, Discord и другие | **Nellimonix** | GPL-3.0 | [ClashXRule](https://github.com/nellimonix/ClashXRule) |
+| Telegram (GeoIP) и другие | **MetaCubeX** | GPL-3.0 | [meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) |
+| Telegram (GeoSite) и другие | **hydraponique** | GPL-3.0 | [roscomvpn-geoip](https://github.com/hydraponique/roscomvpn-geoip) |
 
-Спасибо за ваш труд и вклад в Open Source сообщество! ❤️
+---
 
-## ⚖️ Лицензия
+### 🙏 Благодарности
 
-- Код конструктора (`index.html`) распространяется под лицензией **MIT**
-- Файлы в папке `rules/` имеют свои лицензии (MIT или GPL-3.0) — см. папку `rules/`
+Проект использует правила от:
 
-## 🚀 Использование
+- **[Nellimonix](https://github.com/nellimonix)** — набор правил для разных сервисов
+- **[MetaCubeX](https://github.com/MetaCubeX)** — GeoIP/GeoSite правила (telegram, google, netflix, twitter и др.)
+- **[hydraponique](https://github.com/hydraponique)** — специализированные GeoIP правила
+
+**Спасибо авторам за их труд!** ❤️
+
+---
+
+### ⚖️ Лицензия
+
+- **Код конструктора** — [MIT](./LICENSE)
+- **Файлы в папке `rules/`** — принадлежат авторам (см. `README` в соответствующих папках)
+
+---
+
+### 🚀 Использование
 
 1. Загрузите ваш конфиг
 2. Выберите нужные прокси-сервера
@@ -46,4 +55,6 @@
 
 ---
 
-Разработано с ❤️ для сообщества
+<p align="center">
+  Разработано с ❤️ для сообщества
+</p>
