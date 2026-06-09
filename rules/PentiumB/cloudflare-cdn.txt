@@ -1,0 +1,7 @@
+  cloudflare-cdn:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/cloudflare.mrs"
+    path: ./ruleset/cloudflare.mrs
+    interval: 86400
