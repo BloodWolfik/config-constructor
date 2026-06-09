@@ -7,4 +7,5 @@
 ## Использование
 
 Правила используются по ссылке (без копирования файлов).
-Пример: `https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt`
+
+**Пример**: https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt
