@@ -1,0 +1,7 @@
+  github:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/github.mrs
+    path: ./ruleset/github.mrs
+    interval: 86400
