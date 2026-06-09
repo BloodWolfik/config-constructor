@@ -23,7 +23,7 @@
 | YouTube, Discord и другие | **Nellimonix** | GPL-3.0 | [ClashXRule](https://github.com/nellimonix/ClashXRule) |
 | Telegram (GeoIP) и другие | **MetaCubeX** | GPL-3.0 | [meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) |
 | Telegram (GeoSite) и другие | **hydraponique** | GPL-3.0 | [roscomvpn-geoip](https://github.com/hydraponique/roscomvpn-geoip) |
-| CDN-диапазоны (Cloudflare, Amazon, Fastly, Akamai, Oracle) | **PentiumB** | — | [CDN-RuleSet](https://github.com/PentiumB/CDN-RuleSet) |
+| CDN-диапазоны (Cloudflare, Amazon, Fastly, Akamai, Oracle) | **PentiumB** | MIT | [CDN-RuleSet](https://github.com/PentiumB/CDN-RuleSet) |
 
 ---
 
@@ -40,10 +40,27 @@
 
 ---
 
-### ⚖️ Лицензия
+### ⚖️ Лицензия на код конструктора
 
-- **Код конструктора** — [MIT](./LICENSE)
-- **Файлы в папке `rules/`** — принадлежат авторам (см. `README` в соответствующих папках)
+**Весь код этого конструктора** (HTML, CSS, JavaScript) распространяется под лицензией:
+
+### **CC BY-ND 4.0 (Attribution-NoDerivatives 4.0 International)**
+
+- ✅ **Вы можете** копировать и распространять код **ТОЛЬКО В НЕИЗМЕННОМ ВИДЕ** с обязательной ссылкой на оригинал.
+- ❌ **Вы НЕ можете** изменять, модифицировать, создавать производные работы или выдавать код за свой.
+
+Подробнее: [https://creativecommons.org/licenses/by-nd/4.0/deed.ru](https://creativecommons.org/licenses/by-nd/4.0/deed.ru)
+
+---
+
+### 📜 Лицензия на правила (rule-providers)
+
+Правила, подключаемые через `rule-providers`, **НЕ являются частью кода конструктора** и принадлежат своим авторам:
+
+- Правила **Nellimonix**, **MetaCubeX**, **hydraponique** — под лицензией **GPL-3.0**
+- Правила **PentiumB** — под лицензией **MIT**
+
+Использование этих правил регулируется соответствующими лицензиями авторов.
 
 ---
 
