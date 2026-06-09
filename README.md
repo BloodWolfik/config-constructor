@@ -23,7 +23,7 @@
 | YouTube, Discord и другие | **Nellimonix** | GPL-3.0 | [ClashXRule](https://github.com/nellimonix/ClashXRule) |
 | Telegram (GeoIP) и другие | **MetaCubeX** | GPL-3.0 | [meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) |
 | Telegram (GeoSite) и другие | **hydraponique** | GPL-3.0 | [roscomvpn-geoip](https://github.com/hydraponique/roscomvpn-geoip) |
-| CDN-диапазоны (Cloudflare, Amazon, Fastly, Akamai, Oracle) | **PentiumB** | MIT | [CDN-RuleSet](https://github.com/PentiumB/CDN-RuleSet) |
+| CDN-диапазоны (Cloudflare, Amazon, Fastly, Akamai, Oracle) | **PentiumB** | ----------- | [CDN-RuleSet](https://github.com/PentiumB/CDN-RuleSet) |
 
 ---
 
