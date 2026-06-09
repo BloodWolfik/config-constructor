@@ -538,7 +538,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 <script>
-    // ========= ПРОКСИ (оставляем как есть) =========
+    // ========= ПРОКСИ =========
     const GEO_PROXIES = [
         { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 500 },
         { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 500 },
@@ -585,7 +585,7 @@
         { id: "range195", icon: "📡", title: "162.159.195.1-10", comment: "# 162.159.195.1-10", proxies: RANGE195_PROXIES }
     ];
 
-    // ========= НОВЫЕ ПРАВИЛА ОТ АВТОРОВ =========
+    // ========= ПРАВИЛА ОТ АВТОРОВ =========
     const RULES_BY_AUTHOR = [
         {
             author: "Nellimonix",
@@ -708,7 +708,6 @@
         }
     }
 
-    // ========= ИСПРАВЛЕННАЯ ФУНКЦИЯ - ГРУППЫ ТЕПЕРЬ СВЁРНУТЫ =========
     function renderProxiesList() {
         const container = document.getElementById('proxiesList');
         container.innerHTML = '';
@@ -883,7 +882,7 @@
                 }
                 yamlResult += selectedByGroup[groupId].comment + '\n';
                 for (const p of selectedByGroup[groupId].proxies) {
-                    yamlResult += `- name: ${p.name}\n`;
+                    yamlResult += `- name: "${p.name}"\n`;
                     yamlResult += `  <<: *warp-common\n`;
                     yamlResult += `  server: ${p.server}\n`;
                     yamlResult += `  port: ${p.port}\n`;
@@ -899,7 +898,7 @@
             }
             yamlResult += '# Прокси из вашего конфига\n';
             for (const p of originalConfigObj.proxies) {
-                yamlResult += `- name: ${p.name}\n`;
+                yamlResult += `- name: "${p.name}"\n`;
                 if (p.server) yamlResult += `  server: ${p.server}\n`;
                 if (p.port) yamlResult += `  port: ${p.port}\n`;
                 if (p['<<']) yamlResult += `  <<: *warp-common\n`;
@@ -935,7 +934,7 @@
             yamlResult += `  type: select\n`;
             yamlResult += `  proxies:\n`;
             for (const name of allSelectedProxyNames) {
-                yamlResult += `    - ${name}\n`;
+                yamlResult += `    - "${name}"\n`;
             }
             yamlResult += `    - DIRECT\n`;
             yamlResult += '\n';
@@ -1039,7 +1038,6 @@
     window.selectGroupProxies = selectGroupProxies;
 </script>
 
-<!-- Единый футер: техническая информация + лицензия -->
 <footer style="text-align: center; margin-top: 48px; padding: 20px 15px 30px; color: #4a4a62; font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
     ⚡ Сохраняются секции: warp-common, proxies, proxy-groups, rules, rule-providers<br>
     🧬 Все ваши личные данные остаются нетронутыми
