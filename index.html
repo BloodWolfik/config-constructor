@@ -439,8 +439,6 @@
         .download-btn { background: #10b981; padding: 12px 26px; border-radius: 40px; text-decoration: none; color: white; font-weight: 500; transition: 0.2s; }
         .download-btn:hover { background: #059669; }
 
-        footer { text-align: center; margin-top: 48px; color: #4a4a62; font-size: 0.75rem; }
-
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 10px; }
@@ -536,8 +534,6 @@
             </div>
         </div>
     </div>
-
-    <footer>⚡ Сохраняются секции: warp-common, proxies, proxy-groups, rules, rule-providers<br>🧬 Все ваши личные данные остаются нетронутыми</footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
@@ -1042,5 +1038,20 @@
     window.toggleGroup = toggleGroup;
     window.selectGroupProxies = selectGroupProxies;
 </script>
+
+<!-- Единый футер: техническая информация + лицензия -->
+<footer style="text-align: center; margin-top: 48px; padding: 20px 15px 30px; color: #4a4a62; font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
+    ⚡ Сохраняются секции: warp-common, proxies, proxy-groups, rules, rule-providers<br>
+    🧬 Все ваши личные данные остаются нетронутыми
+    <br><br>
+    © 2025 Config Constructor · 
+    <a href="https://creativecommons.org/licenses/by-nd/4.0/deed.ru" target="_blank" style="color: #66ccff; text-decoration: none;">
+        Лицензия CC BY-ND 4.0
+    </a>
+    · Копирование без изменений разрешено, изменять и выдавать за своё запрещено
+    <br>
+    📁 Оригинал: <a href="https://bloodwolfik.github.io/config-constructor/" style="color: #66ccff; text-decoration: none;">bloodwolfik.github.io/config-constructor</a>
+</footer>
+
 </body>
 </html>
