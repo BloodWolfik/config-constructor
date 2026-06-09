@@ -83,26 +83,10 @@
             border-radius: 20px;
         }
 
-        .status-card.success { background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.3); display: flex; }
+        .status-card.success { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.5); display: flex; }
+        .status-card.success span { color: #ffffff !important; font-weight: 500; }
         .status-card.error { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); display: flex; }
-
-        .info-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin: 24px 0 16px;
-        }
-
-        .stat-card {
-            background: rgba(0, 0, 0, 0.35);
-            padding: 14px 18px;
-            border-radius: 24px;
-            flex: 1;
-            text-align: center;
-        }
-
-        .stat-label { font-size: 0.75rem; color: #9f9fbb; text-transform: uppercase; }
-        .stat-value { font-size: 1.8rem; font-weight: 700; color: #c084fc; }
+        .status-card.error span { color: #ffaaaa !important; }
 
         .step-divider {
             display: flex;
@@ -312,7 +296,6 @@
             line-height: 1.35;
         }
 
-        /* Стили для правил по авторам */
         .author-section {
             margin-bottom: 24px;
             background: rgba(0, 0, 0, 0.25);
@@ -383,24 +366,6 @@
             color: #ddd;
         }
 
-        .settings-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 18px 22px;
-            border-radius: 28px;
-            margin: 20px 0;
-        }
-
-        .settings-row label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #cacae0;
-            cursor: pointer;
-        }
-
         .btn-process {
             width: 100%;
             padding: 16px;
@@ -459,7 +424,7 @@
 <div class="container">
     <div class="hero">
         <h1>🧹 CONFIG CONSTRUCTOR</h1>
-        <p>Загрузите конфиг → выберите сервера → добавьте правила</p>
+        <p>Загрузите конфиг → Создайте свой конфиг с нуля</p>
     </div>
 
     <div class="glass" style="padding: 32px;">
@@ -470,13 +435,6 @@
             <input type="file" id="fileInput" accept=".yaml,.yml">
         </div>
         <div id="statusCard" class="status-card"></div>
-        <div id="statsSection" style="display: none;">
-            <div class="info-stats">
-                <div class="stat-card"><div class="stat-label">Прокси</div><div class="stat-value" id="proxyStat">0</div></div>
-                <div class="stat-card"><div class="stat-label">Правила</div><div class="stat-value" id="rulesStat">0</div></div>
-                <div class="stat-card"><div class="stat-label">Группы</div><div class="stat-value" id="groupsStat">0</div></div>
-            </div>
-        </div>
     </div>
 
     <div id="proxiesPanel" style="display: none;">
@@ -511,25 +469,13 @@
             
             <div id="rulesContainer"></div>
 
-            <div class="step-divider">
-                <div class="step-line"></div>
-                <div class="step-badge">
-                    <div class="step-number">4</div>
-                    <div class="step-title">Настройки</div>
-                </div>
-                <div class="step-line"></div>
-            </div>
-            
-            <div class="settings-row">
-                <label><input type="checkbox" id="keepExistingProxies"> ✅ Сохранить мои прокси</label>
-                <label><input type="checkbox" id="replaceProxies"> 🔄 Заменить на выбранные</label>
-                <label><input type="checkbox" id="mergeRules"> 🔄 Объединить с моими правилами</label>
-            </div>
-
             <button class="btn-process" id="processBtn">🚀 СОБРАТЬ КОНФИГ</button>
 
             <div id="resultArea" class="result-box glass">
-                <div><strong>✅ Конфиг готов</strong><br><span id="resultStats" style="font-size: 0.8rem; color: #aaa;"></span></div>
+                <div style="font-size: 1rem; font-weight: 500; color: #ffffff;">
+                    ✅ Конфиг готов<br>
+                    <span id="resultStats"></span>
+                </div>
                 <a id="downloadLink" class="download-btn">📥 Скачать</a>
             </div>
         </div>
@@ -585,7 +531,6 @@
         { id: "range195", icon: "📡", title: "162.159.195.1-10", comment: "# 162.159.195.1-10", proxies: RANGE195_PROXIES }
     ];
 
-    // ========= ПРАВИЛА ОТ АВТОРОВ (ВСЕ ГАЛОЧКИ УБРАНЫ) =========
     const RULES_BY_AUTHOR = [
         {
             author: "Nellimonix",
@@ -639,7 +584,6 @@
 
     let originalFileText = null;
     let cleanedWarpCommon = null;
-    let originalConfigObj = null;
 
     function extractWarpCommonBlock(yamlText) {
         const lines = yamlText.split(/\r?\n/);
@@ -684,28 +628,7 @@
             const { warpBlock, restText } = extractWarpCommonBlock(text);
             cleanedWarpCommon = warpBlock;
             
-            let restConfig = {};
-            if (restText.trim()) {
-                try { restConfig = jsyaml.load(restText) || {}; } catch(e) { restConfig = {}; }
-            }
-            
-            originalConfigObj = {
-                proxies: restConfig.proxies,
-                'proxy-groups': restConfig['proxy-groups'],
-                rules: restConfig.rules,
-                'rule-providers': restConfig['rule-providers']
-            };
-            
-            const proxyCount = originalConfigObj.proxies?.length || 0;
-            const rulesCount = originalConfigObj.rules?.length || 0;
-            const groupsCount = originalConfigObj['proxy-groups']?.length || 0;
-            
-            document.getElementById('proxyStat').innerText = proxyCount;
-            document.getElementById('rulesStat').innerText = rulesCount;
-            document.getElementById('groupsStat').innerText = groupsCount;
-            document.getElementById('statsSection').style.display = 'block';
-            
-            showStatus('success', `✅ Конфиг загружен! Прокси: ${proxyCount}, правил: ${rulesCount}`);
+            showStatus('success', `✅ Конфиг загружен! Все блоки (прокси, правила, группы) очищены, кроме warp-common`);
             
             renderProxiesList();
             renderRulesList();
@@ -869,10 +792,6 @@
     }
     
     function buildFinalYaml() {
-        const keepExisting = document.getElementById('keepExistingProxies').checked;
-        const replaceProxies = document.getElementById('replaceProxies').checked;
-        const mergeRulesFlag = document.getElementById('mergeRules').checked;
-        
         const selectedByGroup = getSelectedProxiesByGroup();
         const selectedRules = getSelectedRules();
         
@@ -900,21 +819,6 @@
             }
         }
         
-        if (keepExisting && originalConfigObj?.proxies && originalConfigObj.proxies.length > 0 && !replaceProxies) {
-            if (!hasProxies) {
-                yamlResult += 'proxies:\n';
-                hasProxies = true;
-            }
-            yamlResult += '# Прокси из вашего конфига\n';
-            for (const p of originalConfigObj.proxies) {
-                yamlResult += `- name: "${p.name}"\n`;
-                if (p.server) yamlResult += `  server: ${p.server}\n`;
-                if (p.port) yamlResult += `  port: ${p.port}\n`;
-                if (p['<<']) yamlResult += `  <<: *warp-common\n`;
-            }
-            yamlResult += '\n';
-        }
-        
         let allSelectedProxyNames = [];
         for (const groupId of groupOrder) {
             if (selectedByGroup[groupId]) {
@@ -924,20 +828,7 @@
             }
         }
         
-        if (originalConfigObj?.['proxy-groups'] && originalConfigObj['proxy-groups'].length > 0 && !replaceProxies) {
-            yamlResult += 'proxy-groups:\n';
-            for (const g of originalConfigObj['proxy-groups']) {
-                yamlResult += `- name: ${g.name}\n`;
-                yamlResult += `  type: ${g.type}\n`;
-                if (g.proxies) {
-                    yamlResult += `  proxies:\n`;
-                    for (const proxyName of g.proxies) {
-                        yamlResult += `    - ${proxyName}\n`;
-                    }
-                }
-            }
-            yamlResult += '\n';
-        } else if (allSelectedProxyNames.length > 0) {
+        if (allSelectedProxyNames.length > 0) {
             yamlResult += 'proxy-groups:\n';
             yamlResult += `- name: PROXY\n`;
             yamlResult += `  type: select\n`;
@@ -952,12 +843,6 @@
         if (selectedRules.length > 0) {
             yamlResult += generateRuleProviders(selectedRules);
             yamlResult += generateRulesSection(selectedRules);
-        } else if (mergeRulesFlag && originalConfigObj?.rules) {
-            yamlResult += 'rules:\n';
-            for (const rule of originalConfigObj.rules) {
-                yamlResult += `  - ${rule}\n`;
-            }
-            yamlResult += '  - MATCH,DIRECT\n';
         }
         
         return yamlResult;
@@ -999,18 +884,19 @@
         }, 50);
     }
     
+    // ИСПРАВЛЕННАЯ ФУНКЦИЯ showStatus - ТОЛЬКО ОДИН ЭМОДЗИ
     function showStatus(type, msg) {
         const statusDiv = document.getElementById('statusCard');
         statusDiv.className = 'status-card';
         if (type === 'success') {
             statusDiv.classList.add('success');
-            statusDiv.innerHTML = `<span>✅</span><span>${msg}</span>`;
+            statusDiv.innerHTML = `<span>${msg}</span>`;
         } else if (type === 'error') {
             statusDiv.classList.add('error');
-            statusDiv.innerHTML = `<span>❌</span><span>${msg}</span>`;
+            statusDiv.innerHTML = `<span>${msg}</span>`;
         } else if (type === 'loading') {
             statusDiv.classList.add('success');
-            statusDiv.innerHTML = `<span>⏳</span><span>${msg}</span>`;
+            statusDiv.innerHTML = `<span>${msg}</span>`;
         }
     }
     
