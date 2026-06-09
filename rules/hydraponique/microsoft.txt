@@ -1,0 +1,7 @@
+  microsoft:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/microsoft.mrs
+    path: ./ruleset/microsoft.mrs
+    interval: 86400
