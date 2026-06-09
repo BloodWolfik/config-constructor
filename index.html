@@ -712,6 +712,7 @@
         }
     }
 
+    // ========= ИСПРАВЛЕННАЯ ФУНКЦИЯ - ГРУППЫ ТЕПЕРЬ СВЁРНУТЫ =========
     function renderProxiesList() {
         const container = document.getElementById('proxiesList');
         container.innerHTML = '';
@@ -944,12 +945,10 @@
             yamlResult += '\n';
         }
         
-        // Добавляем rule-providers и rules от выбранных авторов
         if (selectedRules.length > 0) {
             yamlResult += generateRuleProviders(selectedRules);
             yamlResult += generateRulesSection(selectedRules);
         } else if (mergeRulesFlag && originalConfigObj?.rules) {
-            // Если правила не выбраны, но нужно объединить существующие
             yamlResult += 'rules:\n';
             for (const rule of originalConfigObj.rules) {
                 yamlResult += `  - ${rule}\n`;
