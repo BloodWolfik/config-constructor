@@ -50,6 +50,51 @@
             margin-top: 12px;
         }
 
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 40px;
+            padding: 8px 20px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            font-size: 0.85rem;
+            color: #c084fc;
+        }
+
+        .stat-card span {
+            color: white;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .collapse-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .collapse-btn {
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            color: #c084fc;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .collapse-btn:hover {
+            background: rgba(168, 85, 247, 0.3);
+        }
+
         .upload-area {
             padding: 48px 28px;
             text-align: center;
@@ -129,6 +174,70 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: #e8e8f0;
+        }
+
+        .settings-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .settings-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #c084fc;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .settings-group {
+            margin-bottom: 20px;
+        }
+
+        .settings-subtitle {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #a855f7;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #ddd;
+        }
+
+        .checkbox-item .hint {
+            font-size: 0.7rem;
+            color: #666;
+            margin-left: 8px;
         }
 
         .main-group-config {
@@ -441,8 +550,9 @@
         }
 
         .btn-process:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
         .result-box {
@@ -470,6 +580,7 @@
             padding: 8px 12px;
             background: rgba(168, 85, 247, 0.1);
             cursor: pointer;
+            border-radius: 12px;
         }
 
         .group-category-header:hover {
@@ -495,6 +606,8 @@
             .rules-checkbox-grid {
                 grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             }
+            .stats-bar { gap: 12px; }
+            .stat-card { padding: 4px 12px; font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -502,7 +615,7 @@
 <div class="container">
     <div class="hero">
         <h1>🧹 CONFIG CONSTRUCTOR</h1>
-        <p>Загрузите конфиг → создайте группы → добавьте правила</p>
+        <p>Загрузите конфиг → создайте группы → добавьте правила → настройте исключения</p>
     </div>
 
     <div class="glass" style="padding: 32px;">
@@ -518,6 +631,13 @@
     <div id="proxiesPanel" style="display: none;">
         <div class="glass" style="padding: 32px; margin-top: 28px;">
             
+            <!-- Статистика -->
+            <div class="stats-bar" id="statsBar">
+                <div class="stat-card">📊 Прокси: <span id="totalProxiesCount">0</span></div>
+                <div class="stat-card">📦 Групп: <span id="statsGroupsCount">0</span></div>
+                <div class="stat-card">✅ Правил: <span id="statsRulesCount">0</span></div>
+            </div>
+
             <div class="step-divider">
                 <div class="step-line"></div>
                 <div class="step-badge">
@@ -525,6 +645,11 @@
                     <div class="step-title">Прокси группы</div>
                 </div>
                 <div class="step-line"></div>
+            </div>
+
+            <div class="collapse-buttons">
+                <button class="collapse-btn" id="expandAllBtn">📂 Развернуть всё</button>
+                <button class="collapse-btn" id="collapseAllBtn">📁 Свернуть всё</button>
             </div>
 
             <div class="main-group-config">
@@ -557,6 +682,44 @@
             
             <div id="rulesContainer"></div>
 
+            <div class="step-divider">
+                <div class="step-line"></div>
+                <div class="step-badge">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Настройки</div>
+                </div>
+                <div class="step-line"></div>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-title">⚙️ Исключения и правила</div>
+                
+                <div class="settings-group">
+                    <div class="settings-subtitle">🏠 Исключить локальную сеть (LAN)</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="excludeLanCheckbox">
+                        <label for="excludeLanCheckbox">Исключить локальные адреса (192.168.x.x, 10.x.x.x, 172.16.x.x, localhost)</label>
+                        <span class="hint">(LAN трафик пойдёт напрямую, не через прокси)</span>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <div class="settings-subtitle">📥 Торрент клиенты</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="torrentExcludeCheckbox">
+                        <label for="torrentExcludeCheckbox">Исключить qBittorrent и µTorrent (трафик напрямую)</label>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <div class="settings-subtitle">🎮 NVIDIA приложения</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="nvidiaExcludeCheckbox">
+                        <label for="nvidiaExcludeCheckbox">Исключить NVIDIA процессы (nvcontainer, NVIDIA App)</label>
+                    </div>
+                </div>
+            </div>
+
             <button class="btn-process" id="processBtn">🚀 СОБРАТЬ КОНФИГ</button>
 
             <div id="resultArea" class="result-box glass">
@@ -575,18 +738,43 @@
     // ========= НАСТРОЙКА РЕПОЗИТОРИЯ С ИКОНКАМИ =========
     const ICON_REPO_BASE_URL = "https://raw.githubusercontent.com/BloodWolfik/Sites/main/icons/";
     
-    // === РУЧНОЙ СПИСОК ИКОНОК ===
     const MANUAL_ICONS_LIST = [
-        "cloudflare.svg",
-        "discord.svg",
-        "google.svg",
-        "sites.svg",
-        "telegram.svg",
-        "twitch.svg",
-        "utorrent.svg",
-        "whatsapp.svg",
-        "youtube.svg"
+        "cloudflare.svg", "discord.svg", "google.svg", "sites.svg",
+        "telegram.svg", "twitch.svg", "utorrent.svg", "whatsapp.svg",
+        "youtube.svg", "reddit.svg", "hashtag.svg", "AI.svg",
+        "fastly.svg", "tv-series.svg", "cdn.svg"
     ];
+    
+    // Обновление глобальной статистики
+    function updateGlobalStats() {
+        const allProxyCheckboxes = document.querySelectorAll('.main-group-proxy-cb, .group-proxy-item-cb');
+        const totalSelectedProxies = Array.from(allProxyCheckboxes).filter(cb => cb.checked).length;
+        
+        document.getElementById('totalProxiesCount').innerText = totalSelectedProxies;
+        document.getElementById('statsGroupsCount').innerText = customGroups.length;
+        
+        const selectedRulesCount = getSelectedRules().length;
+        document.getElementById('statsRulesCount').innerText = selectedRulesCount;
+    }
+    
+    // Сворачивание/разворачивание всех категорий
+    function expandAllCategories() {
+        document.querySelectorAll('.category-content').forEach(content => {
+            content.style.display = 'block';
+        });
+        document.querySelectorAll('.category-arrow').forEach(arrow => {
+            arrow.style.transform = 'rotate(90deg)';
+        });
+    }
+    
+    function collapseAllCategories() {
+        document.querySelectorAll('.category-content').forEach(content => {
+            content.style.display = 'none';
+        });
+        document.querySelectorAll('.category-arrow').forEach(arrow => {
+            arrow.style.transform = 'rotate(0deg)';
+        });
+    }
     
     // Функция обновления превью иконки
     function updateIconPreview(containerId, iconUrl) {
@@ -789,6 +977,7 @@
             renderRulesList();
             document.getElementById('proxiesPanel').style.display = 'block';
             document.getElementById('resultArea').classList.remove('show');
+            updateGlobalStats();
             
         } catch (err) {
             showStatus('error', `⚠️ Ошибка: ${err.message}`);
@@ -813,12 +1002,14 @@
             catDiv.style.borderRadius = '12px';
             catDiv.style.overflow = 'hidden';
             
+            const selectedCount = mainGroupProxies.filter(p => cat.proxies.some(cp => cp.name === p.name)).length;
+            
             catDiv.innerHTML = `
                 <div class="group-category-header" style="background: rgba(168, 85, 247, 0.05);">
-                    <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="category-title">
                         <span class="category-arrow" style="font-size: 0.8rem;">▶</span>
                         <span style="font-size: 0.8rem; font-weight: 500; color: #c084fc;">${cat.name}</span>
-                        <span style="font-size: 0.7rem; color: #666;">(${cat.proxies.length})</span>
+                        <span class="category-stats" style="font-size: 0.7rem; color: #888;">(${selectedCount}/${cat.proxies.length})</span>
                     </div>
                     <div style="display: flex; gap: 8px;">
                         <button class="main-select-all" data-category-name="${cat.name}" style="background: rgba(168, 85, 247, 0.2); border: none; border-radius: 15px; padding: 2px 10px; color: #aaa; font-size: 0.65rem; cursor: pointer;">Выбрать все</button>
@@ -844,6 +1035,7 @@
             const header = catDiv.querySelector('.group-category-header');
             const content = catDiv.querySelector('.category-content');
             const arrow = header.querySelector('.category-arrow');
+            const statsSpan = header.querySelector('.category-stats');
             
             header.addEventListener('click', (e) => {
                 if (e.target.tagName !== 'BUTTON') {
@@ -860,7 +1052,15 @@
             const selectAllBtn = catDiv.querySelector('.main-select-all');
             const clearAllBtn = catDiv.querySelector('.main-clear-all');
             
-            selectAllBtn.addEventListener('click', () => {
+            const updateCategoryStatsLocal = () => {
+                const checkboxes = catDiv.querySelectorAll('.main-group-proxy-cb');
+                const newSelectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+                if (statsSpan) statsSpan.innerText = `(${newSelectedCount}/${cat.proxies.length})`;
+                updateGlobalStats();
+            };
+            
+            selectAllBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const checkboxes = catDiv.querySelectorAll('.main-group-proxy-cb');
                 checkboxes.forEach(cb => cb.checked = true);
                 checkboxes.forEach(cb => {
@@ -871,9 +1071,11 @@
                         mainGroupProxies.push({ name: proxyName, server: proxyServer, port: proxyPort });
                     }
                 });
+                updateCategoryStatsLocal();
             });
             
-            clearAllBtn.addEventListener('click', () => {
+            clearAllBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const checkboxes = catDiv.querySelectorAll('.main-group-proxy-cb');
                 checkboxes.forEach(cb => cb.checked = false);
                 checkboxes.forEach(cb => {
@@ -881,6 +1083,7 @@
                     const index = mainGroupProxies.findIndex(p => p.name === proxyName);
                     if (index !== -1) mainGroupProxies.splice(index, 1);
                 });
+                updateCategoryStatsLocal();
             });
             
             catDiv.querySelectorAll('.main-group-proxy-cb').forEach(cb => {
@@ -896,8 +1099,11 @@
                         const index = mainGroupProxies.findIndex(p => p.name === proxyName);
                         if (index !== -1) mainGroupProxies.splice(index, 1);
                     }
+                    updateCategoryStatsLocal();
                 });
             });
+            
+            updateCategoryStatsLocal();
         }
     }
 
@@ -937,13 +1143,15 @@
             let groupedProxiesHtml = '';
             for (const [key, grp] of Object.entries(groupedProxies)) {
                 if (grp.proxies.length === 0) continue;
+                const selectedCount = group.proxies.filter(p => grp.proxies.some(gp => gp.name === p.name)).length;
+                
                 groupedProxiesHtml += `
                     <div style="margin-top: 12px; margin-bottom: 8px; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; overflow: hidden;">
                         <div class="group-category-header" data-category="${key}" style="background: rgba(168, 85, 247, 0.1);">
-                            <div style="display: flex; align-items: center; gap: 10px;">
+                            <div class="category-title">
                                 <span class="category-arrow" id="arrow-${group.id}-${key}" style="font-size: 0.8rem; transition: transform 0.2s;">▶</span>
                                 <span style="font-size: 0.8rem; font-weight: 500; color: #c084fc;">${grp.name}</span>
-                                <span style="font-size: 0.7rem; color: #666;">(${grp.proxies.length})</span>
+                                <span class="category-stats" id="stats-${group.id}-${key}" style="font-size: 0.7rem; color: #888;">(${selectedCount}/${grp.proxies.length})</span>
                             </div>
                             <div style="display: flex; gap: 8px;" onclick="event.stopPropagation()">
                                 <button class="category-select-all" data-group-id="${group.id}" data-category="${key}" style="background: rgba(168, 85, 247, 0.2); border: none; border-radius: 15px; padding: 2px 10px; color: #aaa; font-size: 0.65rem; cursor: pointer;">Выбрать все</button>
@@ -1020,7 +1228,6 @@
                 updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
             });
             
-            // Обновляем превью при загрузке
             if (group.iconUrl) {
                 updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
             }
@@ -1046,6 +1253,15 @@
                 });
             });
             
+            const updateCategoryStatsLocal = (category) => {
+                const checkboxes = groupDiv.querySelectorAll(`.group-proxy-item-cb[data-category="${category}"]`);
+                const newSelectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+                const totalCount = groupedProxies[category].proxies.length;
+                const statsSpan = groupDiv.querySelector(`#stats-${group.id}-${category}`);
+                if (statsSpan) statsSpan.innerText = `(${newSelectedCount}/${totalCount})`;
+                updateGlobalStats();
+            };
+            
             groupDiv.querySelectorAll('.category-select-all').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const category = btn.dataset.category;
@@ -1059,6 +1275,7 @@
                             group.proxies.push({ name: proxyName, server: proxyServer, port: proxyPort });
                         }
                     });
+                    updateCategoryStatsLocal(category);
                 });
             });
             
@@ -1072,11 +1289,13 @@
                         const index = group.proxies.findIndex(p => p.name === proxyName);
                         if (index !== -1) group.proxies.splice(index, 1);
                     });
+                    updateCategoryStatsLocal(category);
                 });
             });
             
             groupDiv.querySelectorAll('.group-proxy-item-cb').forEach(cb => {
                 cb.addEventListener('change', () => {
+                    const category = cb.dataset.category;
                     const proxyName = cb.dataset.proxyName;
                     const proxyServer = cb.dataset.proxyServer;
                     const proxyPort = parseInt(cb.dataset.proxyPort);
@@ -1088,6 +1307,7 @@
                         const index = group.proxies.findIndex(p => p.name === proxyName);
                         if (index !== -1) group.proxies.splice(index, 1);
                     }
+                    updateCategoryStatsLocal(category);
                 });
             });
             
@@ -1099,6 +1319,7 @@
         }
         
         renderRuleAssignments();
+        updateGlobalStats();
     }
     
     function renderRuleAssignments() {
@@ -1134,10 +1355,12 @@
                                 delete ruleGroupAssignments[ruleId];
                             }
                         }
+                        updateGlobalStats();
                     });
                 });
             }
         }
+        updateGlobalStats();
     }
 
     function renderRulesList() {
@@ -1167,13 +1390,19 @@
                     <label for="rule_${rule.id}">${rule.name}</label>
                 </div>
             `).join('');
+            
+            rulesGrid.querySelectorAll('.rule-cb').forEach(cb => {
+                cb.addEventListener('change', () => updateGlobalStats());
+            });
         }
+        updateGlobalStats();
     }
 
     function deleteGroup(groupId) {
         customGroups = customGroups.filter(g => g.id !== groupId);
         renderCustomGroups();
         showStatus('success', '✅ Группа удалена');
+        updateGlobalStats();
     }
 
     function addCustomGroup() {
@@ -1186,6 +1415,7 @@
         customGroups.push(newGroup);
         renderCustomGroups();
         showStatus('success', `✅ Группа "${newGroup.name}" создана`);
+        updateGlobalStats();
     }
 
     function getSelectedRules() {
@@ -1221,13 +1451,46 @@
     function generateRulesSection(selectedRules) {
         if (selectedRules.length === 0) return '';
         
-        let yaml = 'rules:\n';
+        let yaml = '';
         for (const rule of selectedRules) {
             const groupName = ruleGroupAssignments[rule.id] || proxyGroupName;
-            yaml += `  - RULE-SET,${rule.id},${groupName}\n`;
+            yaml += `- RULE-SET,${rule.id},${groupName}\n`;
         }
-        yaml += '  - MATCH,DIRECT\n';
         return yaml;
+    }
+
+    function generateExcludeRules() {
+        let rules = '';
+        
+        const excludeLan = document.getElementById('excludeLanCheckbox').checked;
+        if (excludeLan) {
+            rules += `# Исключение локальной сети (LAN)\n`;
+            rules += `- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve\n`;
+            rules += `- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve\n`;
+            rules += `- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve\n`;
+            rules += `- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve\n`;
+            rules += `- IP-CIDR,169.254.0.0/16,DIRECT,no-resolve\n`;
+        }
+        
+        const excludeTorrent = document.getElementById('torrentExcludeCheckbox').checked;
+        if (excludeTorrent) {
+            if (rules !== '') rules += `\n`;
+            rules += `# Исключение торрент клиентов\n`;
+            rules += `- PROCESS-NAME,qbittorrent.exe,DIRECT,no-resolve\n`;
+            rules += `- PROCESS-NAME,qBittorrent.exe,DIRECT,no-resolve\n`;
+            rules += `- PROCESS-NAME,utorrent.exe,DIRECT,no-resolve\n`;
+            rules += `- PROCESS-NAME,µtorrent.exe,DIRECT,no-resolve\n`;
+        }
+        
+        const excludeNvidia = document.getElementById('nvidiaExcludeCheckbox').checked;
+        if (excludeNvidia) {
+            if (rules !== '') rules += `\n`;
+            rules += `# Исключение NVIDIA приложений\n`;
+            rules += `- PROCESS-NAME,nvcontainer.exe,DIRECT,no-resolve\n`;
+            rules += `- PROCESS-NAME,NVIDIA App.exe,DIRECT,no-resolve\n`;
+        }
+        
+        return rules;
     }
 
     function buildFinalYaml() {
@@ -1302,7 +1565,19 @@
         
         if (selectedRules.length > 0) {
             yamlResult += generateRuleProviders(selectedRules);
+            yamlResult += 'rules:\n';
+            const excludeRules = generateExcludeRules();
+            if (excludeRules) yamlResult += excludeRules;
+            if (excludeRules && selectedRules.length > 0 && excludeRules.slice(-1) !== '\n') yamlResult += '\n';
             yamlResult += generateRulesSection(selectedRules);
+            if (generateRulesSection(selectedRules).slice(-1) !== '\n') yamlResult += '\n';
+            yamlResult += '- MATCH,DIRECT\n';
+        } else {
+            yamlResult += 'rules:\n';
+            const excludeRules = generateExcludeRules();
+            if (excludeRules) yamlResult += excludeRules;
+            if (excludeRules && excludeRules.slice(-1) !== '\n') yamlResult += '\n';
+            yamlResult += '- MATCH,DIRECT\n';
         }
         
         return yamlResult;
@@ -1316,31 +1591,34 @@
         
         const processBtn = document.getElementById('processBtn');
         processBtn.disabled = true;
-        processBtn.textContent = '⏳ Сборка...';
         
-        setTimeout(() => {
-            try {
-                const finalYaml = buildFinalYaml();
-                const selectedRulesCount = getSelectedRules().length;
-                
-                document.getElementById('resultStats').innerHTML = `📦 Групп: ${customGroups.length} | Правил: ${selectedRulesCount}`;
-                
-                const blob = new Blob([finalYaml], { type: 'text/yaml' });
-                const url = URL.createObjectURL(blob);
-                const downloadLink = document.getElementById('downloadLink');
-                downloadLink.href = url;
-                downloadLink.download = `config_${Date.now()}.yaml`;
-                document.getElementById('resultArea').classList.add('show');
-                
-                showStatus('success', '✅ Конфиг готов! Нажмите "Скачать"');
-            } catch (err) {
-                showStatus('error', `Ошибка: ${err.message}`);
-                console.error(err);
-            } finally {
-                processBtn.disabled = false;
-                processBtn.textContent = '🚀 СОБРАТЬ КОНФИГ';
-            }
-        }, 50);
+        // Мгновенная сборка без задержки
+        const finalYaml = buildFinalYaml();
+        const selectedRulesCount = getSelectedRules().length;
+        
+        const excludeLan = document.getElementById('excludeLanCheckbox').checked;
+        const excludeTorrent = document.getElementById('torrentExcludeCheckbox').checked;
+        const excludeNvidia = document.getElementById('nvidiaExcludeCheckbox').checked;
+        
+        let settingsInfo = [];
+        if (excludeLan) settingsInfo.push('🏠 LAN');
+        if (excludeTorrent) settingsInfo.push('📥 Торренты');
+        if (excludeNvidia) settingsInfo.push('🎮 NVIDIA');
+        
+        let settingsText = settingsInfo.length > 0 ? ` | Настройки: ${settingsInfo.join(', ')}` : ' | Настройки: нет';
+        
+        document.getElementById('resultStats').innerHTML = `📦 Групп: ${customGroups.length} | Правил: ${selectedRulesCount}${settingsText}`;
+        
+        const blob = new Blob([finalYaml], { type: 'text/yaml' });
+        const url = URL.createObjectURL(blob);
+        const downloadLink = document.getElementById('downloadLink');
+        downloadLink.href = url;
+        downloadLink.download = `config_${Date.now()}.yaml`;
+        document.getElementById('resultArea').classList.add('show');
+        
+        showStatus('success', '✅ Конфиг готов! Нажмите "Скачать"');
+        
+        processBtn.disabled = false;
     }
 
     function showStatus(type, msg) {
@@ -1359,6 +1637,8 @@
     }
 
     document.getElementById('addGroupBtn').onclick = () => addCustomGroup();
+    document.getElementById('expandAllBtn').onclick = () => expandAllCategories();
+    document.getElementById('collapseAllBtn').onclick = () => collapseAllCategories();
     
     const uploadZone = document.getElementById('uploadZone');
     const fileInput = document.getElementById('fileInput');
@@ -1374,7 +1654,6 @@
     
     document.getElementById('processBtn').onclick = processFinal;
     
-    // Обновляем select'ы иконок
     updateIconSelects();
 </script>
 
