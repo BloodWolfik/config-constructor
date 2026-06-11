@@ -16,6 +16,213 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             min-height: 100vh;
             padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Кнопки в правом верхнем углу */
+        .floating-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c084fc;
+        }
+
+        .floating-btn:hover {
+            background: rgba(168, 85, 247, 0.3);
+            border-color: #a855f7;
+        }
+
+        .refresh-btn:hover {
+            transform: rotate(180deg);
+        }
+
+        .info-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .floating-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            max-width: 550px;
+            width: 90%;
+            background: rgba(20, 20, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 32px;
+            padding: 32px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c084fc, #60a5fa, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .close-modal {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff8888;
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            background: rgba(239, 68, 68, 0.4);
+            transform: scale(1.05);
+        }
+
+        .modal-body {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            color: #ddd;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            font-size: 1.2rem;
+            min-width: 32px;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-badge {
+            font-size: 0.65rem;
+            background: rgba(74, 222, 128, 0.15);
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: #4ade80;
+        }
+
+        .feature-badge.planned {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+        }
+
+        .info-footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.7rem;
+            color: #666;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Фоновые частицы */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(168, 85, 247, 0.4), rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 60px 80px, rgba(96, 165, 250, 0.3), rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 100px 150px, rgba(34, 211, 238, 0.25), rgba(0,0,0,0));
+            background-size: 250px 250px, 180px 180px, 300px 300px;
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .container {
@@ -29,26 +236,62 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 32px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
         }
 
+        .glass:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========= НОВАЯ ГИБРИДНАЯ ШАПКА ========= */
         .hero {
             text-align: center;
             margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .hero h1 {
             font-size: 3.2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #c084fc, #60a5fa, #22d3ee);
+            font-weight: 800;
+            background: linear-gradient(135deg, #c084fc, #60a5fa, #22d3ee, #f472b6, #c084fc);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            animation: gradientShift 5s ease infinite;
+            letter-spacing: -0.5px;
         }
 
         .hero p {
-            color: #8b8ba5;
-            margin-top: 12px;
+            color: #a1a1c2;
+            margin-top: 16px;
+            font-size: 1.1rem;
+            position: relative;
+            display: inline-block;
+            padding: 6px 20px;
+            background: rgba(168, 85, 247, 0.08);
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* ========= КОНЕЦ НОВОЙ ШАПКИ ========= */
 
         .collapse-buttons {
             display: flex;
@@ -73,17 +316,24 @@
         }
 
         .upload-area {
+            max-width: 550px;
+            margin: 0 auto;
             padding: 48px 28px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px dashed rgba(139, 139, 165, 0.3);
             border-radius: 28px;
+            background: transparent;
         }
 
         .upload-area:hover {
             border-color: #a855f7;
             background: rgba(168, 85, 247, 0.05);
+        }
+
+        .upload-area:active {
+            transform: scale(0.98);
         }
 
         .upload-area.drag-over {
@@ -97,8 +347,9 @@
         input[type="file"] { display: none; }
 
         .status-card {
+            max-width: 550px;
+            margin: 20px auto 0;
             padding: 16px 22px;
-            margin-top: 20px;
             display: none;
             align-items: center;
             gap: 12px;
@@ -132,6 +383,12 @@
             border-radius: 60px;
             border: 1px solid rgba(168, 85, 247, 0.3);
             backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .step-badge:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(96, 165, 250, 0.2));
         }
 
         .step-number {
@@ -369,6 +626,13 @@
             padding: 5px 10px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .group-proxy-option:has(input:checked) {
+            background: rgba(168, 85, 247, 0.15);
+            border-left: 2px solid #a855f7;
         }
 
         .group-proxy-option input {
@@ -535,11 +799,31 @@
             cursor: pointer;
             transition: 0.2s;
             margin-top: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-process:hover:not(:disabled) {
             transform: scale(1.02);
             box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-process:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-process::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
         .btn-process:disabled {
@@ -562,9 +846,10 @@
         .download-btn { background: #10b981; padding: 12px 26px; border-radius: 40px; text-decoration: none; color: white; font-weight: 500; transition: 0.2s; }
         .download-btn:hover { background: #059669; }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 10px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(20, 20, 35, 0.8); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #a855f7, #7c3aed); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #c084fc, #a855f7); }
 
         .group-category-header {
             display: flex;
@@ -588,6 +873,24 @@
         .category-content {
             padding: 12px;
         }
+        
+        .category-stats {
+            color: #ffffff !important;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+        
+        .category-select-all, .category-clear-all {
+            transition: all 0.2s ease;
+        }
+        
+        .category-select-all:hover {
+            background: rgba(168, 85, 247, 0.4) !important;
+        }
+        
+        .category-clear-all:hover {
+            background: rgba(239, 68, 68, 0.4) !important;
+        }
 
         @media (max-width: 700px) {
             .custom-group-header { flex-direction: column; align-items: stretch; }
@@ -599,29 +902,78 @@
             .rules-checkbox-grid {
                 grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             }
+            .upload-area {
+                max-width: 100%;
+            }
+            .status-card {
+                max-width: 100%;
+            }
+            .floating-buttons {
+                top: 10px;
+                right: 10px;
+                gap: 8px;
+            }
+            .floating-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+
+<!-- Кнопки в правом верхнем углу -->
+<div class="floating-buttons">
+    <div class="floating-btn info-btn" id="infoBtn" title="Информация">📋</div>
+    <div class="floating-btn refresh-btn" id="refreshBtn" title="Обновить страницу">🔄</div>
+</div>
+
+<!-- Модальное окно с информацией -->
+<div id="infoModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>📋 Config Constructor</h2>
+            <div class="close-modal" id="closeModalBtn">✕</div>
+        </div>
+        <div class="modal-body">
+            <ul class="feature-list">
+                <li><span class="feature-icon">📂</span><span class="feature-text">Загрузка YAML/конфигов</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">🌍</span><span class="feature-text">Выбор прокси (гео, оригинальные, диапазоны IP)</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">📁</span><span class="feature-text">Создание неограниченного количества групп</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">🎯</span><span class="feature-text">Выбор правил от Nellimonix, MetaCubeX, hydraponique, PentiumB</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">⚙️</span><span class="feature-text">Назначение правил на конкретные группы</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">🏠</span><span class="feature-text">Исключение LAN, торрентов и NVIDIA приложений</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">🖼️</span><span class="feature-text">Выбор иконок групп из репозитория с превью</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">💾</span><span class="feature-text">Скачивание готового конфига одной кнопкой</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">📦</span><span class="feature-text">Сохранение warp-common секции</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">✨</span><span class="feature-text">Анимированный интерфейс с космическим фоном</span><span class="feature-badge">готово</span></li>                
+            </ul>
+        </div>
+        <div class="info-footer">
+            © 2026 Config Constructor · Лицензия CC BY-ND 4.0<br>
+            📁 Оригинал: bloodwolfik.github.io/config-constructor
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="hero">
         <h1>🧹 CONFIG CONSTRUCTOR</h1>
         <p>Загрузите конфиг → создайте группы → добавьте правила → настройте исключения</p>
     </div>
 
-    <div class="glass" style="padding: 32px;">
-        <div class="upload-area" id="uploadZone">
-            <div class="upload-icon">📂</div>
-            <div class="upload-text">Нажмите или перетащите .yaml / .yml</div>
-            <div class="upload-hint">Ваши данные не покидают браузер</div>
-            <input type="file" id="fileInput" accept=".yaml,.yml">
-        </div>
-        <div id="statusCard" class="status-card"></div>
+    <!-- Ячейка загрузки -->
+    <div class="upload-area" id="uploadZone">
+        <div class="upload-icon">📂</div>
+        <div class="upload-text">Нажмите или перетащите .yaml / .yml</div>
+        <div class="upload-hint">Ваши данные не покидают браузер</div>
+        <input type="file" id="fileInput" accept=".yaml,.yml">
     </div>
+    <div id="statusCard" class="status-card"></div>
 
     <div id="proxiesPanel" style="display: none;">
         <div class="glass" style="padding: 32px; margin-top: 28px;">
-            
             <div class="step-divider">
                 <div class="step-line"></div>
                 <div class="step-badge">
@@ -659,22 +1011,6 @@
                 <div class="step-line"></div>
                 <div class="step-badge">
                     <div class="step-number">3</div>
-                    <div class="step-title">Выберите правила</div>
-                </div>
-                <div class="step-line"></div>
-            </div>
-            
-            <div class="warning-note">
-                <span>⚠️</span>
-                <span><strong>Важно:</strong> Не выбирайте одинаковые правила от разных авторов (например, YouTube от Nellimonix и YouTube от MetaCubeX) — это вызовет конфликт в конфигурации. При конфликте одно из правил будет автоматически переименовано (добавится суффикс "_meta").</span>
-            </div>
-
-            <div id="rulesContainer"></div>
-
-            <div class="step-divider">
-                <div class="step-line"></div>
-                <div class="step-badge">
-                    <div class="step-number">4</div>
                     <div class="step-title">Настройки</div>
                 </div>
                 <div class="step-line"></div>
@@ -724,26 +1060,36 @@
 
 <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 <script>
+    // Модальное окно
+    const modal = document.getElementById('infoModal');
+    const infoBtn = document.getElementById('infoBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    infoBtn.addEventListener('click', () => {
+        modal.classList.add('show');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+
+    // Кнопка обновления страницы
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+        location.reload();
+    });
+
     // ========= НАСТРОЙКА РЕПОЗИТОРИЯ С ИКОНКАМИ =========
     const ICON_REPO_BASE_URL = "https://raw.githubusercontent.com/BloodWolfik/Sites/main/icons/";
+    const MANUAL_ICONS_LIST = ["cloudflare.svg","discord.svg","google.svg","sites.svg","telegram.svg","twitch.svg","utorrent.svg","whatsapp.svg","youtube.svg","reddit.svg","hashtag.svg","AI.svg","fastly.svg","tv-series.svg","cdn.svg"];
     
-    const MANUAL_ICONS_LIST = [
-        "cloudflare.svg", "discord.svg", "google.svg", "sites.svg",
-        "telegram.svg", "twitch.svg", "utorrent.svg", "whatsapp.svg",
-        "youtube.svg", "reddit.svg", "hashtag.svg", "AI.svg",
-        "fastly.svg", "tv-series.svg", "cdn.svg"
-    ];
-    
-    function expandAllCategories() {
-        document.querySelectorAll('.category-content').forEach(content => content.style.display = 'block');
-        document.querySelectorAll('.category-arrow').forEach(arrow => arrow.style.transform = 'rotate(90deg)');
-    }
-    
-    function collapseAllCategories() {
-        document.querySelectorAll('.category-content').forEach(content => content.style.display = 'none');
-        document.querySelectorAll('.category-arrow').forEach(arrow => arrow.style.transform = 'rotate(0deg)');
-    }
-    
+    function expandAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'block'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(90deg)'); }
+    function collapseAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'none'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(0deg)'); }
     function updateIconPreview(containerId, iconUrl) {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -755,262 +1101,120 @@
             img.onload = () => { container.innerHTML = ''; container.appendChild(img); };
             container.innerHTML = '';
             container.appendChild(img);
-        } else {
-            container.innerHTML = '<div class="icon-preview-placeholder">🖼️</div>';
-        }
+        } else { container.innerHTML = '<div class="icon-preview-placeholder">🖼️</div>'; }
     }
     
-    // ========= ПРОКСИ (без изменений) =========
-    const GEO_PROXIES = [
-        { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇷🇺 Россия", server: "ru0.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇫🇮 Финляндия", server: "fi.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇩🇪 Германия", server: "de.tribukvy.ltd", port: 500 },
-        { name: "[🌍] 🇱🇻 Латвия", server: "lv.tribukvy.ltd", port: 500 },
-        { name: "[🌍] LTE 🇵🇱 Польша", server: "mpl.tribukvy.ltd", port: 500 },
-        { name: "[🌍] LTE 🇫🇮 Финляндия", server: "mfi.tribukvy.ltd", port: 500 }
-    ];
-
-    const ORIGINAL_PROXIES = [
-        { name: "[⭐] 188.114.97.1:500", server: "188.114.97.1", port: 500 },
-        { name: "[⭐] 188.114.97.148:4500", server: "188.114.97.148", port: 4500 },
-        { name: "[⭐] 162.159.195.1:500", server: "162.159.195.1", port: 500 },
-        { name: "[⭐] engage.cloudflareclient.com:4500", server: "engage.cloudflareclient.com", port: 4500 },
-        { name: "[⭐] engage.cloudflareclient.com:500", server: "engage.cloudflareclient.com", port: 500 },
-        { name: "[⭐] engage.cloudflareclient.com:2408", server: "engage.cloudflareclient.com", port: 2408 },
-        { name: "[⭐] 188.114.99.224:1002", server: "188.114.99.224", port: 1002 },
-        { name: "[⭐] 8.34.146.113:968", server: "8.34.146.113", port: 968 }
-    ];
-
-    const RANGE192_PROXIES = [];
-    const RANGE195_PROXIES = [];
-
-    for (let i = 1; i <= 20; i++) {
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:2408`, server: `162.159.192.${i}`, port: 2408 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:1701`, server: `162.159.192.${i}`, port: 1701 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:4500`, server: `162.159.192.${i}`, port: 4500 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:500`, server: `162.159.192.${i}`, port: 500 });
-    }
-
-    for (let i = 1; i <= 10; i++) {
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:2408`, server: `162.159.195.${i}`, port: 2408 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:1701`, server: `162.159.195.${i}`, port: 1701 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:4500`, server: `162.159.195.${i}`, port: 4500 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:500`, server: `162.159.195.${i}`, port: 500 });
-    }
-
+    // ========= ПРОКСИ =========
+    const GEO_PROXIES = [ { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇷🇺 Россия", server: "ru0.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇫🇮 Финляндия", server: "fi.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇩🇪 Германия", server: "de.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇱🇻 Латвия", server: "lv.tribukvy.ltd", port: 500 }, { name: "[🌍] LTE 🇵🇱 Польша", server: "mpl.tribukvy.ltd", port: 500 }, { name: "[🌍] LTE 🇫🇮 Финляндия", server: "mfi.tribukvy.ltd", port: 500 } ];
+    const ORIGINAL_PROXIES = [ { name: "[⭐] 188.114.97.1:500", server: "188.114.97.1", port: 500 }, { name: "[⭐] 188.114.97.148:4500", server: "188.114.97.148", port: 4500 }, { name: "[⭐] 162.159.195.1:500", server: "162.159.195.1", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:4500", server: "engage.cloudflareclient.com", port: 4500 }, { name: "[⭐] engage.cloudflareclient.com:500", server: "engage.cloudflareclient.com", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:2408", server: "engage.cloudflareclient.com", port: 2408 }, { name: "[⭐] 188.114.99.224:1002", server: "188.114.99.224", port: 1002 }, { name: "[⭐] 8.34.146.113:968", server: "8.34.146.113", port: 968 } ];
+    const RANGE192_PROXIES = []; const RANGE195_PROXIES = [];
+    for (let i = 1; i <= 20; i++) { RANGE192_PROXIES.push({ name: `162.159.192.${i}:2408`, server: `162.159.192.${i}`, port: 2408 },{ name: `162.159.192.${i}:1701`, server: `162.159.192.${i}`, port: 1701 },{ name: `162.159.192.${i}:4500`, server: `162.159.192.${i}`, port: 4500 },{ name: `162.159.192.${i}:500`, server: `162.159.192.${i}`, port: 500 }); }
+    for (let i = 1; i <= 10; i++) { RANGE195_PROXIES.push({ name: `162.159.195.${i}:2408`, server: `162.159.195.${i}`, port: 2408 },{ name: `162.159.195.${i}:1701`, server: `162.159.195.${i}`, port: 1701 },{ name: `162.159.195.${i}:4500`, server: `162.159.195.${i}`, port: 4500 },{ name: `162.159.195.${i}:500`, server: `162.159.195.${i}`, port: 500 }); }
+    
     // ========= ПРАВИЛА С ОРИГИНАЛЬНЫМИ URL АВТОРОВ =========
     const RULES_BY_AUTHOR = [
-        {
-            author: "Nellimonix",
-            authorUrl: "https://github.com/nellimonix",
-            license: "GPL-3.0",
-            rules: [
-                { id: "nellimonix_youtube", name: "🎬 YouTube", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt" },
-                { id: "nellimonix_discord", name: "💬 Discord", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/discord.txt" },
-                { id: "nellimonix_music", name: "🎵 Music", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/music.txt" },
-                { id: "nellimonix_socials", name: "📱 Socials", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/socials.txt" },
-                { id: "nellimonix_tools", name: "🔧 Tools", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/tools.txt" },
-                { id: "nellimonix_torrent", name: "🏴‍☠️ Torrent", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/torrent.txt" },
-                { id: "nellimonix_porno", name: "🔞 Porno", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/porno.txt" }
-            ]
-        },
-        {
-            author: "MetaCubeX",
-            authorUrl: "https://github.com/MetaCubeX",
-            license: "GPL-3.0",
-            rules: [
-                { id: "metacuvex_youtube", name: "🎬 YouTube (Meta)", type: "domain", format: "mrs", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs" },
-                { id: "metacuvex_telegram_ip", name: "✈️ Telegram (GeoIP)", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs" },
-                { id: "metacuvex_netflix", name: "🎬 Netflix (Meta)", type: "domain", format: "mrs", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs" },
-                { id: "metacuvex_ai", name: "🤖 AI (Meta)", type: "domain", format: "mrs", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ai-!cn.mrs" }
-            ]
-        },
-        {
-            author: "hydraponique",
-            authorUrl: "https://github.com/hydraponique",
-            license: "GPL-3.0",
-            rules: [
-                { id: "hydraponique_telegram", name: "✈️ Telegram", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/telegram.mrs" },
-                { id: "hydraponique_steam", name: "🎮 Steam", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/steam.mrs" },
-                { id: "hydraponique_microsoft", name: "🪟 Microsoft", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/microsoft.mrs" },
-                { id: "hydraponique_github", name: "🐙 GitHub", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/github.mrs" },
-                { id: "hydraponique_category_ru", name: "🇷🇺 Category RU", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/category-ru.mrs" },
-                { id: "hydraponique_ru_domains", name: "🇷🇺 Российские домены", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/whitelist.mrs" },
-                { id: "hydraponique_ru_ips", name: "🌐 Российские IP-адреса", format: "mrs", type: "ipcidr", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geoip/release/mihomo/whitelist.mrs" }
-            ]
-        },
-        {
-            author: "PentiumB",
-            authorUrl: "https://github.com/PentiumB",
-            license: "MIT",
-            rules: [
-                { id: "pentiumb_cloudflare", name: "☁️ Cloudflare CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/cloudflare.mrs" },
-                { id: "pentiumb_amazon", name: "🛒 Amazon CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/amazon.mrs" },
-                { id: "pentiumb_fastly", name: "⚡ Fastly CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/fastly.mrs" },
-                { id: "pentiumb_akamai", name: "🛡️ Akamai CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/akamai.mrs" },
-                { id: "pentiumb_oracle", name: "🐧 Oracle CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/oracle.mrs" }
-            ]
-        }
+        { author: "Nellimonix", authorUrl: "https://github.com/nellimonix", license: "GPL-3.0", rules: [
+            { id: "nellimonix_youtube", name: "🎬 YouTube", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt" },
+            { id: "nellimonix_discord", name: "💬 Discord", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/discord.txt" },
+            { id: "nellimonix_music", name: "🎵 Music", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/music.txt" },
+            { id: "nellimonix_socials", name: "📱 Socials", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/socials.txt" },
+            { id: "nellimonix_tools", name: "🔧 Tools", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/tools.txt" },
+            { id: "nellimonix_torrent", name: "🏴‍☠️ Torrent", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/torrent.txt" },
+            { id: "nellimonix_porno", name: "🔞 Porno", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/porno.txt" }
+        ] },
+        { author: "MetaCubeX", authorUrl: "https://github.com/MetaCubeX", license: "GPL-3.0", rules: [
+            { id: "metacuvex_youtube", name: "🎬 YouTube (Meta)", type: "domain", format: "mrs", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs" },
+            { id: "metacuvex_telegram_ip", name: "✈️ Telegram (GeoIP)", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs" },
+            { id: "metacuvex_netflix", name: "🎬 Netflix (Meta)", type: "domain", format: "mrs", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs" },
+            { id: "metacuvex_ai", name: "🤖 AI (Meta)", type: "domain", format: "mrs", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ai-!cn.mrs" }
+        ] },
+        { author: "hydraponique", authorUrl: "https://github.com/hydraponique", license: "GPL-3.0", rules: [
+            { id: "hydraponique_telegram", name: "✈️ Telegram", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/telegram.mrs" },
+            { id: "hydraponique_steam", name: "🎮 Steam", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/steam.mrs" },
+            { id: "hydraponique_microsoft", name: "🪟 Microsoft", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/microsoft.mrs" },
+            { id: "hydraponique_github", name: "🐙 GitHub", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/github.mrs" },
+            { id: "hydraponique_category_ru", name: "🇷🇺 Category RU", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/category-ru.mrs" },
+            { id: "hydraponique_ru_domains", name: "🇷🇺 Российские домены", format: "mrs", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/whitelist.mrs" },
+            { id: "hydraponique_ru_ips", name: "🌐 Российские IP-адреса", format: "mrs", type: "ipcidr", behavior: "ipcidr", url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geoip/release/mihomo/whitelist.mrs" }
+        ] },
+        { author: "PentiumB", authorUrl: "https://github.com/PentiumB", license: "MIT", rules: [
+            { id: "pentiumb_cloudflare", name: "☁️ Cloudflare CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/cloudflare.mrs" },
+            { id: "pentiumb_amazon", name: "🛒 Amazon CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/amazon.mrs" },
+            { id: "pentiumb_fastly", name: "⚡ Fastly CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/fastly.mrs" },
+            { id: "pentiumb_akamai", name: "🛡️ Akamai CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/akamai.mrs" },
+            { id: "pentiumb_oracle", name: "🐧 Oracle CDN", type: "ipcidr", format: "mrs", behavior: "ipcidr", url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/oracle.mrs" }
+        ] }
     ];
-
-    // ========= ПРАВИЛА, КОТОРЫЕ ВСЕГДА ИДУТ ЧЕРЕЗ DIRECT (НЕ ПОКАЗЫВАЕМ В НАЗНАЧЕНИИ) =========
-    const DIRECT_ONLY_RULE_IDS = [
-        "hydraponique_ru_domains",   // Российские домены → DIRECT
-        "hydraponique_ru_ips",       // Российские IP → DIRECT
-        "hydraponique_category_ru"   // Category RU → DIRECT (российские сайты)
-    ];
-
-    let originalFileText = null;
-    let cleanedWarpCommon = null;
+    
+    const DIRECT_ONLY_RULE_IDS = ["hydraponique_ru_domains", "hydraponique_ru_ips", "hydraponique_category_ru"];
+    let originalFileText = null, cleanedWarpCommon = null;
     let customGroups = [];
-    let ruleGroupAssignments = {};
-
-    let proxyGroupName = "PROXY";
-    let proxyGroupIconUrl = "";
-    let mainGroupProxies = [];
-
+    let proxyGroupName = "PROXY", proxyGroupIconUrl = "", mainGroupProxies = [];
     let nextGroupId = 1;
-
+    
     const proxyGroupNameInput = document.getElementById('proxyGroupNameInput');
     const proxyGroupIconUrlInput = document.getElementById('proxyGroupIconUrl');
     const proxyGroupIconSelect = document.getElementById('proxyGroupIconSelect');
-
-    if (proxyGroupNameInput) {
-        proxyGroupNameInput.addEventListener('change', () => {
-            proxyGroupName = proxyGroupNameInput.value;
-        });
-    }
-    if (proxyGroupIconUrlInput) {
-        proxyGroupIconUrlInput.addEventListener('change', () => {
-            proxyGroupIconUrl = proxyGroupIconUrlInput.value;
-            if (proxyGroupIconSelect) proxyGroupIconSelect.value = proxyGroupIconUrl;
-            updateIconPreview('proxyGroupIconPreview', proxyGroupIconUrl);
-        });
-    }
-    if (proxyGroupIconSelect) {
-        proxyGroupIconSelect.addEventListener('change', () => {
-            if (proxyGroupIconSelect.value) {
-                proxyGroupIconUrl = proxyGroupIconSelect.value;
-                proxyGroupIconUrlInput.value = proxyGroupIconSelect.value;
-                updateIconPreview('proxyGroupIconPreview', proxyGroupIconUrl);
-            }
-        });
-    }
-
-    function extractWarpCommonBlock(yamlText) {
-        const lines = yamlText.split(/\r?\n/);
-        let warpStart = -1;
-        let warpEnd = -1;
-        
-        for (let i = 0; i < lines.length; i++) {
-            if (lines[i].match(/^warp-common:\s*&?\w*/)) {
-                warpStart = i;
-                break;
-            }
-        }
-        
-        if (warpStart !== -1) {
-            for (let i = warpStart + 1; i < lines.length; i++) {
-                if (lines[i].length > 0 && !lines[i].startsWith(' ') && !lines[i].startsWith('\t')) {
-                    warpEnd = i;
-                    break;
-                }
-                if (i === lines.length - 1) warpEnd = lines.length;
-            }
-            if (warpEnd === -1) warpEnd = lines.length;
-            
-            const warpBlock = lines.slice(warpStart, warpEnd).join('\n');
-            const restLines = [...lines.slice(0, warpStart), ...lines.slice(warpEnd)];
-            return { warpBlock, restText: restLines.join('\n') };
-        }
-        return { warpBlock: null, restText: yamlText };
-    }
-
-    async function handleFile(file) {
-        if (!file || !file.name.match(/\.(yaml|yml)$/i)) {
-            showStatus('error', '❌ Нужен YAML файл');
-            return;
-        }
-        showStatus('loading', '⏳ Анализ конфига...');
-
-        try {
-            const text = await file.text();
-            originalFileText = text;
-            
-            const { warpBlock, restText } = extractWarpCommonBlock(text);
-            cleanedWarpCommon = warpBlock;
-            
-            showStatus('success', `✅ Конфиг загружен!`);
-            
-            renderMainGroupProxies();
-            renderCustomGroups();
-            renderRulesList();
-            document.getElementById('proxiesPanel').style.display = 'block';
-            document.getElementById('resultArea').classList.remove('show');
-            
-        } catch (err) {
-            showStatus('error', `⚠️ Ошибка: ${err.message}`);
-        }
-    }
-
+    if (proxyGroupNameInput) proxyGroupNameInput.addEventListener('change', () => { proxyGroupName = proxyGroupNameInput.value; });
+    if (proxyGroupIconUrlInput) proxyGroupIconUrlInput.addEventListener('change', () => { proxyGroupIconUrl = proxyGroupIconUrlInput.value; if(proxyGroupIconSelect) proxyGroupIconSelect.value = proxyGroupIconUrl; updateIconPreview('proxyGroupIconPreview', proxyGroupIconUrl); });
+    if (proxyGroupIconSelect) proxyGroupIconSelect.addEventListener('change', () => { if(proxyGroupIconSelect.value){ proxyGroupIconUrl = proxyGroupIconSelect.value; proxyGroupIconUrlInput.value = proxyGroupIconSelect.value; updateIconPreview('proxyGroupIconPreview', proxyGroupIconUrl); } });
+    
+    function extractWarpCommonBlock(yamlText) { const lines = yamlText.split(/\r?\n/); let warpStart=-1,warpEnd=-1; for(let i=0;i<lines.length;i++) if(lines[i].match(/^warp-common:\s*&?\w*/)){ warpStart=i; break; } if(warpStart!==-1){ for(let i=warpStart+1;i<lines.length;i++) if(lines[i].length>0 && !lines[i].startsWith(' ') && !lines[i].startsWith('\t')){ warpEnd=i; break; } if(warpEnd===-1) warpEnd=lines.length; const warpBlock=lines.slice(warpStart,warpEnd).join('\n'); const restLines=[...lines.slice(0,warpStart),...lines.slice(warpEnd)]; return { warpBlock, restText: restLines.join('\n') }; } return { warpBlock:null, restText:yamlText }; }
+    async function handleFile(file) { if (!file || !file.name.match(/\.(yaml|yml)$/i)) { showStatus('error','❌ Нужен YAML файл'); return; } showStatus('loading','⏳ Анализ конфига...'); try { const text = await file.text(); originalFileText = text; const { warpBlock, restText } = extractWarpCommonBlock(text); cleanedWarpCommon = warpBlock; showStatus('success',`✅ Конфиг загружен!`); renderMainGroupProxies(); renderCustomGroups(); document.getElementById('proxiesPanel').style.display = 'block'; document.getElementById('resultArea').classList.remove('show'); } catch(err) { showStatus('error',`⚠️ Ошибка: ${err.message}`); } }
+    
     function renderMainGroupProxies() {
         const container = document.getElementById('mainGroupProxies');
-        if (!container) return;
+        if(!container) return;
         container.innerHTML = '';
         
-        const mainGroupCategories = [
-            { name: "⭐ Оригинальные эндпоинты", proxies: ORIGINAL_PROXIES },
-            { name: "📡 162.159.192.1-20", proxies: RANGE192_PROXIES },
-            { name: "📡 162.159.195.1-10", proxies: RANGE195_PROXIES }
+        const cats = [
+            {name:"⭐ Оригинальные эндпоинты", proxies: ORIGINAL_PROXIES},
+            {name:"📡 162.159.192.1-20", proxies: RANGE192_PROXIES},
+            {name:"📡 162.159.195.1-10", proxies: RANGE195_PROXIES}
         ];
         
-        for (const cat of mainGroupCategories) {
-            const catDiv = document.createElement('div');
-            catDiv.style.marginBottom = '15px';
-            catDiv.style.border = '1px solid rgba(168, 85, 247, 0.2)';
-            catDiv.style.borderRadius = '12px';
-            catDiv.style.overflow = 'hidden';
+        for(const cat of cats) {
+            const div = document.createElement('div');
+            div.style.marginBottom = '15px';
+            div.style.border = '1px solid rgba(168,85,247,0.2)';
+            div.style.borderRadius = '12px';
             
             const selectedCount = mainGroupProxies.filter(p => cat.proxies.some(cp => cp.name === p.name)).length;
+            const catId = cat.name.replace(/[^a-z0-9]/gi, '_');
             
-            catDiv.innerHTML = `
-                <div class="group-category-header" style="background: rgba(168, 85, 247, 0.05);">
-                    <div class="category-title">
-                        <span class="category-arrow" style="font-size: 0.8rem;">▶</span>
-                        <span style="font-size: 0.8rem; font-weight: 500; color: #c084fc;">${cat.name}</span>
-                        <span class="category-stats" style="font-size: 0.7rem; color: #888;">(${selectedCount}/${cat.proxies.length})</span>
+            div.innerHTML = `
+                <div class="group-category-header">
+                    <div>
+                        <span class="category-arrow">▶</span> 
+                        <span style="color:#c084fc;">${cat.name}</span>
+                        <span class="category-stats" id="stats-main-${catId}" style="font-size:0.7rem; color:#ffffff;">(${selectedCount}/${cat.proxies.length})</span>
                     </div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="main-select-all" data-category-name="${cat.name}" style="background: rgba(168, 85, 247, 0.2); border: none; border-radius: 15px; padding: 2px 10px; color: #aaa; font-size: 0.65rem; cursor: pointer;">Выбрать все</button>
-                        <button class="main-clear-all" data-category-name="${cat.name}" style="background: rgba(239, 68, 68, 0.2); border: none; border-radius: 15px; padding: 2px 10px; color: #f44; font-size: 0.65rem; cursor: pointer;">Снять все</button>
+                    <div style="display: flex; gap: 8px;" onclick="event.stopPropagation()">
+                        <button class="category-select-all" data-category-main="${cat.name}" style="background: rgba(168,85,247,0.2); border: none; border-radius: 20px; padding: 5px 14px; color: #fff; font-size: 0.65rem; cursor: pointer;">Выбрать все</button>
+                        <button class="category-clear-all" data-category-main="${cat.name}" style="background: rgba(239,68,68,0.2); border: none; border-radius: 20px; padding: 5px 14px; color: #ff8888; font-size: 0.65rem; cursor: pointer;">Снять все</button>
                     </div>
                 </div>
-                <div class="category-content" style="display: none; padding: 12px;">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px;">
-                        ${cat.proxies.map(proxy => {
-                            const isChecked = mainGroupProxies.some(p => p.name === proxy.name);
-                            return `
-                                <div class="group-proxy-option">
-                                    <input type="checkbox" class="main-group-proxy-cb" data-proxy-name="${proxy.name}" data-proxy-server="${proxy.server}" data-proxy-port="${proxy.port}" ${isChecked ? 'checked' : ''}>
-                                    <label>${proxy.name}</label>
-                                </div>
-                            `;
+                <div class="category-content" style="display:none; padding:12px;">
+                    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:6px;">
+                        ${cat.proxies.map(p => {
+                            const ch = mainGroupProxies.some(m => m.name === p.name);
+                            return `<div class="group-proxy-option">
+                                <input type="checkbox" class="main-group-proxy-cb" data-proxy-name="${p.name}" data-proxy-server="${p.server}" data-proxy-port="${p.port}" ${ch ? 'checked' : ''}>
+                                <label>${p.name}</label>
+                            </div>`;
                         }).join('')}
                     </div>
                 </div>
             `;
-            container.appendChild(catDiv);
+            container.appendChild(div);
             
-            const header = catDiv.querySelector('.group-category-header');
-            const content = catDiv.querySelector('.category-content');
+            const header = div.querySelector('.group-category-header');
+            const content = div.querySelector('.category-content');
             const arrow = header.querySelector('.category-arrow');
-            const statsSpan = header.querySelector('.category-stats');
             
             header.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'BUTTON') {
-                    if (content.style.display === 'none') {
+                if(e.target.tagName !== 'BUTTON') {
+                    if(content.style.display === 'none') {
                         content.style.display = 'block';
                         arrow.style.transform = 'rotate(90deg)';
                     } else {
@@ -1020,79 +1224,68 @@
                 }
             });
             
-            const selectAllBtn = catDiv.querySelector('.main-select-all');
-            const clearAllBtn = catDiv.querySelector('.main-clear-all');
-            
-            const updateCategoryStatsLocal = () => {
-                const checkboxes = catDiv.querySelectorAll('.main-group-proxy-cb');
-                const newSelectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-                if (statsSpan) statsSpan.innerText = `(${newSelectedCount}/${cat.proxies.length})`;
+            const updateStats = () => {
+                const checked = Array.from(div.querySelectorAll('.main-group-proxy-cb:checked')).length;
+                const statsSpan = div.querySelector('.category-stats');
+                if(statsSpan) {
+                    statsSpan.innerHTML = `(${checked}/${cat.proxies.length})`;
+                    statsSpan.style.color = '#ffffff';
+                }
             };
             
+            const selectAllBtn = div.querySelector('.category-select-all');
             selectAllBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const checkboxes = catDiv.querySelectorAll('.main-group-proxy-cb');
-                checkboxes.forEach(cb => cb.checked = true);
-                checkboxes.forEach(cb => {
-                    const proxyName = cb.dataset.proxyName;
-                    const proxyServer = cb.dataset.proxyServer;
-                    const proxyPort = parseInt(cb.dataset.proxyPort);
-                    if (!mainGroupProxies.some(p => p.name === proxyName)) {
-                        mainGroupProxies.push({ name: proxyName, server: proxyServer, port: proxyPort });
+                div.querySelectorAll('.main-group-proxy-cb').forEach(cb => {
+                    cb.checked = true;
+                    const name = cb.dataset.proxyName;
+                    if(!mainGroupProxies.some(p => p.name === name)) {
+                        mainGroupProxies.push({
+                            name: name,
+                            server: cb.dataset.proxyServer,
+                            port: parseInt(cb.dataset.proxyPort)
+                        });
                     }
                 });
-                updateCategoryStatsLocal();
+                updateStats();
             });
             
+            const clearAllBtn = div.querySelector('.category-clear-all');
             clearAllBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const checkboxes = catDiv.querySelectorAll('.main-group-proxy-cb');
-                checkboxes.forEach(cb => cb.checked = false);
-                checkboxes.forEach(cb => {
-                    const proxyName = cb.dataset.proxyName;
-                    const index = mainGroupProxies.findIndex(p => p.name === proxyName);
-                    if (index !== -1) mainGroupProxies.splice(index, 1);
+                div.querySelectorAll('.main-group-proxy-cb').forEach(cb => {
+                    cb.checked = false;
+                    const idx = mainGroupProxies.findIndex(p => p.name === cb.dataset.proxyName);
+                    if(idx !== -1) mainGroupProxies.splice(idx, 1);
                 });
-                updateCategoryStatsLocal();
+                updateStats();
             });
             
-            catDiv.querySelectorAll('.main-group-proxy-cb').forEach(cb => {
+            div.querySelectorAll('.main-group-proxy-cb').forEach(cb => {
                 cb.addEventListener('change', () => {
-                    const proxyName = cb.dataset.proxyName;
-                    const proxyServer = cb.dataset.proxyServer;
-                    const proxyPort = parseInt(cb.dataset.proxyPort);
-                    if (cb.checked) {
-                        if (!mainGroupProxies.some(p => p.name === proxyName)) {
-                            mainGroupProxies.push({ name: proxyName, server: proxyServer, port: proxyPort });
+                    const name = cb.dataset.proxyName;
+                    if(cb.checked) {
+                        if(!mainGroupProxies.some(p => p.name === name)) {
+                            mainGroupProxies.push({
+                                name: name,
+                                server: cb.dataset.proxyServer,
+                                port: parseInt(cb.dataset.proxyPort)
+                            });
                         }
                     } else {
-                        const index = mainGroupProxies.findIndex(p => p.name === proxyName);
-                        if (index !== -1) mainGroupProxies.splice(index, 1);
+                        const idx = mainGroupProxies.findIndex(p => p.name === name);
+                        if(idx !== -1) mainGroupProxies.splice(idx, 1);
                     }
-                    updateCategoryStatsLocal();
+                    updateStats();
                 });
             });
             
-            updateCategoryStatsLocal();
+            updateStats();
         }
     }
-
-    function updateIconSelects() {
-        const allSelects = document.querySelectorAll('.icon-select');
-        allSelects.forEach(select => {
-            const currentVal = select.value;
-            select.innerHTML = '<option value="">-- Выбрать из репозитория --</option>';
-            for (const icon of MANUAL_ICONS_LIST) {
-                const option = document.createElement('option');
-                option.value = ICON_REPO_BASE_URL + icon;
-                option.textContent = icon.replace('.svg', '').replace('.png', '');
-                if (option.value === currentVal) option.selected = true;
-                select.appendChild(option);
-            }
-            select.disabled = MANUAL_ICONS_LIST.length === 0;
-        });
-    }
-
+    
+    function updateIconSelects() { document.querySelectorAll('.icon-select').forEach(select=>{const cur=select.value;select.innerHTML='<option value="">-- Выбрать из репозитория --</option>';MANUAL_ICONS_LIST.forEach(icon=>{const opt=document.createElement('option');opt.value=ICON_REPO_BASE_URL+icon;opt.textContent=icon.replace('.svg','');if(opt.value===cur)opt.selected=true;select.appendChild(opt);});});}
+    
     function renderCustomGroups() {
         const container = document.getElementById('customGroupsContainer');
         if (!container) return;
@@ -1114,35 +1307,49 @@
             for (const [key, grp] of Object.entries(groupedProxies)) {
                 if (grp.proxies.length === 0) continue;
                 const selectedCount = group.proxies.filter(p => grp.proxies.some(gp => gp.name === p.name)).length;
-                
                 groupedProxiesHtml += `
-                    <div style="margin-top: 12px; margin-bottom: 8px; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; overflow: hidden;">
-                        <div class="group-category-header" data-category="${key}" style="background: rgba(168, 85, 247, 0.1);">
+                    <div style="margin-top: 12px; margin-bottom: 8px; border: 1px solid rgba(168,85,247,0.2); border-radius: 12px; overflow: hidden;">
+                        <div class="group-category-header" data-category="${key}" style="background: rgba(168,85,247,0.1);">
                             <div class="category-title">
                                 <span class="category-arrow" id="arrow-${group.id}-${key}" style="font-size: 0.8rem; transition: transform 0.2s;">▶</span>
                                 <span style="font-size: 0.8rem; font-weight: 500; color: #c084fc;">${grp.name}</span>
-                                <span class="category-stats" id="stats-${group.id}-${key}" style="font-size: 0.7rem; color: #888;">(${selectedCount}/${grp.proxies.length})</span>
+                                <span class="category-stats" id="stats-${group.id}-${key}" style="font-size: 0.7rem; color: #ffffff;">(${selectedCount}/${grp.proxies.length})</span>
                             </div>
                             <div style="display: flex; gap: 8px;" onclick="event.stopPropagation()">
-                                <button class="category-select-all" data-group-id="${group.id}" data-category="${key}" style="background: rgba(168, 85, 247, 0.2); border: none; border-radius: 15px; padding: 2px 10px; color: #aaa; font-size: 0.65rem; cursor: pointer;">Выбрать все</button>
-                                <button class="category-clear-all" data-group-id="${group.id}" data-category="${key}" style="background: rgba(239, 68, 68, 0.2); border: none; border-radius: 15px; padding: 2px 10px; color: #f44; font-size: 0.65rem; cursor: pointer;">Снять все</button>
+                                <button class="category-select-all" data-group-id="${group.id}" data-category="${key}" style="background: rgba(168,85,247,0.2); border: none; border-radius: 20px; padding: 5px 14px; color: #fff; font-size: 0.65rem; cursor: pointer;">Выбрать все</button>
+                                <button class="category-clear-all" data-group-id="${group.id}" data-category="${key}" style="background: rgba(239,68,68,0.2); border: none; border-radius: 20px; padding: 5px 14px; color: #ff8888; font-size: 0.65rem; cursor: pointer;">Снять все</button>
                             </div>
                         </div>
                         <div class="category-content" id="content-${group.id}-${key}" style="display: none; padding: 12px;">
                             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px;">
                                 ${grp.proxies.map(proxy => {
                                     const isChecked = group.proxies.some(p => p.name === proxy.name);
-                                    return `
-                                        <div class="group-proxy-option">
-                                            <input type="checkbox" class="group-proxy-item-cb" data-group-id="${group.id}" data-category="${key}" data-proxy-name="${proxy.name}" data-proxy-server="${proxy.server}" data-proxy-port="${proxy.port}" ${isChecked ? 'checked' : ''}>
-                                            <label>${proxy.name}</label>
-                                        </div>
-                                    `;
+                                    return `<div class="group-proxy-option"><input type="checkbox" class="group-proxy-item-cb" data-group-id="${group.id}" data-category="${key}" data-proxy-name="${proxy.name}" data-proxy-server="${proxy.server}" data-proxy-port="${proxy.port}" ${isChecked ? 'checked' : ''}><label>${proxy.name}</label></div>`;
                                 }).join('')}
                             </div>
                         </div>
                     </div>
                 `;
+            }
+            
+            let rulesHtml = '';
+            for (const authorGroup of RULES_BY_AUTHOR) {
+                if (!authorGroup.rules.length) continue;
+                rulesHtml += `<div class="author-section" style="margin-top: 12px; margin-bottom: 8px;">
+                    <div class="author-header" style="margin-bottom: 8px;">
+                        <span style="font-size: 1rem;">📚</span>
+                        <a href="${authorGroup.authorUrl}" target="_blank">${authorGroup.author}</a>
+                        <span class="license-badge">${authorGroup.license}</span>
+                    </div>
+                    <div class="rules-grid-new" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px;">
+                        ${authorGroup.rules.map(rule => `
+                            <div class="rule-check-item" style="padding: 6px 10px;">
+                                <input type="checkbox" id="rule_assign_${group.id}_${rule.id}" class="rule-assign-cb" data-group-id="${group.id}" data-rule-id="${rule.id}" ${group.selectedRules && group.selectedRules.includes(rule.id) ? 'checked' : ''}>
+                                <label for="rule_assign_${group.id}_${rule.id}" style="font-size: 0.8rem;">${rule.name}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>`;
             }
             
             groupDiv.innerHTML = `
@@ -1163,8 +1370,8 @@
                     ${groupedProxiesHtml || '<div style="color: #666; padding: 10px; text-align: center;">Нет доступных прокси</div>'}
                 </div>
                 <div class="rule-group-assignment">
-                    <div class="rule-group-assignment-title">📌 Назначить на группу правила</div>
-                    <div id="rule-assignment-${group.id}"></div>
+                    <div class="rule-group-assignment-title">📌 Правила для этой группы (выберите нужные)</div>
+                    ${rulesHtml}
                 </div>
             `;
             container.appendChild(groupDiv);
@@ -1172,17 +1379,14 @@
             const iconUrlInput = groupDiv.querySelector('.group-icon-url-input');
             const iconSelect = groupDiv.querySelector('.icon-select');
             if (iconSelect) {
-                iconSelect.dataset.groupId = group.id;
                 iconSelect.innerHTML = '<option value="">-- Выбрать из репозитория --</option>';
-                for (const icon of MANUAL_ICONS_LIST) {
-                    const option = document.createElement('option');
-                    option.value = ICON_REPO_BASE_URL + icon;
-                    option.textContent = icon.replace('.svg', '').replace('.png', '');
-                    if (option.value === group.iconUrl) option.selected = true;
-                    iconSelect.appendChild(option);
-                }
-                iconSelect.disabled = MANUAL_ICONS_LIST.length === 0;
-                
+                MANUAL_ICONS_LIST.forEach(icon => {
+                    const opt = document.createElement('option');
+                    opt.value = ICON_REPO_BASE_URL + icon;
+                    opt.textContent = icon.replace('.svg', '');
+                    if (opt.value === group.iconUrl) opt.selected = true;
+                    iconSelect.appendChild(opt);
+                });
                 iconSelect.addEventListener('change', () => {
                     if (iconSelect.value) {
                         group.iconUrl = iconSelect.value;
@@ -1191,25 +1395,19 @@
                     }
                 });
             }
-            
             iconUrlInput.addEventListener('change', (e) => {
                 group.iconUrl = e.target.value;
                 if (iconSelect) iconSelect.value = e.target.value;
                 updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
             });
+            if (group.iconUrl) updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
             
-            if (group.iconUrl) {
-                updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
-            }
-            
-            const deleteBtn = groupDiv.querySelector('.delete-group-btn');
-            deleteBtn.addEventListener('click', () => deleteGroup(group.id));
+            groupDiv.querySelector('.delete-group-btn').addEventListener('click', () => deleteGroup(group.id));
             
             groupDiv.querySelectorAll('.group-category-header').forEach(header => {
                 const category = header.dataset.category;
                 const content = groupDiv.querySelector(`#content-${group.id}-${category}`);
                 const arrow = groupDiv.querySelector(`#arrow-${group.id}-${category}`);
-                
                 header.addEventListener('click', (e) => {
                     if (e.target.tagName !== 'BUTTON') {
                         if (content.style.display === 'none') {
@@ -1223,370 +1421,203 @@
                 });
             });
             
-            const updateCategoryStatsLocal = (category) => {
+            const updateCategoryStats = (category) => {
                 const checkboxes = groupDiv.querySelectorAll(`.group-proxy-item-cb[data-category="${category}"]`);
-                const newSelectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-                const totalCount = groupedProxies[category].proxies.length;
+                const cnt = Array.from(checkboxes).filter(cb => cb.checked).length;
+                const total = groupedProxies[category].proxies.length;
                 const statsSpan = groupDiv.querySelector(`#stats-${group.id}-${category}`);
-                if (statsSpan) statsSpan.innerText = `(${newSelectedCount}/${totalCount})`;
+                if (statsSpan) statsSpan.innerText = `(${cnt}/${total})`;
             };
             
             groupDiv.querySelectorAll('.category-select-all').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const category = btn.dataset.category;
-                    const checkboxes = groupDiv.querySelectorAll(`.group-proxy-item-cb[data-category="${category}"]`);
-                    checkboxes.forEach(cb => cb.checked = true);
-                    checkboxes.forEach(cb => {
-                        const proxyName = cb.dataset.proxyName;
-                        const proxyServer = cb.dataset.proxyServer;
-                        const proxyPort = parseInt(cb.dataset.proxyPort);
-                        if (!group.proxies.some(p => p.name === proxyName)) {
-                            group.proxies.push({ name: proxyName, server: proxyServer, port: proxyPort });
+                    groupDiv.querySelectorAll(`.group-proxy-item-cb[data-category="${category}"]`).forEach(cb => {
+                        cb.checked = true;
+                        const pName = cb.dataset.proxyName;
+                        if (!group.proxies.some(p => p.name === pName)) {
+                            group.proxies.push({ name: pName, server: cb.dataset.proxyServer, port: parseInt(cb.dataset.proxyPort) });
                         }
                     });
-                    updateCategoryStatsLocal(category);
+                    updateCategoryStats(category);
                 });
             });
-            
             groupDiv.querySelectorAll('.category-clear-all').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const category = btn.dataset.category;
-                    const checkboxes = groupDiv.querySelectorAll(`.group-proxy-item-cb[data-category="${category}"]`);
-                    checkboxes.forEach(cb => cb.checked = false);
-                    checkboxes.forEach(cb => {
-                        const proxyName = cb.dataset.proxyName;
-                        const index = group.proxies.findIndex(p => p.name === proxyName);
-                        if (index !== -1) group.proxies.splice(index, 1);
+                    groupDiv.querySelectorAll(`.group-proxy-item-cb[data-category="${category}"]`).forEach(cb => {
+                        cb.checked = false;
+                        const idx = group.proxies.findIndex(p => p.name === cb.dataset.proxyName);
+                        if (idx !== -1) group.proxies.splice(idx, 1);
                     });
-                    updateCategoryStatsLocal(category);
+                    updateCategoryStats(category);
                 });
             });
-            
             groupDiv.querySelectorAll('.group-proxy-item-cb').forEach(cb => {
                 cb.addEventListener('change', () => {
                     const category = cb.dataset.category;
-                    const proxyName = cb.dataset.proxyName;
-                    const proxyServer = cb.dataset.proxyServer;
-                    const proxyPort = parseInt(cb.dataset.proxyPort);
+                    const pName = cb.dataset.proxyName;
                     if (cb.checked) {
-                        if (!group.proxies.some(p => p.name === proxyName)) {
-                            group.proxies.push({ name: proxyName, server: proxyServer, port: proxyPort });
+                        if (!group.proxies.some(p => p.name === pName)) {
+                            group.proxies.push({ name: pName, server: cb.dataset.proxyServer, port: parseInt(cb.dataset.proxyPort) });
                         }
                     } else {
-                        const index = group.proxies.findIndex(p => p.name === proxyName);
-                        if (index !== -1) group.proxies.splice(index, 1);
+                        const idx = group.proxies.findIndex(p => p.name === pName);
+                        if (idx !== -1) group.proxies.splice(idx, 1);
                     }
-                    updateCategoryStatsLocal(category);
+                    updateCategoryStats(category);
+                });
+            });
+            
+            groupDiv.querySelectorAll('.rule-assign-cb').forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const ruleId = cb.dataset.ruleId;
+                    if (!group.selectedRules) group.selectedRules = [];
+                    if (cb.checked) {
+                        if (!group.selectedRules.includes(ruleId)) group.selectedRules.push(ruleId);
+                    } else {
+                        const idx = group.selectedRules.indexOf(ruleId);
+                        if (idx !== -1) group.selectedRules.splice(idx, 1);
+                    }
                 });
             });
             
             const nameInput = groupDiv.querySelector('.group-name-input');
             nameInput.addEventListener('change', (e) => {
                 group.name = e.target.value;
-                renderRuleAssignments();
             });
         }
-        
-        renderRuleAssignments();
     }
     
     function getResolvedRuleIds(selectedRules) {
         const nameCount = {};
-        const resolvedRules = [];
-        
         for (const rule of selectedRules) {
-            let baseName = rule.id;
-            if (baseName.startsWith('nellimonix_')) baseName = baseName.replace('nellimonix_', '');
-            else if (baseName.startsWith('metacuvex_')) baseName = baseName.replace('metacuvex_', '');
-            else if (baseName.startsWith('hydraponique_')) baseName = baseName.replace('hydraponique_', '');
-            else if (baseName.startsWith('pentiumb_')) baseName = baseName.replace('pentiumb_', '');
-            
-            if (!nameCount[baseName]) nameCount[baseName] = 0;
-            nameCount[baseName]++;
+            let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, '');
+            nameCount[base] = (nameCount[base] || 0) + 1;
         }
-        
-        for (const rule of selectedRules) {
-            let baseName = rule.id;
-            const isMeta = rule.id.includes('metacuvex') || rule.id.includes('meta');
-            
-            if (baseName.startsWith('nellimonix_')) baseName = baseName.replace('nellimonix_', '');
-            else if (baseName.startsWith('metacuvex_')) baseName = baseName.replace('metacuvex_', '');
-            else if (baseName.startsWith('hydraponique_')) baseName = baseName.replace('hydraponique_', '');
-            else if (baseName.startsWith('pentiumb_')) baseName = baseName.replace('pentiumb_', '');
-            
-            let finalId = baseName;
-            if (nameCount[baseName] > 1) {
-                if (isMeta || rule.id.includes('metacuvex')) {
-                    finalId = baseName + '_meta';
-                } else if (rule.id.includes('telegram_ip')) {
-                    finalId = 'telegram_geoip';
-                } else {
-                    finalId = baseName + '_' + (rule.id.split('_')[0]);
-                }
+        return selectedRules.map(rule => {
+            let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, '');
+            const isMeta = rule.id.includes('metacuvex');
+            let finalId = base;
+            if (nameCount[base] > 1) {
+                if (isMeta) finalId = base + '_meta';
+                else if (rule.id.includes('telegram_ip')) finalId = 'telegram_geoip';
+                else finalId = base + '_' + rule.id.split('_')[0];
             }
-            
-            resolvedRules.push({
-                originalRule: rule,
-                finalId: finalId,
-                baseName: baseName
-            });
-        }
-        
-        return resolvedRules;
+            return { originalRule: rule, finalId };
+        });
     }
     
-    function renderRuleAssignments() {
-        const allRules = [];
-        for (const authorGroup of RULES_BY_AUTHOR) {
-            for (const rule of authorGroup.rules) {
-                allRules.push(rule);
-            }
-        }
-        
-        // Скрываем из назначения правила, которые всегда идут через DIRECT
-        const visibleRules = allRules.filter(rule => !DIRECT_ONLY_RULE_IDS.includes(rule.id));
-        
+    function getSelectedRulesFromGroups() {
+        const selectedMap = new Map();
         for (const group of customGroups) {
-            const container = document.getElementById(`rule-assignment-${group.id}`);
-            if (container) {
-                container.innerHTML = `
-                    <div class="rules-checkbox-grid">
-                        ${visibleRules.map(rule => `
-                            <div class="rule-checkbox-item">
-                                <input type="checkbox" id="rule_assign_${group.id}_${rule.id}" class="rule-assign-cb" data-group-id="${group.id}" data-rule-id="${rule.id}" ${ruleGroupAssignments[rule.id] === group.name ? 'checked' : ''}>
-                                <label for="rule_assign_${group.id}_${rule.id}">${rule.name}</label>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div style="font-size: 0.65rem; color: #666; margin-top: 6px; text-align: center;">💡 Выберите правила для этой группы</div>
-                `;
-                
-                container.querySelectorAll('.rule-assign-cb').forEach(cb => {
-                    cb.addEventListener('change', (e) => {
-                        const ruleId = cb.dataset.ruleId;
-                        if (cb.checked) {
-                            ruleGroupAssignments[ruleId] = group.name;
-                        } else {
-                            if (ruleGroupAssignments[ruleId] === group.name) {
-                                delete ruleGroupAssignments[ruleId];
-                            }
+            if (group.selectedRules) {
+                for (const ruleId of group.selectedRules) {
+                    if (!selectedMap.has(ruleId)) {
+                        for (const author of RULES_BY_AUTHOR) {
+                            const rule = author.rules.find(r => r.id === ruleId);
+                            if (rule) { selectedMap.set(ruleId, rule); break; }
                         }
-                    });
-                });
+                    }
+                }
             }
         }
+        return Array.from(selectedMap.values());
     }
-
-    function renderRulesList() {
-        const container = document.getElementById('rulesContainer');
-        if (!container) return;
-        container.innerHTML = '';
-        
-        for (const authorGroup of RULES_BY_AUTHOR) {
-            const authorSection = document.createElement('div');
-            authorSection.className = 'author-section';
-            
-            authorSection.innerHTML = `
-                <div class="author-header">
-                    <span style="font-size: 1.1rem;">📚</span>
-                    <a href="${authorGroup.authorUrl}" target="_blank">${authorGroup.author}</a>
-                    <span class="license-badge">${authorGroup.license}</span>
-                </div>
-                <div class="rules-grid-new" id="rules-grid-${authorGroup.author.replace(/\s/g, '_')}"></div>
-            `;
-            
-            container.appendChild(authorSection);
-            
-            const rulesGrid = authorSection.querySelector(`.rules-grid-new`);
-            rulesGrid.innerHTML = authorGroup.rules.map(rule => `
-                <div class="rule-check-item">
-                    <input type="checkbox" id="rule_${rule.id}" class="rule-cb" value="${rule.id}" data-rule='${JSON.stringify(rule)}'>
-                    <label for="rule_${rule.id}">${rule.name}</label>
-                </div>
-            `).join('');
+    
+    function getGroupForRule(ruleId) {
+        for (const group of customGroups) {
+            if (group.selectedRules && group.selectedRules.includes(ruleId)) {
+                return group.name;
+            }
         }
+        return proxyGroupName;
     }
-
-    function deleteGroup(groupId) {
-        customGroups = customGroups.filter(g => g.id !== groupId);
-        renderCustomGroups();
-        showStatus('success', '✅ Группа удалена');
-    }
-
-    function addCustomGroup() {
-        const newGroup = {
-            id: nextGroupId++,
-            name: `Группа ${nextGroupId-1}`,
-            proxies: [],
-            iconUrl: ""
-        };
-        customGroups.push(newGroup);
-        renderCustomGroups();
-        showStatus('success', `✅ Группа "${newGroup.name}" создана`);
-    }
-
-    function getSelectedRules() {
-        const selected = [];
-        const checkboxes = document.querySelectorAll('.rule-cb:checked');
-        checkboxes.forEach(cb => {
-            try {
-                const rule = JSON.parse(cb.dataset.rule);
-                selected.push(rule);
-            } catch(e) {}
-        });
-        return selected;
-    }
-
+    
     function generateRuleProviders(selectedRules) {
-        if (selectedRules.length === 0) return '';
-        
-        const resolvedRules = getResolvedRuleIds(selectedRules);
-        
+        if (!selectedRules.length) return '';
+        const resolved = getResolvedRuleIds(selectedRules);
         let yaml = 'rule-providers:\n';
-        for (let i = 0; i < resolvedRules.length; i++) {
-            const { originalRule: rule, finalId } = resolvedRules[i];
-            yaml += `  ${finalId}:\n`;
-            yaml += `    type: http\n`;
-            yaml += `    behavior: ${rule.behavior || 'domain'}\n`;
-            if (rule.format) yaml += `    format: ${rule.format}\n`;
-            yaml += `    url: "${rule.url}"\n`;
-            yaml += `    path: ./ruleset/${finalId}.yaml\n`;
-            yaml += `    interval: 86400\n`;
-            if (i < resolvedRules.length - 1) yaml += '\n';
+        for (let i = 0; i < resolved.length; i++) {
+            const { originalRule: r, finalId } = resolved[i];
+            yaml += `  ${finalId}:\n    type: http\n    behavior: ${r.behavior || 'domain'}\n`;
+            if (r.format) yaml += `    format: ${r.format}\n`;
+            yaml += `    url: "${r.url}"\n    path: ./ruleset/${finalId}.yaml\n    interval: 86400\n`;
+            if (i < resolved.length - 1) yaml += '\n';
         }
         return yaml + '\n';
     }
     
     function generateRulesSection(selectedRules) {
-        if (selectedRules.length === 0) return '';
-        
-        const resolvedRules = getResolvedRuleIds(selectedRules);
-        
+        if (!selectedRules.length) return '';
+        const resolved = getResolvedRuleIds(selectedRules);
         let yaml = '';
-        for (const { originalRule: rule, finalId } of resolvedRules) {
-            // Правила из DIRECT_ONLY_RULE_IDS всегда идут через DIRECT
-            if (DIRECT_ONLY_RULE_IDS.includes(rule.id)) {
+        for (const { originalRule: r, finalId } of resolved) {
+            if (DIRECT_ONLY_RULE_IDS.includes(r.id)) {
                 yaml += `- RULE-SET,${finalId},DIRECT\n`;
             } else {
-                const groupName = ruleGroupAssignments[rule.id] || proxyGroupName;
+                const groupName = getGroupForRule(r.id);
                 yaml += `- RULE-SET,${finalId},${groupName}\n`;
             }
         }
         return yaml;
     }
-
+    
     function generateExcludeRules() {
         let rules = '';
-        
-        const excludeLan = document.getElementById('excludeLanCheckbox').checked;
-        if (excludeLan) {
-            rules += `# Исключение локальной сети (LAN)\n`;
-            rules += `- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve\n`;
-            rules += `- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve\n`;
-            rules += `- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve\n`;
-            rules += `- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve\n`;
-            rules += `- IP-CIDR,169.254.0.0/16,DIRECT,no-resolve\n`;
+        if (document.getElementById('excludeLanCheckbox').checked) {
+            rules += `# Исключение локальной сети (LAN)\n- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve\n- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve\n- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve\n- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve\n- IP-CIDR,169.254.0.0/16,DIRECT,no-resolve\n`;
         }
-        
-        const excludeTorrent = document.getElementById('torrentExcludeCheckbox').checked;
-        if (excludeTorrent) {
-            if (rules !== '') rules += `\n`;
-            rules += `# Исключение торрент клиентов\n`;
-            rules += `- PROCESS-NAME,qbittorrent.exe,DIRECT,no-resolve\n`;
-            rules += `- PROCESS-NAME,qBittorrent.exe,DIRECT,no-resolve\n`;
-            rules += `- PROCESS-NAME,utorrent.exe,DIRECT,no-resolve\n`;
-            rules += `- PROCESS-NAME,µtorrent.exe,DIRECT,no-resolve\n`;
+        if (document.getElementById('torrentExcludeCheckbox').checked) {
+            if (rules) rules += '\n';
+            rules += `# Исключение торрент клиентов\n- PROCESS-NAME,qbittorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,qBittorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,utorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,µtorrent.exe,DIRECT,no-resolve\n`;
         }
-        
-        const excludeNvidia = document.getElementById('nvidiaExcludeCheckbox').checked;
-        if (excludeNvidia) {
-            if (rules !== '') rules += `\n`;
-            rules += `# Исключение NVIDIA приложений\n`;
-            rules += `- PROCESS-NAME,nvcontainer.exe,DIRECT,no-resolve\n`;
-            rules += `- PROCESS-NAME,NVIDIA App.exe,DIRECT,no-resolve\n`;
+        if (document.getElementById('nvidiaExcludeCheckbox').checked) {
+            if (rules) rules += '\n';
+            rules += `# Исключение NVIDIA приложений\n- PROCESS-NAME,nvcontainer.exe,DIRECT,no-resolve\n- PROCESS-NAME,NVIDIA App.exe,DIRECT,no-resolve\n`;
         }
-        
         return rules;
     }
-
+    
     function buildFinalYaml() {
-        const selectedRules = getSelectedRules();
-        
+        const selectedRules = getSelectedRulesFromGroups();
         const allProxiesSet = new Map();
-        
-        for (const p of mainGroupProxies) {
-            if (!allProxiesSet.has(p.name)) {
-                allProxiesSet.set(p.name, p);
-            }
-        }
-        
-        for (const group of customGroups) {
-            for (const p of group.proxies) {
-                if (!allProxiesSet.has(p.name)) {
-                    allProxiesSet.set(p.name, p);
-                }
-            }
-        }
-        
+        for (const p of mainGroupProxies) if (!allProxiesSet.has(p.name)) allProxiesSet.set(p.name, p);
+        for (const g of customGroups) for (const p of g.proxies) if (!allProxiesSet.has(p.name)) allProxiesSet.set(p.name, p);
         const allUniqueProxies = Array.from(allProxiesSet.values());
-        
         let yamlResult = '';
-        
         if (cleanedWarpCommon) yamlResult += cleanedWarpCommon + '\n';
-        
-        if (allUniqueProxies.length > 0) {
+        if (allUniqueProxies.length) {
             yamlResult += 'proxies:\n';
-            for (const p of allUniqueProxies) {
-                yamlResult += `- name: "${p.name}"\n`;
-                yamlResult += `  <<: *warp-common\n`;
-                yamlResult += `  server: ${p.server}\n`;
-                yamlResult += `  port: ${p.port}\n`;
-            }
+            for (const p of allUniqueProxies) yamlResult += `- name: "${p.name}"\n  <<: *warp-common\n  server: ${p.server}\n  port: ${p.port}\n`;
             yamlResult += '\n';
         }
-        
-        if (mainGroupProxies.length > 0 || customGroups.length > 0) {
+        if (mainGroupProxies.length || customGroups.length) {
             yamlResult += 'proxy-groups:\n';
-            
-            yamlResult += `- name: ${proxyGroupName}\n`;
-            yamlResult += `  type: select\n`;
-            if (proxyGroupIconUrl) {
-                yamlResult += `  icon: "${proxyGroupIconUrl}"\n`;
-            }
+            yamlResult += `- name: ${proxyGroupName}\n  type: select\n`;
+            if (proxyGroupIconUrl) yamlResult += `  icon: "${proxyGroupIconUrl}"\n`;
             yamlResult += `  proxies:\n`;
-            for (const p of mainGroupProxies) {
-                yamlResult += `    - "${p.name}"\n`;
-            }
-            yamlResult += `    - DIRECT\n`;
-            yamlResult += '\n';
-            
-            for (let i = 0; i < customGroups.length; i++) {
-                const group = customGroups[i];
-                if (group.proxies.length > 0) {
-                    yamlResult += `- name: ${group.name}\n`;
-                    yamlResult += `  type: select\n`;
-                    if (group.iconUrl) {
-                        yamlResult += `  icon: "${group.iconUrl}"\n`;
-                    }
+            for (const p of mainGroupProxies) yamlResult += `    - "${p.name}"\n`;
+            yamlResult += `    - DIRECT\n\n`;
+            for (const g of customGroups) {
+                if (g.proxies.length) {
+                    yamlResult += `- name: ${g.name}\n  type: select\n`;
+                    if (g.iconUrl) yamlResult += `  icon: "${g.iconUrl}"\n`;
                     yamlResult += `  proxies:\n`;
-                    for (const p of group.proxies) {
-                        yamlResult += `    - "${p.name}"\n`;
-                    }
-                    yamlResult += `    - DIRECT\n`;
-                    if (i < customGroups.length - 1) yamlResult += '\n';
+                    for (const p of g.proxies) yamlResult += `    - "${p.name}"\n`;
+                    yamlResult += `    - DIRECT\n\n`;
                 }
             }
             yamlResult += '\n';
         }
-        
-        if (selectedRules.length > 0) {
+        if (selectedRules.length) {
             yamlResult += generateRuleProviders(selectedRules);
             yamlResult += 'rules:\n';
             const excludeRules = generateExcludeRules();
             if (excludeRules) yamlResult += excludeRules;
-            if (excludeRules && selectedRules.length > 0 && excludeRules.slice(-1) !== '\n') yamlResult += '\n';
-			yamlResult += '\n';
-			yamlResult += '# Config Constructor — правила, выбранные в конструкторе\n';
+            if (excludeRules && selectedRules.length && excludeRules.slice(-1) !== '\n') yamlResult += '\n';
+            if (excludeRules) yamlResult += '\n';
+            yamlResult += '# Config Constructor — правила, выбранные в конструкторе\n';
             yamlResult += generateRulesSection(selectedRules);
             if (generateRulesSection(selectedRules).slice(-1) !== '\n') yamlResult += '\n';
             yamlResult += '- MATCH,DIRECT\n';
@@ -1597,80 +1628,44 @@
             if (excludeRules && excludeRules.slice(-1) !== '\n') yamlResult += '\n';
             yamlResult += '- MATCH,DIRECT\n';
         }
-        
         return yamlResult;
     }
-
+    
     function processFinal() {
-        if (!originalFileText) {
-            alert('Сначала загрузите конфиг');
-            return;
-        }
-        
-        const processBtn = document.getElementById('processBtn');
-        processBtn.disabled = true;
-        
+        if (!originalFileText) { alert('Сначала загрузите конфиг'); return; }
+        const btn = document.getElementById('processBtn');
+        btn.disabled = true;
         const finalYaml = buildFinalYaml();
-        const selectedRulesCount = getSelectedRules().length;
-        
-        const excludeLan = document.getElementById('excludeLanCheckbox').checked;
-        const excludeTorrent = document.getElementById('torrentExcludeCheckbox').checked;
-        const excludeNvidia = document.getElementById('nvidiaExcludeCheckbox').checked;
-        
-        let settingsInfo = [];
-        if (excludeLan) settingsInfo.push('🏠 LAN');
-        if (excludeTorrent) settingsInfo.push('📥 Торренты');
-        if (excludeNvidia) settingsInfo.push('🎮 NVIDIA');
-        
-        let settingsText = settingsInfo.length > 0 ? ` | Настройки: ${settingsInfo.join(', ')}` : ' | Настройки: нет';
-        
-        document.getElementById('resultStats').innerHTML = `📦 Групп: ${customGroups.length} | Правил: ${selectedRulesCount}${settingsText}`;
-        
+        const selectedRulesCount = getSelectedRulesFromGroups().length;
+        const info = [];
+        if (document.getElementById('excludeLanCheckbox').checked) info.push('🏠 LAN');
+        if (document.getElementById('torrentExcludeCheckbox').checked) info.push('📥 Торренты');
+        if (document.getElementById('nvidiaExcludeCheckbox').checked) info.push('🎮 NVIDIA');
+        document.getElementById('resultStats').innerHTML = `📦 Групп: ${customGroups.length} | Правил: ${selectedRulesCount}${info.length ? ` | Настройки: ${info.join(', ')}` : ''}`;
         const blob = new Blob([finalYaml], { type: 'text/yaml' });
         const url = URL.createObjectURL(blob);
-        const downloadLink = document.getElementById('downloadLink');
-        downloadLink.href = url;
-        downloadLink.download = `config_${Date.now()}.yaml`;
+        const a = document.getElementById('downloadLink');
+        a.href = url;
+        a.download = `config_${Date.now()}.yaml`;
         document.getElementById('resultArea').classList.add('show');
-        
         showStatus('success', '✅ Конфиг готов! Нажмите "Скачать"');
-        
-        processBtn.disabled = false;
+        btn.disabled = false;
     }
-
-    function showStatus(type, msg) {
-        const statusDiv = document.getElementById('statusCard');
-        statusDiv.className = 'status-card';
-        if (type === 'success') {
-            statusDiv.classList.add('success');
-            statusDiv.innerHTML = `<span>${msg}</span>`;
-        } else if (type === 'error') {
-            statusDiv.classList.add('error');
-            statusDiv.innerHTML = `<span>${msg}</span>`;
-        } else if (type === 'loading') {
-            statusDiv.classList.add('success');
-            statusDiv.innerHTML = `<span>${msg}</span>`;
-        }
-    }
-
+    
+    function deleteGroup(groupId) { customGroups = customGroups.filter(g => g.id !== groupId); renderCustomGroups(); showStatus('success', '✅ Группа удалена'); }
+    function addCustomGroup() { customGroups.push({ id: nextGroupId++, name: `Группа ${nextGroupId-1}`, proxies: [], iconUrl: "", selectedRules: [] }); renderCustomGroups(); showStatus('success', `✅ Группа "${customGroups[customGroups.length-1].name}" создана`); }
+    function showStatus(t,m){ const sd=document.getElementById('statusCard'); sd.className='status-card'; if(t==='success'){ sd.classList.add('success'); sd.innerHTML=`<span>${m}</span>`; }else if(t==='error'){ sd.classList.add('error'); sd.innerHTML=`<span>${m}</span>`; }else if(t==='loading'){ sd.classList.add('success'); sd.innerHTML=`<span>${m}</span>`; } }
+    
     document.getElementById('addGroupBtn').onclick = () => addCustomGroup();
     document.getElementById('expandAllBtn').onclick = () => expandAllCategories();
     document.getElementById('collapseAllBtn').onclick = () => collapseAllCategories();
-    
-    const uploadZone = document.getElementById('uploadZone');
-    const fileInput = document.getElementById('fileInput');
+    const uploadZone = document.getElementById('uploadZone'), fileInput = document.getElementById('fileInput');
     uploadZone.onclick = () => fileInput.click();
     uploadZone.ondragover = (e) => { e.preventDefault(); uploadZone.classList.add('drag-over'); };
     uploadZone.ondragleave = () => uploadZone.classList.remove('drag-over');
-    uploadZone.ondrop = (e) => {
-        e.preventDefault();
-        uploadZone.classList.remove('drag-over');
-        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
-    };
-    fileInput.onchange = (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); };
-    
+    uploadZone.ondrop = (e) => { e.preventDefault(); uploadZone.classList.remove('drag-over'); if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); };
+    fileInput.onchange = (e) => { if(e.target.files[0]) handleFile(e.target.files[0]); };
     document.getElementById('processBtn').onclick = processFinal;
-    
     updateIconSelects();
 </script>
 
