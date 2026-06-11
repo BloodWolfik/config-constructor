@@ -1,4 +1,4 @@
-  whitelist:
+  ru-domains:
     type: http
     behavior: domain
     format: mrs
