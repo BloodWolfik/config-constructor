@@ -1,6 +1,0 @@
-  youtube:
-    type: http
-    behavior: domain
-    url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt"
-    path: ./ruleset/youtube.yaml
-    interval: 86400

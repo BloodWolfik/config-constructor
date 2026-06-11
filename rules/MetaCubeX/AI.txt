@@ -1,8 +1,0 @@
-ai:
-    type: http
-    behavior: domain
-    format: mrs
-    # Прямая ссылка на официальный файл (работает)
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-!cn.mrs
-    path: ./ruleset/ai.mrs
-    interval: 86400

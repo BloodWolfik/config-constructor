@@ -1,7 +1,0 @@
-  ru-ips:
-    type: http
-    behavior: ipcidr
-    format: mrs
-    url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geoip/release/mihomo/whitelist.mrs"
-    path: ./ruleset/whitelist-ip.mrs
-    interval: 86400

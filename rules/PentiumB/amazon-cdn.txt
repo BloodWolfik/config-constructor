@@ -1,7 +1,0 @@
-  amazon-cdn:
-    type: http
-    behavior: ipcidr
-    format: mrs
-    url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/amazon.mrs"
-    path: ./ruleset/amazon-cidr.mrs
-    interval: 86400

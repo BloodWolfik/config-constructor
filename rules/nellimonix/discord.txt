@@ -1,6 +1,0 @@
-  discord:
-    type: http
-    behavior: domain
-    url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/discord.txt"
-    path: ./ruleset/discord.txt
-    interval: 86400

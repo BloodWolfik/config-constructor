@@ -1,7 +1,0 @@
-  akamai-cdn:
-    type: http
-    behavior: ipcidr
-    format: mrs
-    url: "https://github.com/PentiumB/CDN-RuleSet/releases/latest/download/akamai.mrs"
-    path: ./ruleset/akamai-cidr.mrs
-    interval: 86400

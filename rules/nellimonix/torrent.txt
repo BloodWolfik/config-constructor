@@ -1,6 +1,0 @@
-  torrent:
-    type: http
-    behavior: domain
-    url: https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/torrent.txt
-    path: ./ruleset/torrent.yaml
-    interval: 86400

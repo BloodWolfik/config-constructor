@@ -1,7 +1,0 @@
-  telegram:
-    type: http
-    behavior: domain
-    format: mrs
-    url: "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/telegram.mrs"
-    path: ./ruleset/telegram.mrs
-    interval: 86400

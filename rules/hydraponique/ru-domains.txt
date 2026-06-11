@@ -1,7 +1,0 @@
-  ru-domains:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/whitelist.mrs
-    path: ./ruleset/whitelist.mrs
-    interval: 86400

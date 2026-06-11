@@ -1,7 +1,0 @@
-  steam:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/steam.mrs
-    path: ./ruleset/steam.mrs
-    interval: 86400

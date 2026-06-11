@@ -1,6 +1,0 @@
-  porno:
-    type: http
-    behavior: domain
-    url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/porno.txt"
-    path: ./ruleset/porno.yaml
-    interval: 86400
