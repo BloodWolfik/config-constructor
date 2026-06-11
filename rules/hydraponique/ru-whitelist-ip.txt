@@ -1,4 +1,4 @@
-  ru-whitelist-ip:
+  ru-ips:
     type: http
     behavior: ipcidr
     format: mrs
