@@ -818,7 +818,7 @@
                 <li><span class="feature-icon">📂</span><span class="feature-text">Загрузка YAML/конфигов</span><span class="feature-badge">готово</span></li>
                 <li><span class="feature-icon">🌍</span><span class="feature-text">Выбор прокси (гео, оригинальные, диапазоны IP)</span><span class="feature-badge">готово</span></li>
                 <li><span class="feature-icon">📁</span><span class="feature-text">Создание неограниченного количества групп</span><span class="feature-badge">готово</span></li>
-                <li><span class="feature-icon">🎯</span><span class="feature-text">Выбор правил и назначение на группы</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">🎯</span><span class="feature-text">Выбор правил и назначение на конкретные группы</span><span class="feature-badge">готово</span></li>
                 <li><span class="feature-icon">⚙️</span><span class="feature-text">Исключения LAN, торрентов, NVIDIA</span><span class="feature-badge">готово</span></li>
                 <li><span class="feature-icon">🖼️</span><span class="feature-text">Иконки групп с превью</span><span class="feature-badge">готово</span></li>
                 <li><span class="feature-icon">💾</span><span class="feature-text">Скачивание конфига</span><span class="feature-badge">готово</span></li>
@@ -940,47 +940,40 @@
         if(cb) cb.checked = !cb.checked;
     }
 
-    const PROXY_CATEGORIES = [
-        { name: "geo", label: "🌍 Гео-эндпоинты", proxies: null },
-        { name: "original", label: "⭐ Оригинальные эндпоинты", proxies: null },
-        { name: "range192", label: "📡 162.159.192.1-20", proxies: null },
-        { name: "range195", label: "📡 162.159.195.1-10", proxies: null }
-    ];
+    const modal = document.getElementById('infoModal');
+    const infoBtn = document.getElementById('infoBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
 
-    const GEO_PROXIES = [ { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇷🇺 Россия", server: "ru0.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇫🇮 Финляндия", server: "fi.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇩🇪 Германия", server: "de.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇱🇻 Латвия", server: "lv.tribukvy.ltd", port: 4500 }, { name: "[🌍] LTE 🇵🇱 Польша", server: "mpl.tribukvy.ltd", port: 4500 }, { name: "[🌍] LTE 🇫🇮 Финляндия", server: "mfi.tribukvy.ltd", port: 4500 } ];
-    const ORIGINAL_PROXIES = [ { name: "[⭐] 188.114.97.1:500", server: "188.114.97.1", port: 500 }, { name: "[⭐] 188.114.97.148:4500", server: "188.114.97.148", port: 4500 }, { name: "[⭐] 162.159.195.1:500", server: "162.159.195.1", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:4500", server: "engage.cloudflareclient.com", port: 4500 }, { name: "[⭐] engage.cloudflareclient.com:500", server: "engage.cloudflareclient.com", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:2408", server: "engage.cloudflareclient.com", port: 2408 }, { name: "[⭐] 188.114.99.224:1002", server: "188.114.99.224", port: 1002 }, { name: "[⭐] 8.34.146.113:968", server: "8.34.146.113", port: 968 } ];
-    const RANGE192_PROXIES = []; 
-    const RANGE195_PROXIES = [];
-    for (let i = 1; i <= 20; i++) { 
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:2408`, server: `162.159.192.${i}`, port: 2408 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:1701`, server: `162.159.192.${i}`, port: 1701 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:4500`, server: `162.159.192.${i}`, port: 4500 });
-        RANGE192_PROXIES.push({ name: `162.159.192.${i}:500`, server: `162.159.192.${i}`, port: 500 });
-    }
-    for (let i = 1; i <= 10; i++) { 
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:2408`, server: `162.159.195.${i}`, port: 2408 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:1701`, server: `162.159.195.${i}`, port: 1701 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:4500`, server: `162.159.195.${i}`, port: 4500 });
-        RANGE195_PROXIES.push({ name: `162.159.195.${i}:500`, server: `162.159.195.${i}`, port: 500 });
+    infoBtn.addEventListener('click', () => modal.classList.add('show'));
+    closeModalBtn.addEventListener('click', () => modal.classList.remove('show'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
+    document.getElementById('refreshBtn').addEventListener('click', () => location.reload());
+
+    const ICON_REPO_BASE_URL = "https://raw.githubusercontent.com/BloodWolfik/Sites/main/icons/";
+    const MANUAL_ICONS_LIST = ["cloudflare.svg","discord.svg","google.svg","sites.svg","telegram.svg","twitch.svg","utorrent.svg","whatsapp.svg","youtube.svg","reddit.svg","hashtag.svg","AI.svg","fastly.svg","tv-series.svg","cdn.svg"];
+    
+    function expandAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'block'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(90deg)'); }
+    function collapseAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'none'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(0deg)'); }
+    function updateIconPreview(containerId, iconUrl) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        if (iconUrl && iconUrl.trim() !== "") {
+            const img = document.createElement('img');
+            img.src = iconUrl;
+            img.className = 'icon-preview-img';
+            img.onerror = () => { container.innerHTML = '<div class="icon-preview-placeholder">❌</div>'; };
+            img.onload = () => { container.innerHTML = ''; container.appendChild(img); };
+            container.innerHTML = '';
+            container.appendChild(img);
+        } else { container.innerHTML = '<div class="icon-preview-placeholder">🖼️</div>'; }
     }
     
-    PROXY_CATEGORIES[0].proxies = GEO_PROXIES;
-    PROXY_CATEGORIES[1].proxies = ORIGINAL_PROXIES;
-    PROXY_CATEGORIES[2].proxies = RANGE192_PROXIES;
-    PROXY_CATEGORIES[3].proxies = RANGE195_PROXIES;
-
-    function getSortedProxies(selectedProxiesSet) {
-        const ordered = [];
-        for (const cat of PROXY_CATEGORIES) {
-            for (const proxy of cat.proxies) {
-                if (selectedProxiesSet.has(proxy.name)) {
-                    ordered.push(proxy);
-                }
-            }
-        }
-        return ordered;
-    }
-
+    const GEO_PROXIES = [ { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇷🇺 Россия", server: "ru0.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇫🇮 Финляндия", server: "fi.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇩🇪 Германия", server: "de.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇱🇻 Латвия", server: "lv.tribukvy.ltd", port: 4500 }, { name: "[🌍] LTE 🇵🇱 Польша", server: "mpl.tribukvy.ltd", port: 4500 }, { name: "[🌍] LTE 🇫🇮 Финляндия", server: "mfi.tribukvy.ltd", port: 4500 } ];
+    const ORIGINAL_PROXIES = [ { name: "[⭐] 188.114.97.1:500", server: "188.114.97.1", port: 500 }, { name: "[⭐] 188.114.97.148:4500", server: "188.114.97.148", port: 4500 }, { name: "[⭐] 162.159.195.1:500", server: "162.159.195.1", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:4500", server: "engage.cloudflareclient.com", port: 4500 }, { name: "[⭐] engage.cloudflareclient.com:500", server: "engage.cloudflareclient.com", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:2408", server: "engage.cloudflareclient.com", port: 2408 }, { name: "[⭐] 188.114.99.224:1002", server: "188.114.99.224", port: 1002 }, { name: "[⭐] 8.34.146.113:968", server: "8.34.146.113", port: 968 } ];
+    const RANGE192_PROXIES = []; const RANGE195_PROXIES = [];
+    for (let i = 1; i <= 20; i++) { RANGE192_PROXIES.push({ name: `162.159.192.${i}:2408`, server: `162.159.192.${i}`, port: 2408 },{ name: `162.159.192.${i}:1701`, server: `162.159.192.${i}`, port: 1701 },{ name: `162.159.192.${i}:4500`, server: `162.159.192.${i}`, port: 4500 },{ name: `162.159.192.${i}:500`, server: `162.159.192.${i}`, port: 500 }); }
+    for (let i = 1; i <= 10; i++) { RANGE195_PROXIES.push({ name: `162.159.195.${i}:2408`, server: `162.159.195.${i}`, port: 2408 },{ name: `162.159.195.${i}:1701`, server: `162.159.195.${i}`, port: 1701 },{ name: `162.159.195.${i}:4500`, server: `162.159.195.${i}`, port: 4500 },{ name: `162.159.195.${i}:500`, server: `162.159.195.${i}`, port: 500 }); }
+    
     const RULES_BY_AUTHOR = [
         { author: "Nellimonix", authorUrl: "https://github.com/nellimonix", license: "GPL-3.0", rules: [
             { id: "nellimonix_youtube", name: "🎬 YouTube", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt" },
@@ -1015,47 +1008,11 @@
         ] }
     ];
     
-    // Добавляем правило для google-ai с format text и url .lst
-    RULES_BY_AUTHOR.push({
-        author: "itdoginfo", authorUrl: "https://github.com/itdoginfo", license: "MIT", rules: [
-            { id: "google_ai", name: "🤖 Google AI", type: "domain", format: "text", behavior: "domain", url: "https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Services/google_ai.lst" },
-            { id: "hodca", name: "🇷🇺 HODCA", type: "domain", format: "text", behavior: "domain", url: "https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Categories/hodca.lst" }
-        ]
-    });
-    
-    // Добавляем правила от blackmatrix7 (whatsapp, discord, youtube)
-    RULES_BY_AUTHOR.push({
-        author: "blackmatrix7", authorUrl: "https://github.com/blackmatrix7", license: "MIT", rules: [
-            { id: "whatsapp", name: "💬 WhatsApp", type: "domain", behavior: "classical", url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp_No_Resolve.yaml" },
-            { id: "discord_matrix", name: "💬 Discord (matrix)", type: "domain", behavior: "classical", url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Discord/Discord.yaml" },
-            { id: "youtube_matrix", name: "🎬 YouTube (matrix)", type: "domain", behavior: "classical", url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTube/YouTube.yaml" }
-        ]
-    });
-    
     const DIRECT_ONLY_RULE_IDS = ["hydraponique_ru_domains", "hydraponique_ru_ips", "hydraponique_category_ru"];
     let originalFileText = null, cleanedWarpCommon = null;
     let customGroups = [];
     let proxyGroupName = "PROXY", proxyGroupIconUrl = "", mainGroupProxies = [];
     let nextGroupId = 1;
-    
-    const ICON_REPO_BASE_URL = "https://raw.githubusercontent.com/BloodWolfik/Sites/main/icons/";
-    const MANUAL_ICONS_LIST = ["cloudflare.svg","discord.svg","google.svg","sites.svg","telegram.svg","twitch.svg","utorrent.svg","whatsapp.svg","youtube.svg","reddit.svg","hashtag.svg","AI.svg","fastly.svg","tv-series.svg","cdn.svg"];
-    
-    function expandAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'block'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(90deg)'); }
-    function collapseAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'none'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(0deg)'); }
-    function updateIconPreview(containerId, iconUrl) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        if (iconUrl && iconUrl.trim() !== "") {
-            const img = document.createElement('img');
-            img.src = iconUrl;
-            img.className = 'icon-preview-img';
-            img.onerror = () => { container.innerHTML = '<div class="icon-preview-placeholder">❌</div>'; };
-            img.onload = () => { container.innerHTML = ''; container.appendChild(img); };
-            container.innerHTML = '';
-            container.appendChild(img);
-        } else { container.innerHTML = '<div class="icon-preview-placeholder">🖼️</div>'; }
-    }
     
     const proxyGroupNameInput = document.getElementById('proxyGroupNameInput');
     const proxyGroupIconUrlInput = document.getElementById('proxyGroupIconUrl');
@@ -1071,18 +1028,22 @@
         const container = document.getElementById('mainGroupProxies');
         if(!container) return;
         container.innerHTML = '';
+        
         const cats = [
             {name:"⭐ Оригинальные эндпоинты", proxies: ORIGINAL_PROXIES},
             {name:"📡 162.159.192.1-20", proxies: RANGE192_PROXIES},
             {name:"📡 162.159.195.1-10", proxies: RANGE195_PROXIES}
         ];
+        
         for(const cat of cats) {
             const div = document.createElement('div');
             div.style.marginBottom = '15px';
             div.style.border = '1px solid rgba(168,85,247,0.2)';
             div.style.borderRadius = '12px';
+            
             const selectedCount = mainGroupProxies.filter(p => cat.proxies.some(cp => cp.name === p.name)).length;
             const catId = cat.name.replace(/[^a-z0-9]/gi, '_');
+            
             div.innerHTML = `
                 <div class="group-category-header">
                     <div>
@@ -1108,9 +1069,11 @@
                 </div>
             `;
             container.appendChild(div);
+            
             const header = div.querySelector('.group-category-header');
             const content = div.querySelector('.category-content');
             const arrow = header.querySelector('.category-arrow');
+            
             header.addEventListener('click', (e) => {
                 if(e.target.tagName !== 'BUTTON') {
                     if(content.style.display === 'none') {
@@ -1122,11 +1085,16 @@
                     }
                 }
             });
+            
             const updateStats = () => {
                 const checked = Array.from(div.querySelectorAll('.main-group-proxy-cb:checked')).length;
                 const statsSpan = div.querySelector('.category-stats');
-                if(statsSpan) statsSpan.innerHTML = `(${checked}/${cat.proxies.length})`;
+                if(statsSpan) {
+                    statsSpan.innerHTML = `(${checked}/${cat.proxies.length})`;
+                    statsSpan.style.color = '#ffffff';
+                }
             };
+            
             const selectAllBtn = div.querySelector('.category-select-all');
             selectAllBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1134,11 +1102,16 @@
                     cb.checked = true;
                     const name = cb.dataset.proxyName;
                     if(!mainGroupProxies.some(p => p.name === name)) {
-                        mainGroupProxies.push({ name: name, server: cb.dataset.proxyServer, port: parseInt(cb.dataset.proxyPort) });
+                        mainGroupProxies.push({
+                            name: name,
+                            server: cb.dataset.proxyServer,
+                            port: parseInt(cb.dataset.proxyPort)
+                        });
                     }
                 });
                 updateStats();
             });
+            
             const clearAllBtn = div.querySelector('.category-clear-all');
             clearAllBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1149,6 +1122,7 @@
                 });
                 updateStats();
             });
+            
             div.querySelectorAll('.group-proxy-option').forEach(opt => {
                 const cb = opt.querySelector('.main-group-proxy-cb');
                 opt.addEventListener('click', (e) => {
@@ -1162,7 +1136,11 @@
                     const name = cb.dataset.proxyName;
                     if(cb.checked) {
                         if(!mainGroupProxies.some(p => p.name === name)) {
-                            mainGroupProxies.push({ name: name, server: cb.dataset.proxyServer, port: parseInt(cb.dataset.proxyPort) });
+                            mainGroupProxies.push({
+                                name: name,
+                                server: cb.dataset.proxyServer,
+                                port: parseInt(cb.dataset.proxyPort)
+                            });
                         }
                     } else {
                         const idx = mainGroupProxies.findIndex(p => p.name === name);
@@ -1181,16 +1159,19 @@
         const container = document.getElementById('customGroupsContainer');
         if (!container) return;
         container.innerHTML = '';
+        
         const groupedProxies = {
             geo: { name: "🌍 Гео-эндпоинты", collapsed: true, proxies: GEO_PROXIES },
             original: { name: "⭐ Оригинальные эндпоинты", collapsed: true, proxies: ORIGINAL_PROXIES },
             range192: { name: "📡 162.159.192.1-20", collapsed: true, proxies: RANGE192_PROXIES },
             range195: { name: "📡 162.159.195.1-10", collapsed: true, proxies: RANGE195_PROXIES }
         };
+        
         for (const group of customGroups) {
             const groupDiv = document.createElement('div');
             groupDiv.className = 'custom-group-card';
             groupDiv.id = `custom-group-${group.id}`;
+            
             let groupedProxiesHtml = '';
             for (const [key, grp] of Object.entries(groupedProxies)) {
                 if (grp.proxies.length === 0) continue;
@@ -1219,6 +1200,7 @@
                     </div>
                 `;
             }
+            
             let rulesHtml = '';
             for (const authorGroup of RULES_BY_AUTHOR) {
                 if (!authorGroup.rules.length) continue;
@@ -1238,6 +1220,7 @@
                     </div>
                 </div>`;
             }
+            
             groupDiv.innerHTML = `
                 <div class="custom-group-header">
                     <div class="group-header-controls">
@@ -1261,6 +1244,7 @@
                 </div>
             `;
             container.appendChild(groupDiv);
+            
             const iconUrlInput = groupDiv.querySelector('.group-icon-url-input');
             const iconSelect = groupDiv.querySelector('.icon-select');
             if (iconSelect) {
@@ -1286,7 +1270,9 @@
                 updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
             });
             if (group.iconUrl) updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
+            
             groupDiv.querySelector('.delete-group-btn').addEventListener('click', () => deleteGroup(group.id));
+            
             groupDiv.querySelectorAll('.group-category-header').forEach(header => {
                 const category = header.dataset.category;
                 const content = groupDiv.querySelector(`#content-${group.id}-${category}`);
@@ -1303,6 +1289,7 @@
                     }
                 });
             });
+            
             const updateCategoryStats = (category) => {
                 const checkboxes = groupDiv.querySelectorAll(`.group-proxy-item-cb[data-category="${category}"]`);
                 const cnt = Array.from(checkboxes).filter(cb => cb.checked).length;
@@ -1310,6 +1297,7 @@
                 const statsSpan = groupDiv.querySelector(`#stats-${group.id}-${category}`);
                 if (statsSpan) statsSpan.innerText = `(${cnt}/${total})`;
             };
+            
             groupDiv.querySelectorAll('.category-select-all').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const category = btn.dataset.category;
@@ -1357,6 +1345,7 @@
                     updateCategoryStats(category);
                 });
             });
+            
             groupDiv.querySelectorAll('.rule-check-item').forEach(item => {
                 const cb = item.querySelector('.rule-assign-cb');
                 item.addEventListener('click', (e) => {
@@ -1377,35 +1366,36 @@
                     }
                 });
             });
+            
             const nameInput = groupDiv.querySelector('.group-name-input');
             nameInput.addEventListener('change', (e) => { group.name = e.target.value; });
         }
     }
     
-    function getResolvedRuleIds(selectedRules) { const nameCount = {}; for (const rule of selectedRules) { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); nameCount[base] = (nameCount[base] || 0) + 1; } return selectedRules.map(rule => { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); const isMeta = rule.id.includes('metacuvex'); let finalId = base; if (nameCount[base] > 1) { if (isMeta) finalId = base + '_meta'; else if (rule.id.includes('telegram_ip')) finalId = 'telegram-ip'; else finalId = base + '_' + rule.id.split('_')[0]; } return { originalRule: rule, finalId }; }); }
+    function getResolvedRuleIds(selectedRules) { const nameCount = {}; for (const rule of selectedRules) { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); nameCount[base] = (nameCount[base] || 0) + 1; } return selectedRules.map(rule => { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); const isMeta = rule.id.includes('metacuvex'); let finalId = base; if (nameCount[base] > 1) { if (isMeta) finalId = base + '_meta'; else if (rule.id.includes('telegram_ip')) finalId = 'telegram_geoip'; else finalId = base + '_' + rule.id.split('_')[0]; } return { originalRule: rule, finalId }; }); }
     function getSelectedRulesFromGroups() { const selectedMap = new Map(); for (const group of customGroups) { if (group.selectedRules) { for (const ruleId of group.selectedRules) { if (!selectedMap.has(ruleId)) { for (const author of RULES_BY_AUTHOR) { const rule = author.rules.find(r => r.id === ruleId); if (rule) { selectedMap.set(ruleId, rule); break; } } } } } } return Array.from(selectedMap.values()); }
     function getGroupForRule(ruleId) { for (const group of customGroups) { if (group.selectedRules && group.selectedRules.includes(ruleId)) { return group.name; } } return proxyGroupName; }
     
-    // КЛЮЧЕВАЯ ФУНКЦИЯ: правильное определение расширения для path на основе URL и format
+    // НОВАЯ УМНАЯ ФУНКЦИЯ ОПРЕДЕЛЕНИЯ РАСШИРЕНИЯ
     function getFileExtension(rule) {
         const urlLower = rule.url.toLowerCase();
         
-        // format: mrs или URL содержит .mrs -> .mrs
+        // Если format mrs или URL содержит .mrs -> .mrs
         if (rule.format === 'mrs' || urlLower.includes('.mrs')) {
             return 'mrs';
         }
         
-        // URL содержит .lst -> .lst (для itdoginfo и подобных)
+        // Если URL содержит .lst -> .lst
         if (urlLower.includes('.lst')) {
             return 'lst';
         }
         
-        // URL содержит .yaml или .yml -> .yaml
+        // Если URL содержит .yaml или .yml -> .yaml
         if (urlLower.includes('.yaml') || urlLower.includes('.yml')) {
             return 'yaml';
         }
         
-        // .txt и всё остальное -> .yaml (как в примерах Nellimonix)
+        // .txt и всё остальное -> .yaml
         return 'yaml';
     }
     
@@ -1416,7 +1406,6 @@
         for (let i = 0; i < resolved.length; i++) {
             const { originalRule: r, finalId } = resolved[i];
             const fileExt = getFileExtension(r);
-            
             yaml += `  ${finalId}:\n    type: http\n    behavior: ${r.behavior || 'domain'}\n`;
             if (r.format) yaml += `    format: ${r.format}\n`;
             yaml += `    url: "${r.url}"\n    path: ./ruleset/${finalId}.${fileExt}\n    interval: 86400\n`;
@@ -1430,12 +1419,10 @@
     
     function buildFinalYaml() {
         const selectedRules = getSelectedRulesFromGroups();
-        const mainProxiesSet = new Set(mainGroupProxies.map(p => p.name));
-        const customProxiesSet = new Set();
-        for (const g of customGroups) for (const p of g.proxies) customProxiesSet.add(p.name);
-        const allProxiesSet = new Set([...mainProxiesSet, ...customProxiesSet]);
-        const allUniqueProxies = getSortedProxies(allProxiesSet);
-        
+        const allProxiesSet = new Map();
+        for (const p of mainGroupProxies) if (!allProxiesSet.has(p.name)) allProxiesSet.set(p.name, p);
+        for (const g of customGroups) for (const p of g.proxies) if (!allProxiesSet.has(p.name)) allProxiesSet.set(p.name, p);
+        const allUniqueProxies = Array.from(allProxiesSet.values());
         let yamlResult = '';
         if (cleanedWarpCommon) yamlResult += cleanedWarpCommon + '\n';
         if (allUniqueProxies.length) {
@@ -1448,19 +1435,14 @@
             yamlResult += `- name: ${proxyGroupName}\n  type: select\n`;
             if (proxyGroupIconUrl) yamlResult += `  icon: "${proxyGroupIconUrl}"\n`;
             yamlResult += `  proxies:\n`;
-            for (const p of allUniqueProxies) {
-                if (mainProxiesSet.has(p.name)) yamlResult += `    - "${p.name}"\n`;
-            }
+            for (const p of mainGroupProxies) yamlResult += `    - "${p.name}"\n`;
             yamlResult += `    - DIRECT\n\n`;
             for (const g of customGroups) {
                 if (g.proxies.length) {
                     yamlResult += `- name: ${g.name}\n  type: select\n`;
                     if (g.iconUrl) yamlResult += `  icon: "${g.iconUrl}"\n`;
                     yamlResult += `  proxies:\n`;
-                    const groupProxyNamesSet = new Set(g.proxies.map(p => p.name));
-                    for (const p of allUniqueProxies) {
-                        if (groupProxyNamesSet.has(p.name)) yamlResult += `    - "${p.name}"\n`;
-                    }
+                    for (const p of g.proxies) yamlResult += `    - "${p.name}"\n`;
                     yamlResult += `    - DIRECT\n\n`;
                 }
             }
