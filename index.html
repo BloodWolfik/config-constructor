@@ -19,7 +19,6 @@
             position: relative;
         }
 
-        /* Кнопки в правом верхнем углу */
         .floating-buttons {
             position: fixed;
             top: 20px;
@@ -62,7 +61,6 @@
             transform: scale(0.95);
         }
 
-        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -138,10 +136,6 @@
             padding-right: 8px;
         }
 
-        .modal-body::-webkit-scrollbar {
-            width: 4px;
-        }
-
         .feature-list {
             list-style: none;
         }
@@ -177,11 +171,6 @@
             color: #4ade80;
         }
 
-        .feature-badge.planned {
-            background: rgba(245, 158, 11, 0.15);
-            color: #f59e0b;
-        }
-
         .info-footer {
             margin-top: 24px;
             padding-top: 16px;
@@ -207,7 +196,6 @@
             }
         }
 
-        /* Фоновые частицы */
         body::before {
             content: '';
             position: fixed;
@@ -244,7 +232,6 @@
             box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
         }
 
-        /* ========= НОВАЯ ГИБРИДНАЯ ШАПКА ========= */
         .hero {
             text-align: center;
             margin-bottom: 40px;
@@ -291,7 +278,6 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        /* ========= КОНЕЦ НОВОЙ ШАПКИ ========= */
 
         .collapse-buttons {
             display: flex;
@@ -408,22 +394,6 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: #e8e8f0;
-        }
-
-        .warning-note {
-            background: rgba(245, 158, 11, 0.15);
-            border-left: 4px solid #f59e0b;
-            border-radius: 12px;
-            padding: 10px 16px;
-            margin-bottom: 20px;
-            font-size: 0.8rem;
-            color: #fbbf24;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .warning-note span:first-child {
-            font-size: 1.2rem;
         }
 
         .settings-card {
@@ -594,10 +564,6 @@
             min-width: 150px;
         }
 
-        .icon-select option {
-            background: #1a1a2e;
-        }
-
         .delete-group-btn {
             background: rgba(239, 68, 68, 0.2);
             border: 1px solid rgba(239, 68, 68, 0.5);
@@ -628,23 +594,28 @@
             border-radius: 8px;
             transition: all 0.2s ease;
             border-left: 2px solid transparent;
+            cursor: pointer;
         }
-
+        .group-proxy-option:hover {
+            background: rgba(168, 85, 247, 0.15);
+        }
         .group-proxy-option:has(input:checked) {
             background: rgba(168, 85, 247, 0.15);
             border-left: 2px solid #a855f7;
         }
-
         .group-proxy-option input {
             width: 16px;
             height: 16px;
             accent-color: #a855f7;
+            cursor: pointer;
+            pointer-events: none; 
         }
-
         .group-proxy-option label {
             font-size: 0.7rem;
             color: #ccc;
             cursor: pointer;
+            flex: 1;
+            pointer-events: none;
         }
 
         .btn-add-group {
@@ -687,10 +658,6 @@
             font-weight: 600;
         }
 
-        .author-header a:hover {
-            text-decoration: underline;
-        }
-
         .license-badge {
             font-size: 0.65rem;
             background: rgba(168, 85, 247, 0.2);
@@ -715,23 +682,22 @@
             cursor: pointer;
             transition: 0.15s;
         }
-
         .rule-check-item:hover {
             background: rgba(168, 85, 247, 0.1);
         }
-
         .rule-check-item input {
             width: 18px;
             height: 18px;
             accent-color: #a855f7;
             cursor: pointer;
+            pointer-events: none;
         }
-
         .rule-check-item label {
             flex: 1;
             cursor: pointer;
             font-size: 0.85rem;
             color: #ddd;
+            pointer-events: none;
         }
 
         .rule-group-assignment {
@@ -745,46 +711,6 @@
             font-size: 0.75rem;
             color: #aaa;
             margin-bottom: 8px;
-        }
-
-        .rules-checkbox-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 6px;
-            margin-top: 8px;
-            max-height: 100px;
-            overflow-y: auto;
-            padding: 6px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        .rule-checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 6px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
-
-        .rule-checkbox-item:hover {
-            background: rgba(168, 85, 247, 0.1);
-        }
-
-        .rule-checkbox-item input {
-            width: 12px;
-            height: 12px;
-            accent-color: #a855f7;
-            cursor: pointer;
-        }
-
-        .rule-checkbox-item label {
-            flex: 1;
-            cursor: pointer;
-            color: #ccc;
         }
 
         .btn-process {
@@ -806,24 +732,6 @@
         .btn-process:hover:not(:disabled) {
             transform: scale(1.02);
             box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
-        }
-
-        .btn-process:active::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn-process::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
         }
 
         .btn-process:disabled {
@@ -849,7 +757,6 @@
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: rgba(20, 20, 35, 0.8); border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #a855f7, #7c3aed); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #c084fc, #a855f7); }
 
         .group-category-header {
             display: flex;
@@ -879,18 +786,6 @@
             font-weight: 500;
             margin-left: 8px;
         }
-        
-        .category-select-all, .category-clear-all {
-            transition: all 0.2s ease;
-        }
-        
-        .category-select-all:hover {
-            background: rgba(168, 85, 247, 0.4) !important;
-        }
-        
-        .category-clear-all:hover {
-            background: rgba(239, 68, 68, 0.4) !important;
-        }
 
         @media (max-width: 700px) {
             .custom-group-header { flex-direction: column; align-items: stretch; }
@@ -898,38 +793,20 @@
             .group-icon-url-input { width: 100%; }
             .group-name-input { width: 100%; }
             .icon-select { width: 100%; }
-            .delete-group-btn { align-self: flex-end; margin-top: 6px; }
-            .rules-checkbox-grid {
-                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            }
-            .upload-area {
-                max-width: 100%;
-            }
-            .status-card {
-                max-width: 100%;
-            }
-            .floating-buttons {
-                top: 10px;
-                right: 10px;
-                gap: 8px;
-            }
-            .floating-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
+            .upload-area { max-width: 100%; }
+            .status-card { max-width: 100%; }
+            .floating-buttons { top: 10px; right: 10px; gap: 8px; }
+            .floating-btn { width: 35px; height: 35px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- Кнопки в правом верхнем углу -->
 <div class="floating-buttons">
     <div class="floating-btn info-btn" id="infoBtn" title="Информация">📋</div>
     <div class="floating-btn refresh-btn" id="refreshBtn" title="Обновить страницу">🔄</div>
 </div>
 
-<!-- Модальное окно с информацией -->
 <div id="infoModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -941,13 +818,12 @@
                 <li><span class="feature-icon">📂</span><span class="feature-text">Загрузка YAML/конфигов</span><span class="feature-badge">готово</span></li>
                 <li><span class="feature-icon">🌍</span><span class="feature-text">Выбор прокси (гео, оригинальные, диапазоны IP)</span><span class="feature-badge">готово</span></li>
                 <li><span class="feature-icon">📁</span><span class="feature-text">Создание неограниченного количества групп</span><span class="feature-badge">готово</span></li>
-                <li><span class="feature-icon">🎯</span><span class="feature-text">Выбор правил от Nellimonix, MetaCubeX, hydraponique, PentiumB</span><span class="feature-badge">готово</span></li>
-                <li><span class="feature-icon">⚙️</span><span class="feature-text">Назначение правил на конкретные группы</span><span class="feature-badge">готово</span></li>
-                <li><span class="feature-icon">🏠</span><span class="feature-text">Исключение LAN, торрентов и NVIDIA приложений</span><span class="feature-badge">готово</span></li>
-                <li><span class="feature-icon">🖼️</span><span class="feature-text">Выбор иконок групп из репозитория с превью</span><span class="feature-badge">готово</span></li>
-                <li><span class="feature-icon">💾</span><span class="feature-text">Скачивание готового конфига одной кнопкой</span><span class="feature-badge">готово</span></li>
-                <li><span class="feature-icon">📦</span><span class="feature-text">Сохранение warp-common секции</span><span class="feature-badge">готово</span></li>
-                <li><span class="feature-icon">✨</span><span class="feature-text">Анимированный интерфейс с космическим фоном</span><span class="feature-badge">готово</span></li>                
+                <li><span class="feature-icon">🎯</span><span class="feature-text">Выбор правил и назначение на группы</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">⚙️</span><span class="feature-text">Исключения LAN, торрентов, NVIDIA</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">🖼️</span><span class="feature-text">Иконки групп с превью</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">💾</span><span class="feature-text">Скачивание конфига</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">📦</span><span class="feature-text">Сохранение warp-common</span><span class="feature-badge">готово</span></li>
+                <li><span class="feature-icon">✨</span><span class="feature-text">Анимированный интерфейс</span><span class="feature-badge">готово</span></li>                
             </ul>
         </div>
         <div class="info-footer">
@@ -963,7 +839,6 @@
         <p>Загрузите конфиг → создайте группы → добавьте правила → настройте исключения</p>
     </div>
 
-    <!-- Ячейка загрузки -->
     <div class="upload-area" id="uploadZone">
         <div class="upload-icon">📂</div>
         <div class="upload-text">Нажмите или перетащите .yaml / .yml</div>
@@ -994,7 +869,7 @@
                     <input type="text" class="group-name-input" id="proxyGroupNameInput" placeholder="Название группы" value="PROXY">
                     <input type="text" class="group-icon-url-input" id="proxyGroupIconUrl" placeholder="URL иконки" value="">
                     <select id="proxyGroupIconSelect" class="icon-select">
-                        <option value="">-- Выбрать из репозитория --</option>
+                        <option value="">-- Выбрать иконку --</option>
                     </select>
                     <div id="proxyGroupIconPreview" class="icon-preview-container">
                         <div class="icon-preview-placeholder">🖼️</div>
@@ -1021,7 +896,7 @@
                 
                 <div class="settings-group">
                     <div class="settings-subtitle">🏠 Исключить локальную сеть (LAN)</div>
-                    <div class="checkbox-item">
+                    <div class="checkbox-item" onclick="toggleCheckbox('excludeLanCheckbox')">
                         <input type="checkbox" id="excludeLanCheckbox">
                         <label for="excludeLanCheckbox">Исключить локальные адреса (192.168.x.x, 10.x.x.x, 172.16.x.x, localhost)</label>
                         <span class="hint">(LAN трафик пойдёт напрямую, не через прокси)</span>
@@ -1030,7 +905,7 @@
 
                 <div class="settings-group">
                     <div class="settings-subtitle">📥 Торрент клиенты</div>
-                    <div class="checkbox-item">
+                    <div class="checkbox-item" onclick="toggleCheckbox('torrentExcludeCheckbox')">
                         <input type="checkbox" id="torrentExcludeCheckbox">
                         <label for="torrentExcludeCheckbox">Исключить qBittorrent и µTorrent (трафик напрямую)</label>
                     </div>
@@ -1038,7 +913,7 @@
 
                 <div class="settings-group">
                     <div class="settings-subtitle">🎮 NVIDIA приложения</div>
-                    <div class="checkbox-item">
+                    <div class="checkbox-item" onclick="toggleCheckbox('nvidiaExcludeCheckbox')">
                         <input type="checkbox" id="nvidiaExcludeCheckbox">
                         <label for="nvidiaExcludeCheckbox">Исключить NVIDIA процессы (nvcontainer, NVIDIA App)</label>
                     </div>
@@ -1060,58 +935,52 @@
 
 <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 <script>
-    // Модальное окно
-    const modal = document.getElementById('infoModal');
-    const infoBtn = document.getElementById('infoBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
+    function toggleCheckbox(id) {
+        const cb = document.getElementById(id);
+        if(cb) cb.checked = !cb.checked;
+    }
 
-    infoBtn.addEventListener('click', () => {
-        modal.classList.add('show');
-    });
+    const PROXY_CATEGORIES = [
+        { name: "geo", label: "🌍 Гео-эндпоинты", proxies: null },
+        { name: "original", label: "⭐ Оригинальные эндпоинты", proxies: null },
+        { name: "range192", label: "📡 162.159.192.1-20", proxies: null },
+        { name: "range195", label: "📡 162.159.195.1-10", proxies: null }
+    ];
 
-    closeModalBtn.addEventListener('click', () => {
-        modal.classList.remove('show');
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('show');
-        }
-    });
-
-    // Кнопка обновления страницы
-    document.getElementById('refreshBtn').addEventListener('click', () => {
-        location.reload();
-    });
-
-    // ========= НАСТРОЙКА РЕПОЗИТОРИЯ С ИКОНКАМИ =========
-    const ICON_REPO_BASE_URL = "https://raw.githubusercontent.com/BloodWolfik/Sites/main/icons/";
-    const MANUAL_ICONS_LIST = ["cloudflare.svg","discord.svg","google.svg","sites.svg","telegram.svg","twitch.svg","utorrent.svg","whatsapp.svg","youtube.svg","reddit.svg","hashtag.svg","AI.svg","fastly.svg","tv-series.svg","cdn.svg"];
-    
-    function expandAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'block'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(90deg)'); }
-    function collapseAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'none'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(0deg)'); }
-    function updateIconPreview(containerId, iconUrl) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        if (iconUrl && iconUrl.trim() !== "") {
-            const img = document.createElement('img');
-            img.src = iconUrl;
-            img.className = 'icon-preview-img';
-            img.onerror = () => { container.innerHTML = '<div class="icon-preview-placeholder">❌</div>'; };
-            img.onload = () => { container.innerHTML = ''; container.appendChild(img); };
-            container.innerHTML = '';
-            container.appendChild(img);
-        } else { container.innerHTML = '<div class="icon-preview-placeholder">🖼️</div>'; }
+    const GEO_PROXIES = [ { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇷🇺 Россия", server: "ru0.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇫🇮 Финляндия", server: "fi.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇩🇪 Германия", server: "de.tribukvy.ltd", port: 4500 }, { name: "[🌍] 🇱🇻 Латвия", server: "lv.tribukvy.ltd", port: 4500 }, { name: "[🌍] LTE 🇵🇱 Польша", server: "mpl.tribukvy.ltd", port: 4500 }, { name: "[🌍] LTE 🇫🇮 Финляндия", server: "mfi.tribukvy.ltd", port: 4500 } ];
+    const ORIGINAL_PROXIES = [ { name: "[⭐] 188.114.97.1:500", server: "188.114.97.1", port: 500 }, { name: "[⭐] 188.114.97.148:4500", server: "188.114.97.148", port: 4500 }, { name: "[⭐] 162.159.195.1:500", server: "162.159.195.1", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:4500", server: "engage.cloudflareclient.com", port: 4500 }, { name: "[⭐] engage.cloudflareclient.com:500", server: "engage.cloudflareclient.com", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:2408", server: "engage.cloudflareclient.com", port: 2408 }, { name: "[⭐] 188.114.99.224:1002", server: "188.114.99.224", port: 1002 }, { name: "[⭐] 8.34.146.113:968", server: "8.34.146.113", port: 968 } ];
+    const RANGE192_PROXIES = []; 
+    const RANGE195_PROXIES = [];
+    for (let i = 1; i <= 20; i++) { 
+        RANGE192_PROXIES.push({ name: `162.159.192.${i}:2408`, server: `162.159.192.${i}`, port: 2408 });
+        RANGE192_PROXIES.push({ name: `162.159.192.${i}:1701`, server: `162.159.192.${i}`, port: 1701 });
+        RANGE192_PROXIES.push({ name: `162.159.192.${i}:4500`, server: `162.159.192.${i}`, port: 4500 });
+        RANGE192_PROXIES.push({ name: `162.159.192.${i}:500`, server: `162.159.192.${i}`, port: 500 });
+    }
+    for (let i = 1; i <= 10; i++) { 
+        RANGE195_PROXIES.push({ name: `162.159.195.${i}:2408`, server: `162.159.195.${i}`, port: 2408 });
+        RANGE195_PROXIES.push({ name: `162.159.195.${i}:1701`, server: `162.159.195.${i}`, port: 1701 });
+        RANGE195_PROXIES.push({ name: `162.159.195.${i}:4500`, server: `162.159.195.${i}`, port: 4500 });
+        RANGE195_PROXIES.push({ name: `162.159.195.${i}:500`, server: `162.159.195.${i}`, port: 500 });
     }
     
-    // ========= ПРОКСИ =========
-    const GEO_PROXIES = [ { name: "[🌍] 🇳🇱 Нидерланды", server: "nl.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇵🇱 Польша", server: "pl.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇷🇺 Россия", server: "ru0.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇫🇮 Финляндия", server: "fi.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇩🇪 Германия", server: "de.tribukvy.ltd", port: 500 }, { name: "[🌍] 🇱🇻 Латвия", server: "lv.tribukvy.ltd", port: 500 }, { name: "[🌍] LTE 🇵🇱 Польша", server: "mpl.tribukvy.ltd", port: 500 }, { name: "[🌍] LTE 🇫🇮 Финляндия", server: "mfi.tribukvy.ltd", port: 500 } ];
-    const ORIGINAL_PROXIES = [ { name: "[⭐] 188.114.97.1:500", server: "188.114.97.1", port: 500 }, { name: "[⭐] 188.114.97.148:4500", server: "188.114.97.148", port: 4500 }, { name: "[⭐] 162.159.195.1:500", server: "162.159.195.1", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:4500", server: "engage.cloudflareclient.com", port: 4500 }, { name: "[⭐] engage.cloudflareclient.com:500", server: "engage.cloudflareclient.com", port: 500 }, { name: "[⭐] engage.cloudflareclient.com:2408", server: "engage.cloudflareclient.com", port: 2408 }, { name: "[⭐] 188.114.99.224:1002", server: "188.114.99.224", port: 1002 }, { name: "[⭐] 8.34.146.113:968", server: "8.34.146.113", port: 968 } ];
-    const RANGE192_PROXIES = []; const RANGE195_PROXIES = [];
-    for (let i = 1; i <= 20; i++) { RANGE192_PROXIES.push({ name: `162.159.192.${i}:2408`, server: `162.159.192.${i}`, port: 2408 },{ name: `162.159.192.${i}:1701`, server: `162.159.192.${i}`, port: 1701 },{ name: `162.159.192.${i}:4500`, server: `162.159.192.${i}`, port: 4500 },{ name: `162.159.192.${i}:500`, server: `162.159.192.${i}`, port: 500 }); }
-    for (let i = 1; i <= 10; i++) { RANGE195_PROXIES.push({ name: `162.159.195.${i}:2408`, server: `162.159.195.${i}`, port: 2408 },{ name: `162.159.195.${i}:1701`, server: `162.159.195.${i}`, port: 1701 },{ name: `162.159.195.${i}:4500`, server: `162.159.195.${i}`, port: 4500 },{ name: `162.159.195.${i}:500`, server: `162.159.195.${i}`, port: 500 }); }
-    
-    // ========= ПРАВИЛА С ОРИГИНАЛЬНЫМИ URL АВТОРОВ =========
+    PROXY_CATEGORIES[0].proxies = GEO_PROXIES;
+    PROXY_CATEGORIES[1].proxies = ORIGINAL_PROXIES;
+    PROXY_CATEGORIES[2].proxies = RANGE192_PROXIES;
+    PROXY_CATEGORIES[3].proxies = RANGE195_PROXIES;
+
+    function getSortedProxies(selectedProxiesSet) {
+        const ordered = [];
+        for (const cat of PROXY_CATEGORIES) {
+            for (const proxy of cat.proxies) {
+                if (selectedProxiesSet.has(proxy.name)) {
+                    ordered.push(proxy);
+                }
+            }
+        }
+        return ordered;
+    }
+
     const RULES_BY_AUTHOR = [
         { author: "Nellimonix", authorUrl: "https://github.com/nellimonix", license: "GPL-3.0", rules: [
             { id: "nellimonix_youtube", name: "🎬 YouTube", type: "domain", behavior: "domain", url: "https://cdn.jsdelivr.net/gh/nellimonix/ClashXRule@release/youtube.txt" },
@@ -1152,6 +1021,25 @@
     let proxyGroupName = "PROXY", proxyGroupIconUrl = "", mainGroupProxies = [];
     let nextGroupId = 1;
     
+    const ICON_REPO_BASE_URL = "https://raw.githubusercontent.com/BloodWolfik/Sites/main/icons/";
+    const MANUAL_ICONS_LIST = ["cloudflare.svg","discord.svg","google.svg","sites.svg","telegram.svg","twitch.svg","utorrent.svg","whatsapp.svg","youtube.svg","reddit.svg","hashtag.svg","AI.svg","fastly.svg","tv-series.svg","cdn.svg"];
+    
+    function expandAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'block'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(90deg)'); }
+    function collapseAllCategories() { document.querySelectorAll('.category-content').forEach(c => c.style.display = 'none'); document.querySelectorAll('.category-arrow').forEach(a => a.style.transform = 'rotate(0deg)'); }
+    function updateIconPreview(containerId, iconUrl) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        if (iconUrl && iconUrl.trim() !== "") {
+            const img = document.createElement('img');
+            img.src = iconUrl;
+            img.className = 'icon-preview-img';
+            img.onerror = () => { container.innerHTML = '<div class="icon-preview-placeholder">❌</div>'; };
+            img.onload = () => { container.innerHTML = ''; container.appendChild(img); };
+            container.innerHTML = '';
+            container.appendChild(img);
+        } else { container.innerHTML = '<div class="icon-preview-placeholder">🖼️</div>'; }
+    }
+    
     const proxyGroupNameInput = document.getElementById('proxyGroupNameInput');
     const proxyGroupIconUrlInput = document.getElementById('proxyGroupIconUrl');
     const proxyGroupIconSelect = document.getElementById('proxyGroupIconSelect');
@@ -1166,22 +1054,18 @@
         const container = document.getElementById('mainGroupProxies');
         if(!container) return;
         container.innerHTML = '';
-        
         const cats = [
             {name:"⭐ Оригинальные эндпоинты", proxies: ORIGINAL_PROXIES},
             {name:"📡 162.159.192.1-20", proxies: RANGE192_PROXIES},
             {name:"📡 162.159.195.1-10", proxies: RANGE195_PROXIES}
         ];
-        
         for(const cat of cats) {
             const div = document.createElement('div');
             div.style.marginBottom = '15px';
             div.style.border = '1px solid rgba(168,85,247,0.2)';
             div.style.borderRadius = '12px';
-            
             const selectedCount = mainGroupProxies.filter(p => cat.proxies.some(cp => cp.name === p.name)).length;
             const catId = cat.name.replace(/[^a-z0-9]/gi, '_');
-            
             div.innerHTML = `
                 <div class="group-category-header">
                     <div>
@@ -1198,7 +1082,7 @@
                     <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:6px;">
                         ${cat.proxies.map(p => {
                             const ch = mainGroupProxies.some(m => m.name === p.name);
-                            return `<div class="group-proxy-option">
+                            return `<div class="group-proxy-option" data-proxy-name="${p.name}" data-proxy-server="${p.server}" data-proxy-port="${p.port}">
                                 <input type="checkbox" class="main-group-proxy-cb" data-proxy-name="${p.name}" data-proxy-server="${p.server}" data-proxy-port="${p.port}" ${ch ? 'checked' : ''}>
                                 <label>${p.name}</label>
                             </div>`;
@@ -1207,11 +1091,9 @@
                 </div>
             `;
             container.appendChild(div);
-            
             const header = div.querySelector('.group-category-header');
             const content = div.querySelector('.category-content');
             const arrow = header.querySelector('.category-arrow');
-            
             header.addEventListener('click', (e) => {
                 if(e.target.tagName !== 'BUTTON') {
                     if(content.style.display === 'none') {
@@ -1223,16 +1105,11 @@
                     }
                 }
             });
-            
             const updateStats = () => {
                 const checked = Array.from(div.querySelectorAll('.main-group-proxy-cb:checked')).length;
                 const statsSpan = div.querySelector('.category-stats');
-                if(statsSpan) {
-                    statsSpan.innerHTML = `(${checked}/${cat.proxies.length})`;
-                    statsSpan.style.color = '#ffffff';
-                }
+                if(statsSpan) statsSpan.innerHTML = `(${checked}/${cat.proxies.length})`;
             };
-            
             const selectAllBtn = div.querySelector('.category-select-all');
             selectAllBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1240,16 +1117,11 @@
                     cb.checked = true;
                     const name = cb.dataset.proxyName;
                     if(!mainGroupProxies.some(p => p.name === name)) {
-                        mainGroupProxies.push({
-                            name: name,
-                            server: cb.dataset.proxyServer,
-                            port: parseInt(cb.dataset.proxyPort)
-                        });
+                        mainGroupProxies.push({ name: name, server: cb.dataset.proxyServer, port: parseInt(cb.dataset.proxyPort) });
                     }
                 });
                 updateStats();
             });
-            
             const clearAllBtn = div.querySelector('.category-clear-all');
             clearAllBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1260,17 +1132,20 @@
                 });
                 updateStats();
             });
-            
-            div.querySelectorAll('.main-group-proxy-cb').forEach(cb => {
+            div.querySelectorAll('.group-proxy-option').forEach(opt => {
+                const cb = opt.querySelector('.main-group-proxy-cb');
+                opt.addEventListener('click', (e) => {
+                    if(e.target.tagName !== 'INPUT') {
+                        cb.checked = !cb.checked;
+                        const event = new Event('change', { bubbles: true });
+                        cb.dispatchEvent(event);
+                    }
+                });
                 cb.addEventListener('change', () => {
                     const name = cb.dataset.proxyName;
                     if(cb.checked) {
                         if(!mainGroupProxies.some(p => p.name === name)) {
-                            mainGroupProxies.push({
-                                name: name,
-                                server: cb.dataset.proxyServer,
-                                port: parseInt(cb.dataset.proxyPort)
-                            });
+                            mainGroupProxies.push({ name: name, server: cb.dataset.proxyServer, port: parseInt(cb.dataset.proxyPort) });
                         }
                     } else {
                         const idx = mainGroupProxies.findIndex(p => p.name === name);
@@ -1279,30 +1154,26 @@
                     updateStats();
                 });
             });
-            
             updateStats();
         }
     }
     
-    function updateIconSelects() { document.querySelectorAll('.icon-select').forEach(select=>{const cur=select.value;select.innerHTML='<option value="">-- Выбрать из репозитория --</option>';MANUAL_ICONS_LIST.forEach(icon=>{const opt=document.createElement('option');opt.value=ICON_REPO_BASE_URL+icon;opt.textContent=icon.replace('.svg','');if(opt.value===cur)opt.selected=true;select.appendChild(opt);});});}
+    function updateIconSelects() { document.querySelectorAll('.icon-select').forEach(select=>{const cur=select.value;select.innerHTML='<option value="">-- Выбрать иконку --</option>';MANUAL_ICONS_LIST.forEach(icon=>{const opt=document.createElement('option');opt.value=ICON_REPO_BASE_URL+icon;opt.textContent=icon.replace('.svg','');if(opt.value===cur)opt.selected=true;select.appendChild(opt);});});}
     
     function renderCustomGroups() {
         const container = document.getElementById('customGroupsContainer');
         if (!container) return;
         container.innerHTML = '';
-        
         const groupedProxies = {
             geo: { name: "🌍 Гео-эндпоинты", collapsed: true, proxies: GEO_PROXIES },
             original: { name: "⭐ Оригинальные эндпоинты", collapsed: true, proxies: ORIGINAL_PROXIES },
             range192: { name: "📡 162.159.192.1-20", collapsed: true, proxies: RANGE192_PROXIES },
             range195: { name: "📡 162.159.195.1-10", collapsed: true, proxies: RANGE195_PROXIES }
         };
-        
         for (const group of customGroups) {
             const groupDiv = document.createElement('div');
             groupDiv.className = 'custom-group-card';
             groupDiv.id = `custom-group-${group.id}`;
-            
             let groupedProxiesHtml = '';
             for (const [key, grp] of Object.entries(groupedProxies)) {
                 if (grp.proxies.length === 0) continue;
@@ -1324,14 +1195,13 @@
                             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px;">
                                 ${grp.proxies.map(proxy => {
                                     const isChecked = group.proxies.some(p => p.name === proxy.name);
-                                    return `<div class="group-proxy-option"><input type="checkbox" class="group-proxy-item-cb" data-group-id="${group.id}" data-category="${key}" data-proxy-name="${proxy.name}" data-proxy-server="${proxy.server}" data-proxy-port="${proxy.port}" ${isChecked ? 'checked' : ''}><label>${proxy.name}</label></div>`;
+                                    return `<div class="group-proxy-option" data-proxy-name="${proxy.name}" data-proxy-server="${proxy.server}" data-proxy-port="${proxy.port}"><input type="checkbox" class="group-proxy-item-cb" data-group-id="${group.id}" data-category="${key}" data-proxy-name="${proxy.name}" data-proxy-server="${proxy.server}" data-proxy-port="${proxy.port}" ${isChecked ? 'checked' : ''}><label>${proxy.name}</label></div>`;
                                 }).join('')}
                             </div>
                         </div>
                     </div>
                 `;
             }
-            
             let rulesHtml = '';
             for (const authorGroup of RULES_BY_AUTHOR) {
                 if (!authorGroup.rules.length) continue;
@@ -1343,7 +1213,7 @@
                     </div>
                     <div class="rules-grid-new" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px;">
                         ${authorGroup.rules.map(rule => `
-                            <div class="rule-check-item" style="padding: 6px 10px;">
+                            <div class="rule-check-item" data-rule-id="${rule.id}" data-group-id="${group.id}">
                                 <input type="checkbox" id="rule_assign_${group.id}_${rule.id}" class="rule-assign-cb" data-group-id="${group.id}" data-rule-id="${rule.id}" ${group.selectedRules && group.selectedRules.includes(rule.id) ? 'checked' : ''}>
                                 <label for="rule_assign_${group.id}_${rule.id}" style="font-size: 0.8rem;">${rule.name}</label>
                             </div>
@@ -1351,14 +1221,13 @@
                     </div>
                 </div>`;
             }
-            
             groupDiv.innerHTML = `
                 <div class="custom-group-header">
                     <div class="group-header-controls">
                         <input type="text" class="group-name-input" data-group-id="${group.id}" value="${group.name}" placeholder="Название группы">
                         <input type="text" class="group-icon-url-input" data-group-id="${group.id}" value="${group.iconUrl || ''}" placeholder="URL иконки">
                         <select class="icon-select" data-group-id="${group.id}">
-                            <option value="">-- Выбрать из репозитория --</option>
+                            <option value="">-- Выбрать иконку --</option>
                         </select>
                         <div class="icon-preview-container" id="icon-preview-${group.id}">
                             <div class="icon-preview-placeholder">🖼️</div>
@@ -1375,11 +1244,10 @@
                 </div>
             `;
             container.appendChild(groupDiv);
-            
             const iconUrlInput = groupDiv.querySelector('.group-icon-url-input');
             const iconSelect = groupDiv.querySelector('.icon-select');
             if (iconSelect) {
-                iconSelect.innerHTML = '<option value="">-- Выбрать из репозитория --</option>';
+                iconSelect.innerHTML = '<option value="">-- Выбрать иконку--</option>';
                 MANUAL_ICONS_LIST.forEach(icon => {
                     const opt = document.createElement('option');
                     opt.value = ICON_REPO_BASE_URL + icon;
@@ -1401,9 +1269,7 @@
                 updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
             });
             if (group.iconUrl) updateIconPreview(`icon-preview-${group.id}`, group.iconUrl);
-            
             groupDiv.querySelector('.delete-group-btn').addEventListener('click', () => deleteGroup(group.id));
-            
             groupDiv.querySelectorAll('.group-category-header').forEach(header => {
                 const category = header.dataset.category;
                 const content = groupDiv.querySelector(`#content-${group.id}-${category}`);
@@ -1420,7 +1286,6 @@
                     }
                 });
             });
-            
             const updateCategoryStats = (category) => {
                 const checkboxes = groupDiv.querySelectorAll(`.group-proxy-item-cb[data-category="${category}"]`);
                 const cnt = Array.from(checkboxes).filter(cb => cb.checked).length;
@@ -1428,7 +1293,6 @@
                 const statsSpan = groupDiv.querySelector(`#stats-${group.id}-${category}`);
                 if (statsSpan) statsSpan.innerText = `(${cnt}/${total})`;
             };
-            
             groupDiv.querySelectorAll('.category-select-all').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const category = btn.dataset.category;
@@ -1453,7 +1317,15 @@
                     updateCategoryStats(category);
                 });
             });
-            groupDiv.querySelectorAll('.group-proxy-item-cb').forEach(cb => {
+            groupDiv.querySelectorAll('.group-proxy-option').forEach(opt => {
+                const cb = opt.querySelector('.group-proxy-item-cb');
+                opt.addEventListener('click', (e) => {
+                    if(e.target.tagName !== 'INPUT') {
+                        cb.checked = !cb.checked;
+                        const event = new Event('change', { bubbles: true });
+                        cb.dispatchEvent(event);
+                    }
+                });
                 cb.addEventListener('change', () => {
                     const category = cb.dataset.category;
                     const pName = cb.dataset.proxyName;
@@ -1468,8 +1340,15 @@
                     updateCategoryStats(category);
                 });
             });
-            
-            groupDiv.querySelectorAll('.rule-assign-cb').forEach(cb => {
+            groupDiv.querySelectorAll('.rule-check-item').forEach(item => {
+                const cb = item.querySelector('.rule-assign-cb');
+                item.addEventListener('click', (e) => {
+                    if(e.target.tagName !== 'INPUT') {
+                        cb.checked = !cb.checked;
+                        const event = new Event('change', { bubbles: true });
+                        cb.dispatchEvent(event);
+                    }
+                });
                 cb.addEventListener('change', () => {
                     const ruleId = cb.dataset.ruleId;
                     if (!group.selectedRules) group.selectedRules = [];
@@ -1481,110 +1360,42 @@
                     }
                 });
             });
-            
             const nameInput = groupDiv.querySelector('.group-name-input');
-            nameInput.addEventListener('change', (e) => {
-                group.name = e.target.value;
-            });
+            nameInput.addEventListener('change', (e) => { group.name = e.target.value; });
         }
     }
     
-    function getResolvedRuleIds(selectedRules) {
-        const nameCount = {};
-        for (const rule of selectedRules) {
-            let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, '');
-            nameCount[base] = (nameCount[base] || 0) + 1;
-        }
-        return selectedRules.map(rule => {
-            let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, '');
-            const isMeta = rule.id.includes('metacuvex');
-            let finalId = base;
-            if (nameCount[base] > 1) {
-                if (isMeta) finalId = base + '_meta';
-                else if (rule.id.includes('telegram_ip')) finalId = 'telegram_geoip';
-                else finalId = base + '_' + rule.id.split('_')[0];
-            }
-            return { originalRule: rule, finalId };
-        });
-    }
+    function getResolvedRuleIds(selectedRules) { const nameCount = {}; for (const rule of selectedRules) { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); nameCount[base] = (nameCount[base] || 0) + 1; } return selectedRules.map(rule => { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); const isMeta = rule.id.includes('metacuvex'); let finalId = base; if (nameCount[base] > 1) { if (isMeta) finalId = base + '_meta'; else if (rule.id.includes('telegram_ip')) finalId = 'telegram_geoip'; else finalId = base + '_' + rule.id.split('_')[0]; } return { originalRule: rule, finalId }; }); }
+    function getSelectedRulesFromGroups() { const selectedMap = new Map(); for (const group of customGroups) { if (group.selectedRules) { for (const ruleId of group.selectedRules) { if (!selectedMap.has(ruleId)) { for (const author of RULES_BY_AUTHOR) { const rule = author.rules.find(r => r.id === ruleId); if (rule) { selectedMap.set(ruleId, rule); break; } } } } } } return Array.from(selectedMap.values()); }
+    function getGroupForRule(ruleId) { for (const group of customGroups) { if (group.selectedRules && group.selectedRules.includes(ruleId)) { return group.name; } } return proxyGroupName; }
     
-    function getSelectedRulesFromGroups() {
-        const selectedMap = new Map();
-        for (const group of customGroups) {
-            if (group.selectedRules) {
-                for (const ruleId of group.selectedRules) {
-                    if (!selectedMap.has(ruleId)) {
-                        for (const author of RULES_BY_AUTHOR) {
-                            const rule = author.rules.find(r => r.id === ruleId);
-                            if (rule) { selectedMap.set(ruleId, rule); break; }
-                        }
-                    }
-                }
-            }
-        }
-        return Array.from(selectedMap.values());
-    }
-    
-    function getGroupForRule(ruleId) {
-        for (const group of customGroups) {
-            if (group.selectedRules && group.selectedRules.includes(ruleId)) {
-                return group.name;
-            }
-        }
-        return proxyGroupName;
-    }
-    
+    // ИСПРАВЛЕННАЯ ФУНКЦИЯ: правильное расширение для mrs формата
     function generateRuleProviders(selectedRules) {
         if (!selectedRules.length) return '';
         const resolved = getResolvedRuleIds(selectedRules);
         let yaml = 'rule-providers:\n';
         for (let i = 0; i < resolved.length; i++) {
             const { originalRule: r, finalId } = resolved[i];
+            const fileExt = (r.format === 'mrs') ? 'mrs' : 'yaml';
             yaml += `  ${finalId}:\n    type: http\n    behavior: ${r.behavior || 'domain'}\n`;
             if (r.format) yaml += `    format: ${r.format}\n`;
-            yaml += `    url: "${r.url}"\n    path: ./ruleset/${finalId}.yaml\n    interval: 86400\n`;
+            yaml += `    url: "${r.url}"\n    path: ./ruleset/${finalId}.${fileExt}\n    interval: 86400\n`;
             if (i < resolved.length - 1) yaml += '\n';
         }
         return yaml + '\n';
     }
     
-    function generateRulesSection(selectedRules) {
-        if (!selectedRules.length) return '';
-        const resolved = getResolvedRuleIds(selectedRules);
-        let yaml = '';
-        for (const { originalRule: r, finalId } of resolved) {
-            if (DIRECT_ONLY_RULE_IDS.includes(r.id)) {
-                yaml += `- RULE-SET,${finalId},DIRECT\n`;
-            } else {
-                const groupName = getGroupForRule(r.id);
-                yaml += `- RULE-SET,${finalId},${groupName}\n`;
-            }
-        }
-        return yaml;
-    }
-    
-    function generateExcludeRules() {
-        let rules = '';
-        if (document.getElementById('excludeLanCheckbox').checked) {
-            rules += `# Исключение локальной сети (LAN)\n- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve\n- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve\n- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve\n- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve\n- IP-CIDR,169.254.0.0/16,DIRECT,no-resolve\n`;
-        }
-        if (document.getElementById('torrentExcludeCheckbox').checked) {
-            if (rules) rules += '\n';
-            rules += `# Исключение торрент клиентов\n- PROCESS-NAME,qbittorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,qBittorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,utorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,µtorrent.exe,DIRECT,no-resolve\n`;
-        }
-        if (document.getElementById('nvidiaExcludeCheckbox').checked) {
-            if (rules) rules += '\n';
-            rules += `# Исключение NVIDIA приложений\n- PROCESS-NAME,nvcontainer.exe,DIRECT,no-resolve\n- PROCESS-NAME,NVIDIA App.exe,DIRECT,no-resolve\n`;
-        }
-        return rules;
-    }
+    function generateRulesSection(selectedRules) { if (!selectedRules.length) return ''; const resolved = getResolvedRuleIds(selectedRules); let yaml = ''; for (const { originalRule: r, finalId } of resolved) { if (DIRECT_ONLY_RULE_IDS.includes(r.id)) { yaml += `- RULE-SET,${finalId},DIRECT\n`; } else { const groupName = getGroupForRule(r.id); yaml += `- RULE-SET,${finalId},${groupName}\n`; } } return yaml; }
+    function generateExcludeRules() { let rules = ''; if (document.getElementById('excludeLanCheckbox').checked) { rules += `# Исключение локальной сети (LAN)\n- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve\n- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve\n- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve\n- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve\n- IP-CIDR,169.254.0.0/16,DIRECT,no-resolve\n`; } if (document.getElementById('torrentExcludeCheckbox').checked) { if (rules) rules += '\n'; rules += `# Исключение торрент клиентов\n- PROCESS-NAME,qbittorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,qBittorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,utorrent.exe,DIRECT,no-resolve\n- PROCESS-NAME,µtorrent.exe,DIRECT,no-resolve\n`; } if (document.getElementById('nvidiaExcludeCheckbox').checked) { if (rules) rules += '\n'; rules += `# Исключение NVIDIA приложений\n- PROCESS-NAME,nvcontainer.exe,DIRECT,no-resolve\n- PROCESS-NAME,NVIDIA App.exe,DIRECT,no-resolve\n`; } return rules; }
     
     function buildFinalYaml() {
         const selectedRules = getSelectedRulesFromGroups();
-        const allProxiesSet = new Map();
-        for (const p of mainGroupProxies) if (!allProxiesSet.has(p.name)) allProxiesSet.set(p.name, p);
-        for (const g of customGroups) for (const p of g.proxies) if (!allProxiesSet.has(p.name)) allProxiesSet.set(p.name, p);
-        const allUniqueProxies = Array.from(allProxiesSet.values());
+        const mainProxiesSet = new Set(mainGroupProxies.map(p => p.name));
+        const customProxiesSet = new Set();
+        for (const g of customGroups) for (const p of g.proxies) customProxiesSet.add(p.name);
+        const allProxiesSet = new Set([...mainProxiesSet, ...customProxiesSet]);
+        const allUniqueProxies = getSortedProxies(allProxiesSet);
+        
         let yamlResult = '';
         if (cleanedWarpCommon) yamlResult += cleanedWarpCommon + '\n';
         if (allUniqueProxies.length) {
@@ -1597,14 +1408,19 @@
             yamlResult += `- name: ${proxyGroupName}\n  type: select\n`;
             if (proxyGroupIconUrl) yamlResult += `  icon: "${proxyGroupIconUrl}"\n`;
             yamlResult += `  proxies:\n`;
-            for (const p of mainGroupProxies) yamlResult += `    - "${p.name}"\n`;
+            for (const p of allUniqueProxies) {
+                if (mainProxiesSet.has(p.name)) yamlResult += `    - "${p.name}"\n`;
+            }
             yamlResult += `    - DIRECT\n\n`;
             for (const g of customGroups) {
                 if (g.proxies.length) {
                     yamlResult += `- name: ${g.name}\n  type: select\n`;
                     if (g.iconUrl) yamlResult += `  icon: "${g.iconUrl}"\n`;
                     yamlResult += `  proxies:\n`;
-                    for (const p of g.proxies) yamlResult += `    - "${p.name}"\n`;
+                    const groupProxyNamesSet = new Set(g.proxies.map(p => p.name));
+                    for (const p of allUniqueProxies) {
+                        if (groupProxyNamesSet.has(p.name)) yamlResult += `    - "${p.name}"\n`;
+                    }
                     yamlResult += `    - DIRECT\n\n`;
                 }
             }
@@ -1631,27 +1447,7 @@
         return yamlResult;
     }
     
-    function processFinal() {
-        if (!originalFileText) { alert('Сначала загрузите конфиг'); return; }
-        const btn = document.getElementById('processBtn');
-        btn.disabled = true;
-        const finalYaml = buildFinalYaml();
-        const selectedRulesCount = getSelectedRulesFromGroups().length;
-        const info = [];
-        if (document.getElementById('excludeLanCheckbox').checked) info.push('🏠 LAN');
-        if (document.getElementById('torrentExcludeCheckbox').checked) info.push('📥 Торренты');
-        if (document.getElementById('nvidiaExcludeCheckbox').checked) info.push('🎮 NVIDIA');
-        document.getElementById('resultStats').innerHTML = `📦 Групп: ${customGroups.length} | Правил: ${selectedRulesCount}${info.length ? ` | Настройки: ${info.join(', ')}` : ''}`;
-        const blob = new Blob([finalYaml], { type: 'text/yaml' });
-        const url = URL.createObjectURL(blob);
-        const a = document.getElementById('downloadLink');
-        a.href = url;
-        a.download = `config_${Date.now()}.yaml`;
-        document.getElementById('resultArea').classList.add('show');
-        showStatus('success', '✅ Конфиг готов! Нажмите "Скачать"');
-        btn.disabled = false;
-    }
-    
+    function processFinal() { if (!originalFileText) { alert('Сначала загрузите конфиг'); return; } const btn = document.getElementById('processBtn'); btn.disabled = true; const finalYaml = buildFinalYaml(); const selectedRulesCount = getSelectedRulesFromGroups().length; const info = []; if (document.getElementById('excludeLanCheckbox').checked) info.push('🏠 LAN'); if (document.getElementById('torrentExcludeCheckbox').checked) info.push('📥 Торренты'); if (document.getElementById('nvidiaExcludeCheckbox').checked) info.push('🎮 NVIDIA'); document.getElementById('resultStats').innerHTML = `📦 Групп: ${customGroups.length} | Правил: ${selectedRulesCount}${info.length ? ` | Настройки: ${info.join(', ')}` : ''}`; const blob = new Blob([finalYaml], { type: 'text/yaml' }); const url = URL.createObjectURL(blob); const a = document.getElementById('downloadLink'); a.href = url; a.download = `config_${Date.now()}.yaml`; document.getElementById('resultArea').classList.add('show'); showStatus('success', '✅ Конфиг готов! Нажмите "Скачать"'); btn.disabled = false; }
     function deleteGroup(groupId) { customGroups = customGroups.filter(g => g.id !== groupId); renderCustomGroups(); showStatus('success', '✅ Группа удалена'); }
     function addCustomGroup() { customGroups.push({ id: nextGroupId++, name: `Группа ${nextGroupId-1}`, proxies: [], iconUrl: "", selectedRules: [] }); renderCustomGroups(); showStatus('success', `✅ Группа "${customGroups[customGroups.length-1].name}" создана`); }
     function showStatus(t,m){ const sd=document.getElementById('statusCard'); sd.className='status-card'; if(t==='success'){ sd.classList.add('success'); sd.innerHTML=`<span>${m}</span>`; }else if(t==='error'){ sd.classList.add('error'); sd.innerHTML=`<span>${m}</span>`; }else if(t==='loading'){ sd.classList.add('success'); sd.innerHTML=`<span>${m}</span>`; } }
