@@ -1015,6 +1015,23 @@
         ] }
     ];
     
+    // Добавляем правило для google-ai с format text и url .lst
+    RULES_BY_AUTHOR.push({
+        author: "itdoginfo", authorUrl: "https://github.com/itdoginfo", license: "MIT", rules: [
+            { id: "google_ai", name: "🤖 Google AI", type: "domain", format: "text", behavior: "domain", url: "https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Services/google_ai.lst" },
+            { id: "hodca", name: "🇷🇺 HODCA", type: "domain", format: "text", behavior: "domain", url: "https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Categories/hodca.lst" }
+        ]
+    });
+    
+    // Добавляем правила от blackmatrix7 (whatsapp, discord, youtube)
+    RULES_BY_AUTHOR.push({
+        author: "blackmatrix7", authorUrl: "https://github.com/blackmatrix7", license: "MIT", rules: [
+            { id: "whatsapp", name: "💬 WhatsApp", type: "domain", behavior: "classical", url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp_No_Resolve.yaml" },
+            { id: "discord_matrix", name: "💬 Discord (matrix)", type: "domain", behavior: "classical", url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Discord/Discord.yaml" },
+            { id: "youtube_matrix", name: "🎬 YouTube (matrix)", type: "domain", behavior: "classical", url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTube/YouTube.yaml" }
+        ]
+    });
+    
     const DIRECT_ONLY_RULE_IDS = ["hydraponique_ru_domains", "hydraponique_ru_ips", "hydraponique_category_ru"];
     let originalFileText = null, cleanedWarpCommon = null;
     let customGroups = [];
@@ -1365,18 +1382,41 @@
         }
     }
     
-    function getResolvedRuleIds(selectedRules) { const nameCount = {}; for (const rule of selectedRules) { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); nameCount[base] = (nameCount[base] || 0) + 1; } return selectedRules.map(rule => { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); const isMeta = rule.id.includes('metacuvex'); let finalId = base; if (nameCount[base] > 1) { if (isMeta) finalId = base + '_meta'; else if (rule.id.includes('telegram_ip')) finalId = 'telegram_geoip'; else finalId = base + '_' + rule.id.split('_')[0]; } return { originalRule: rule, finalId }; }); }
+    function getResolvedRuleIds(selectedRules) { const nameCount = {}; for (const rule of selectedRules) { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); nameCount[base] = (nameCount[base] || 0) + 1; } return selectedRules.map(rule => { let base = rule.id.replace(/^(nellimonix|metacuvex|hydraponique|pentiumb)_/, ''); const isMeta = rule.id.includes('metacuvex'); let finalId = base; if (nameCount[base] > 1) { if (isMeta) finalId = base + '_meta'; else if (rule.id.includes('telegram_ip')) finalId = 'telegram-ip'; else finalId = base + '_' + rule.id.split('_')[0]; } return { originalRule: rule, finalId }; }); }
     function getSelectedRulesFromGroups() { const selectedMap = new Map(); for (const group of customGroups) { if (group.selectedRules) { for (const ruleId of group.selectedRules) { if (!selectedMap.has(ruleId)) { for (const author of RULES_BY_AUTHOR) { const rule = author.rules.find(r => r.id === ruleId); if (rule) { selectedMap.set(ruleId, rule); break; } } } } } } return Array.from(selectedMap.values()); }
     function getGroupForRule(ruleId) { for (const group of customGroups) { if (group.selectedRules && group.selectedRules.includes(ruleId)) { return group.name; } } return proxyGroupName; }
     
-    // ИСПРАВЛЕННАЯ ФУНКЦИЯ: правильное расширение для mrs формата
+    // КЛЮЧЕВАЯ ФУНКЦИЯ: правильное определение расширения для path на основе URL и format
+    function getFileExtension(rule) {
+        const urlLower = rule.url.toLowerCase();
+        
+        // format: mrs или URL содержит .mrs -> .mrs
+        if (rule.format === 'mrs' || urlLower.includes('.mrs')) {
+            return 'mrs';
+        }
+        
+        // URL содержит .lst -> .lst (для itdoginfo и подобных)
+        if (urlLower.includes('.lst')) {
+            return 'lst';
+        }
+        
+        // URL содержит .yaml или .yml -> .yaml
+        if (urlLower.includes('.yaml') || urlLower.includes('.yml')) {
+            return 'yaml';
+        }
+        
+        // .txt и всё остальное -> .yaml (как в примерах Nellimonix)
+        return 'yaml';
+    }
+    
     function generateRuleProviders(selectedRules) {
         if (!selectedRules.length) return '';
         const resolved = getResolvedRuleIds(selectedRules);
         let yaml = 'rule-providers:\n';
         for (let i = 0; i < resolved.length; i++) {
             const { originalRule: r, finalId } = resolved[i];
-            const fileExt = (r.format === 'mrs') ? 'mrs' : 'yaml';
+            const fileExt = getFileExtension(r);
+            
             yaml += `  ${finalId}:\n    type: http\n    behavior: ${r.behavior || 'domain'}\n`;
             if (r.format) yaml += `    format: ${r.format}\n`;
             yaml += `    url: "${r.url}"\n    path: ./ruleset/${finalId}.${fileExt}\n    interval: 86400\n`;
